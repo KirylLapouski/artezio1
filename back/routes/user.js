@@ -2,13 +2,13 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var fs = require('fs');
 var  XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-
+var config = require('../etc/config.json');
 var router = express.Router();
 
 router.route('/')
 .post(function(req,resp){
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "http://localhost:3000/db/users/byName/"+req.body.userName, true);
+    xhr.open('GET', config.rootUrl+config.dbApi+'/byName/'+req.body.userName, true);
     xhr.send();
 
    

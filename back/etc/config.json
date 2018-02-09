@@ -1,0 +1,10 @@
+{
+    "rootUrl": "http://localhost:3000",
+    "dbApi": "/db/users",
+    "userCabinet": "/user",
+    "db": {
+        "name": "users.json",
+        "host": "localhost",
+        "port": ""
+    }
+}

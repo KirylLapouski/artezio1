@@ -9,6 +9,8 @@ var index = require('./routes/index');
 var dbUsers = require('./routes/dbUsers');
 var user = require('./routes/user')
 
+var config = require('./etc/config.json');
+
 var app = express();
 
 // view engine setup
@@ -24,8 +26,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/db/users', dbUsers);
-app.use('/user',user);
+app.use(config.dbApi, dbUsers);
+app.use(config.userCabinet,user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
