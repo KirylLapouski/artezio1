@@ -1,20 +1,21 @@
 var React = require("react");
 var Task = require("./Task.jsx");
+var config = require('../etc/config.json');
 class TaskContainer extends React.Component{
     render(){
         var tasks;
 
         var xhr = new XMLHttpRequest();
         var cookies = document.cookie.split(';');
-        var userId;
+        var userName;
        
         for(var i=0;i< cookies.length;i++){
-            if(cookies[i].includes('userId')){
-                var userId =+ cookies[i].replace('userId=','');
+            if(cookies[i].includes('userName')){
+                userName =+ cookies[i].replace('userName=','');
             }
         }
-        console.log(userId);
-        xhr.open('GET', 'http://localhost:3000/db/users/'+userId,false);
+        console.log(userName);
+        xhr.open('GET', config.rootUrl+config.dbApi +'/'+userName,false);
         xhr.send();
 
         if(xhr.status==200)

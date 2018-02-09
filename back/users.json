@@ -1,18 +1,15 @@
 [{
-    "id":1,
-    "name":"Tom",
+    "_id":"Tom",
     "password": "1234",
     "tasks":[{"name": "Tom task1", "description":"description", "date":""},{"name": "Tom task2", "description":"description2", "date":""}]
 },
 {
-    "id":2,
-    "name":"Bob",
+    "_id":"Bob",
     "password": "1234",    
     "tasks":[{"name": "Bob task1", "description":"description", "date":""},{"name": "Bobb task2", "description":"description2", "date":""}]    
 },
 {
-    "id":3,
-    "name":"Alice",
+    "_id":"Alice",
     "password": "1234",
     "tasks":[{"name": "Alice task1", "description":"description", "date":""},{"name": "Alice task2", "description":"description2", "date":""}]    
 }]

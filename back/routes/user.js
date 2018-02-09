@@ -1,4 +1,4 @@
-var express = require('express');
+﻿var express = require('express');
 var bodyParser = require("body-parser");
 var fs = require('fs');
 var  XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
@@ -19,10 +19,11 @@ router.route('/')
             
                 var user = JSON.parse(this.responseText);
                 console.log(req.body.password+" "+ req.body.userName);
-                console.log(user.name + " "+ user.password);
+                console.log(user._id + " "+ user.password);
                 if(user.password == req.body.password)
                 {
-                    resp.redirect('user/'+user.id);
+			//HAVE TO CHECK
+                    resp.redirect(config.userCabinet+'/' +user._id);
                 }
                 else{
                     //ОШИБКА
@@ -34,13 +35,13 @@ router.route('/')
     }
 });
 
-router.route('/:id')
+router.route('/:name')
 .get(function(req,resp){
     
     fs.readFile('public/user.html','utf-8',function(err,data){
                         if(err) throw err;
         
-                        resp.cookie('userId', req.params.id);
+                        resp.cookie('userName', req.params.name);
                         resp.send(data);
                      
                     });

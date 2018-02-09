@@ -24,16 +24,13 @@ router.route("/")
     var userName = req.body.userName;
     var password = req.body.password;
 
-    var user = {name:userName, "password": password}
+    var user = {"_id":userName, "password": password}
 
     fs.readFile("users.json","utf-8",function(err,data){
         if(err) throw err;
 
         var users = JSON.parse(data);
         
-        var id = Math.max.apply(Math,users.map(function(o){return o.id;}))
-        
-        user.id = id+1;
         users.push(user);
         var data = JSON.stringify(users);
 
@@ -48,7 +45,6 @@ router.route("/")
 .put(jsonParser,function(req,resp){
     if(!req.body) return resp.sendStatus(404);
 
-    var userId = req.body.id;
     var userName = req.body.userName;
     var password = req.body.password;
 
@@ -58,14 +54,14 @@ router.route("/")
         var users = JSON.parse(data);
         var user;
         for(var i=0; i< users.length;i++){
-            if(users[i].id == userId){
+            if(users[i]._id == userName){
                 user = users[i];
                 break;
             }
         }
 
         if(user){
-            user.name = userName;
+            user._id = userName;
             user.password =  password;
 
             fs.writeFile("users.json",JSON.stringify(users),function(req,resp){
@@ -86,7 +82,7 @@ router.route("/:id")
         var user;
 
         for(var i=0;i< users.length;i++){
-            if(req.params.id == users[i].id){
+            if(req.params.id == users[i]._id){
                 user = users[i];
                 break;
             }
@@ -106,7 +102,7 @@ router.route("/:id")
         var users = JSON.parse(data);
         var user;
         var data = users.filter(function(value){
-            if(value.id == req.body.id){
+            if(value._id == req.body.id){
                 user = value;
                 return false;
             }
@@ -126,6 +122,7 @@ router.route("/:id")
 
 router.route("/byName/:name")
 .get(function(req,resp){
+//ROUTE /:id
     fs.readFile("users.json", "utf-8", function(err,data){
         if(err) throw err;
 
