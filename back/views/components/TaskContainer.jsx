@@ -7,7 +7,7 @@ class TaskContainer extends React.Component{
         var xhr = new XMLHttpRequest();
         var cookies = document.cookie.split(';');
         var userId;
-        console.log('123124241');
+       
         for(var i=0;i< cookies.length;i++){
             if(cookies[i].includes('userId')){
                 var userId =+ cookies[i].replace('userId=','');
