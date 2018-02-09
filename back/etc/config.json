@@ -3,8 +3,9 @@
     "dbApi": "/db/users",
     "userCabinet": "/user",
     "db": {
-        "name": "users.json",
+        "name": "artezio1",
         "host": "localhost",
-        "port": ""
+        "port": "27017",
+        "collections": {"users":"users"}
     }
 }
