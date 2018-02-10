@@ -80,8 +80,5 @@ router.route("/:name")
     })
 });
 
-router.route("/byName/:name")
-.get(function(req,resp){
-    resp.redirect('./../'+req.params.name);
-});
+
 module.exports = router;

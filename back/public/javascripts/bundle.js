@@ -18286,35 +18286,19 @@ var TaskContainer = function (_React$Component) {
     _createClass(TaskContainer, [{
         key: "render",
         value: function render() {
-            var tasks;
 
-            var xhr = new XMLHttpRequest();
-            var cookies = document.cookie.split(';');
-            var userName;
+            var tasks = JSON.parse(this.props.tasks).slice();
+            console.log('----');
+            console.log(tasks);
 
-            for (var i = 0; i < cookies.length; i++) {
-                if (cookies[i].includes('userName')) {
-                    userName = +cookies[i].replace('userName=', '');
-                }
-            }
-            console.log(userName);
-            xhr.open('GET', config.rootUrl + config.dbApi + '/' + userName, false);
-            xhr.send();
-
-            if (xhr.status == 200) {
-
-                var tasksTmp = JSON.parse(xhr.responseText).tasks;
-
-                console.log(tasks);
-                tasks = tasksTmp.map(function (task) {
-                    return React.createElement(Task, { name: task.name, description: task.description });
-                });
-            }
+            var tasksRes = tasks.map(function (task) {
+                return React.createElement(Task, { name: task.name, description: task.description });
+            });
 
             return React.createElement(
                 "div",
                 { className: "list-group" },
-                tasks
+                tasksRes
             );
         }
     }]);
