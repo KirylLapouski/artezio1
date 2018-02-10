@@ -2,4 +2,4 @@ var UserDao = require('./userDao');
 
 var userDao = new UserDao();
 
-userDao.create({_id:'Kik'});
+userDao.update({_id:'Kek'},{ check:'Checked',asdf:'Checked'});

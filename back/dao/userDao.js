@@ -40,15 +40,15 @@ class UserDao{
         });
     }
 
-//THIS TWO LEFT TO CHECK
+//CANNOT UPDATE _ID
     update(oldOne,newOne){
         mongoClient.connect('mongodb://'+config.db.host+':'+config.db.port+'/'+config.db.name, function(err,db){
             if(err) throw err;
 
-            db.collection(config.db.collections.users).updateOne(old,newOne, function(err,result){
+            db.collection(config.db.collections.users).update(oldOne,{$set:newOne}, function(err,result){
                 if(err) throw err;
 
-                console.log("was updated user with id" + result._id)
+                console.log("was updated user with id " + oldOne._id)
                 db.close();
             }
             );
@@ -62,7 +62,7 @@ class UserDao{
             db.collection(config.db.collections.users).deleteOne({_id:id}, function(err,result){
                 if(err) throw err;
 
-                console.log("was deleted user with id " +result._id);
+                console.log("was deleted user with id " +id);
                 db.close();
             })
         });
