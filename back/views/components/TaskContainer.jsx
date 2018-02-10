@@ -3,14 +3,13 @@ var Task = require("./Task.jsx");
 var config = require('../../etc/config.json');
 class TaskContainer extends React.Component{
     render(){
-            var tasks = JSON.parse(this.props.tasks).slice();
-            console.log('----')
-            console.log(tasks);
+            if(this.props.tasks){
+                var tasks = JSON.parse(this.props.tasks).slice();
 
-            var tasksRes = tasks.map(function(task){
-                return <Task name={task.name} description={task.description} />
-            });
- 
+                var tasksRes = tasks.map(function(task){
+                    return <Task name={task.name} description={task.description} />
+                });
+            }
         return (<div className="list-group">
                     {tasksRes}
                 </div>);      

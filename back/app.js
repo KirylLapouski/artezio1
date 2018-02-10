@@ -7,7 +7,10 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var dbUsers = require('./routes/dbUsers');
-var user = require('./routes/user')
+var user = require('./routes/user');
+var admin = require('./routes/admin');
+var fs = require('fs');
+
 
 var config = require('./etc/config.json');
 
@@ -28,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use(config.dbApi, dbUsers);
 app.use(config.userCabinet,user);
+app.use(config.adminCabinet,admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

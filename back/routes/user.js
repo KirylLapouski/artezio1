@@ -1,11 +1,11 @@
-﻿require('babel-register')({
+﻿//REFACTOR ADMIN TO USER
+require('babel-register')({
     presets:['react']
 });
 
 var express = require('express');
-var bodyParser = require("body-parser");
-var fs = require('fs');
 var  XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+var fs = require('fs');
 var config = require('../etc/config.json');
 const cheerio = require('cheerio');
 var React = require('react');
@@ -25,7 +25,6 @@ router.route('/')
         if(this.status==200)
         {
                 var user = JSON.parse(this.responseText);
-                console.log(user);
 
                 if(user.password == req.body.password)
                 {
@@ -34,9 +33,8 @@ router.route('/')
                         if(err) throw err;         
                         //RENDER 
                         var $ = cheerio.load(data);
-                        $('#task').append(ReactDOMServer.renderToString(React.createElement(TaskContainer, user)));         
+                        $('#tasks').append(ReactDOMServer.renderToString(React.createElement(TaskContainer, user)));         
 
-                        resp.cookie('userName', user._id);
                         resp.send($.html());
                      
                     });
