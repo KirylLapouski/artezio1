@@ -3,7 +3,7 @@ var mongoClient = require('mongodb').MongoClient;
 
 class UserDao{
  //ERROR HANDLER
-    create(user){
+    create(user,callback){
        mongoClient.connect('mongodb://'+config.db.host+':'+config.db.port+'/'+config.db.name, function(err,db){
            if(err) throw err;
 
@@ -13,12 +13,13 @@ class UserDao{
                 console.log("was created new user");
                 console.log(user);
                  db.close();
+                 callback(err,result.ops[0]);
             });
 
         });
     }
 
-    read(id){
+    read(callback,id){
 
         mongoClient.connect('mongodb://'+config.db.host+':'+config.db.port+'/'+config.db.name, function(err,db){
            if(err) throw err;
@@ -33,15 +34,15 @@ class UserDao{
                 console.log("get users:");
                 console.log(result);
 
-                db.close();     
-                return result;                   
+                db.close();   
+                callback(err,result);  
             });
 
         });
     }
 
 //CANNOT UPDATE _ID
-    update(oldOne,newOne){
+    update(oldOne,newOne,callback){
         mongoClient.connect('mongodb://'+config.db.host+':'+config.db.port+'/'+config.db.name, function(err,db){
             if(err) throw err;
 
@@ -50,12 +51,13 @@ class UserDao{
 
                 console.log("was updated user with id " + oldOne._id)
                 db.close();
+                callback(err,result);
             }
             );
         })
     }
 
-    delete(id){
+    delete(id,callback){
         mongoClient.connect('mongodb://'+config.db.host+':'+config.db.port+'/'+config.db.name, function(err,db){
             if(err) throw err;     
 
@@ -64,6 +66,7 @@ class UserDao{
 
                 console.log("was deleted user with id " +id);
                 db.close();
+                callback(err,result);
             })
         });
     }

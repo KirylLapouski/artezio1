@@ -943,9 +943,9 @@ module.exports = focusNode;
 var ReactDOM = __webpack_require__(15);
 var React = __webpack_require__(1);
 var TaskContainer = __webpack_require__(27);
-var Alert = __webpack_require__(29);
+var Alert = __webpack_require__(30);
 
-ReactDOM.render(React.createElement(TaskContainer, { userId: document.cookie.userId }), document.getElementById('task'));
+ReactDOM.render(React.createElement(TaskContainer, null), document.getElementById('task'));
 
 /***/ }),
 /* 15 */
@@ -18272,6 +18272,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var React = __webpack_require__(1);
 var Task = __webpack_require__(28);
+var config = __webpack_require__(29);
 
 var TaskContainer = function (_React$Component) {
     _inherits(TaskContainer, _React$Component);
@@ -18289,15 +18290,15 @@ var TaskContainer = function (_React$Component) {
 
             var xhr = new XMLHttpRequest();
             var cookies = document.cookie.split(';');
-            var userId;
-            console.log('123124241');
+            var userName;
+
             for (var i = 0; i < cookies.length; i++) {
-                if (cookies[i].includes('userId')) {
-                    var userId = +cookies[i].replace('userId=', '');
+                if (cookies[i].includes('userName')) {
+                    userName = +cookies[i].replace('userName=', '');
                 }
             }
-            console.log(userId);
-            xhr.open('GET', 'http://localhost:3000/db/users/' + userId, false);
+            console.log(userName);
+            xhr.open('GET', config.rootUrl + config.dbApi + '/' + userName, false);
             xhr.send();
 
             if (xhr.status == 200) {
@@ -18385,6 +18386,12 @@ module.exports = Task;
 
 /***/ }),
 /* 29 */
+/***/ (function(module, exports) {
+
+module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","db":{"name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}}}
+
+/***/ }),
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -1,6 +1,6 @@
 var React = require("react");
 var Task = require("./Task.jsx");
-var config = require('../etc/config.json');
+var config = require('../../etc/config.json');
 class TaskContainer extends React.Component{
     render(){
         var tasks;

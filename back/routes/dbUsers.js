@@ -1,23 +1,26 @@
 var express = require('express');
 var bodyParser = require("body-parser");
 var fs = require("fs");
-
+var UserDao = require('../dao/userDao');
 
 var router = express.Router();
 var jsonParser = bodyParser.json();
+var userDao = new UserDao();
 
-/* GET users listing. */
 
 router.route("/")
 .get(function(req,resp){
-    fs.readFile("users.json","utf-8",function(err,data){
-        if(err) throw err;
+    userDao.read(function(err,data){
+        //HANDLE ERROR
 
-        resp.send(data);
+
+        console.log('send all users:');
+        console.log(JSON.stringify(data));
+        resp.send(JSON.stringify(data));
     });
    
 })
-.post(jsonParser,function(req,resp){
+.post(function(req,resp){
 
     if(!req.body) return resp.status(404).send();
 
@@ -26,118 +29,59 @@ router.route("/")
 
     var user = {"_id":userName, "password": password}
 
-    fs.readFile("users.json","utf-8",function(err,data){
-        if(err) throw err;
+    userDao.create(user,function(err,data){
+        //HANDLE ERR
 
-        var users = JSON.parse(data);
-        
-        users.push(user);
-        var data = JSON.stringify(users);
 
-        fs.writeFile("users.json",data,function(err,data){
-            if(err) throw err;
-
-            resp.send(JSON.stringify(user));
-        });
-
+        console.log('send added user:');
+        console.log(data);
+        resp.send(JSON.stringify(data));
     })
 })
-.put(jsonParser,function(req,resp){
-    if(!req.body) return resp.sendStatus(404);
+.put(function(req,resp){
+    //NEED TO CHECH
 
-    var userName = req.body.userName;
-    var password = req.body.password;
+   if(Object.keys(req.body)==0) 
+   {
+        resp.sendStatus(404);
+        return;
+   }
+ 
+    var userId = req.body.userName;
+    var newProps = Object.assign({},req.body);
+    delete newProps.userName;
 
-    fs.readFile("users.json","utf-8", function(err,data){
-        if(err) throw err;
+    userDao.update({_id:userId},newProps, function(err,data){
+            //HANDLE ERR
 
-        var users = JSON.parse(data);
-        var user;
-        for(var i=0; i< users.length;i++){
-            if(users[i]._id == userName){
-                user = users[i];
-                break;
-            }
-        }
 
-        if(user){
-            user._id = userName;
-            user.password =  password;
-
-            fs.writeFile("users.json",JSON.stringify(users),function(req,resp){
-                resp.send(JSON.stringify(user));
-            });
-        }else{
-            resp.sendStatus(404);
-        }
-    })
+                console.log('send updated user:');
+                resp.send(JSON.stringify(data));
+        });
 });
 
-router.route("/:id")
+router.route("/:name")
 .get( function(req,resp){
-    fs.readFile("users.json","utf-8",function(err,data){
-        if(err) throw err;
+    userDao.read(function(err,data){
+        //HANDLE ERR
 
-        var users = JSON.parse(data);
-        var user;
-
-        for(var i=0;i< users.length;i++){
-            if(req.params.id == users[i]._id){
-                user = users[i];
-                break;
-            }
-        }
-
-        if(user){
-            resp.send(JSON.stringify(user));
-        }else{
-            resp.sendStatus(404);
-        }
-    })
+        console.log('send user:');
+        console.log(data);
+        resp.send(JSON.stringify(data));
+    },req.params.name);
 })
 .delete(function(req,resp){
-    fs.readFile("users.json", "utf-8", function(err,data){
-        if(err) throw err;
+    userDao.delete(req.params.name, function(err,data){
+        //HANDLE ERR
 
-        var users = JSON.parse(data);
-        var user;
-        var data = users.filter(function(value){
-            if(value._id == req.body.id){
-                user = value;
-                return false;
-            }
-                return true;
-        });
-
-        if(user){
-            fs.writeFile("users.json", data, function(err,data){
-                if(err) throw err;
-                resp.send(JSON.stringify(user));
-            });
-        }else{
-            resp.sendStatus(404);
-        }
+        console.log('send deleted user');
+        console.log(data);
+        resp.send(JSON.stringify(data.result));
     })
 });
 
 router.route("/byName/:name")
 .get(function(req,resp){
-//ROUTE /:id
-    fs.readFile("users.json", "utf-8", function(err,data){
-        if(err) throw err;
-
-        var users = JSON.parse(data);
-        var user;
-        for(let i=0;i< users.length;i++){
-            if(users[i].name == req.params.name)
-                user = users[i];
-        }
-
-        if(user)
-            resp.send(JSON.stringify(user));
-        else
-            resp.sendStatus(404);
-
-    });
+    resp.redirect('./../'+req.params.name);
 });
 module.exports = router;
