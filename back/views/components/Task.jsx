@@ -1,13 +1,35 @@
 var React = require('react');
 class Task extends React.Component {
 
+    constructor(props){
+      super(props);
+
+      this.state = {
+        isOpened:false
+      }
+      this.clickHandler = this.clickHandler.bind(this);
+    }
+    clickHandler(e){
+      e.preventDefault();
+      console.log('!!!');
+      this.setState(prevState =>({
+        isOpened: !prevState.isOpened
+      }));
+      return false;
+    }
+
     render(){
-        return <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+      var description = this.state.isOpened?this.props.description:'';
+
+        return <a onClick={this.clickHandler} href="#" className="list-group-item list-group-item-action flex-column align-items-start">
         <div className="d-flex w-100 justify-content-between">
           <h5 className="mb-1">{this.props.name}</h5>
-          <small>3 days ago</small>
+          <small style={{marginRight:'50px', marginTop:'5px'}}>3 days ago</small>
         </div>
-        <p className="mb-1">{this.props.description}</p>
+        <button type="button" className="close" aria-label="Close" style={{position:'absolute',top:'13px',right:'15px'}} >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <p className="mb-1">{description}</p>
       </a>
     }
 }

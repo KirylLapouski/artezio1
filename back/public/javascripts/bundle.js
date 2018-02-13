@@ -18286,15 +18286,13 @@ var TaskContainer = function (_React$Component) {
     _createClass(TaskContainer, [{
         key: "render",
         value: function render() {
+            if (this.props.tasks) {
+                var tasks = JSON.parse(this.props.tasks).slice();
 
-            var tasks = JSON.parse(this.props.tasks).slice();
-            console.log('----');
-            console.log(tasks);
-
-            var tasksRes = tasks.map(function (task) {
-                return React.createElement(Task, { name: task.name, description: task.description });
-            });
-
+                var tasksRes = tasks.map(function (task) {
+                    return React.createElement(Task, { key: task.name, name: task.name, description: task.description });
+                });
+            }
             return React.createElement(
                 "div",
                 { className: "list-group" },
@@ -18328,36 +18326,54 @@ var React = __webpack_require__(1);
 var Task = function (_React$Component) {
   _inherits(Task, _React$Component);
 
-  function Task() {
+  function Task(props) {
     _classCallCheck(this, Task);
 
-    return _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
+
+    _this.state = {
+      isOpened: false
+    };
+    _this.clickHandler = _this.clickHandler.bind(_this);
+    return _this;
   }
 
   _createClass(Task, [{
-    key: "render",
+    key: 'clickHandler',
+    value: function clickHandler(e) {
+      e.preventDefault();
+      console.log('!!!');
+      this.setState({
+        isOpened: !this.state.isOpened
+      });
+      return false;
+    }
+  }, {
+    key: 'render',
     value: function render() {
+      var description = this.state.isOpened ? this.props.description : '';
+
       return React.createElement(
-        "a",
-        { href: "#", className: "list-group-item list-group-item-action flex-column align-items-start" },
+        'a',
+        { onClick: this.clickHandler.bind(this), href: '#', className: 'list-group-item list-group-item-action flex-column align-items-start' },
         React.createElement(
-          "div",
-          { className: "d-flex w-100 justify-content-between" },
+          'div',
+          { className: 'd-flex w-100 justify-content-between' },
           React.createElement(
-            "h5",
-            { className: "mb-1" },
+            'h5',
+            { className: 'mb-1' },
             this.props.name
           ),
           React.createElement(
-            "small",
+            'small',
             null,
-            "3 days ago"
+            '3 days ago'
           )
         ),
         React.createElement(
-          "p",
-          { className: "mb-1" },
-          this.props.description
+          'p',
+          { className: 'mb-1' },
+          description
         )
       );
     }
@@ -18372,7 +18388,7 @@ module.exports = Task;
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","db":{"name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}}}
+module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","db":{"name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}}}
 
 /***/ }),
 /* 30 */

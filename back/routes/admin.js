@@ -10,6 +10,7 @@ var fs = require('fs');
 var React = require('react');
 var ReactDOMServer = require('react-dom/server');
 var TaskContainer = require('../views/components/TaskContainer.jsx');
+var NavBar = require('./../views/components/NavBar');
 
 var router = express.Router();
 
@@ -44,8 +45,8 @@ router.route('/')
                                 if(err) throw err;         
                                 //RENDER 
                                 var $ = cheerio.load(data);
+                                $('body').prepend(ReactDOMServer.renderToString(React.createElement(NavBar,{menuItems:[{name:'Home'},{name:'This'},{name:'those'},{name:'shop'}]})))                                        
                                 $('#users').append(ReactDOMServer.renderToString(usersRes));         
-        
                                 resp.send($.html());
                              
                             });
