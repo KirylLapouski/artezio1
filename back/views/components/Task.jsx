@@ -1,4 +1,6 @@
 var React = require('react');
+var  XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+var config = require('../../etc/config.json');
 class Task extends React.Component {
 
     constructor(props){
@@ -17,6 +19,14 @@ class Task extends React.Component {
       return false;
     }
 
+   /* deleteTask(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('DELETE', config.rootUrl+config.dbApi+'/'+req.body.userName);
+
+    }*/
     render(){
       var description = this.state.isOpened?this.props.description:'';
         return <a onClick={this.clickHandler} href="#" className="list-group-item list-group-item-action flex-column align-items-start">

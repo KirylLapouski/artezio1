@@ -1,19 +1,19 @@
 var config = require('../etc/config.json');
 var mongoClient = require('mongodb').MongoClient;
 
-class UserDao{
+class TaskDao{
  //ERROR HANDLER
-    create(user,callback){
+    create(user,task,callback){
        mongoClient.connect('mongodb://'+config.db.host+':'+config.db.port+'/'+config.db.name, function(err,db){
            if(err) throw err;
 
-            db.collection(config.db.collections.users).insert(user,function(err,result){
+            db.collection(config.db.collections.users).updateOne(user,{$push:{"tasks":task}}, function(err,result){
                 if(err) throw err;
 
-                console.log("was created new user");
-                console.log(user);
+                console.log("was added new task");
+                console.log(task);
                  db.close();
-                if(callback) callback(err,result.ops[0]);
+                 if(callback)callback(err,result);
             });
 
         });
@@ -35,7 +35,7 @@ class UserDao{
                 console.log(result);
 
                 db.close();   
-                if(callback) callback(err,result);  
+                if(callback)callback(err,result);  
             });
 
         });
@@ -51,25 +51,25 @@ class UserDao{
 
                 console.log("was updated user with id " + oldOne._id)
                 db.close();
-                if(callback) callback(err,result);
+                if(callback)callback(err,result);
             }
             );
         })
     }
 
-    delete(id,callback){
+    delete(userId,taskNumber,callback){
         mongoClient.connect('mongodb://'+config.db.host+':'+config.db.port+'/'+config.db.name, function(err,db){
             if(err) throw err;     
 
-            db.collection(config.db.collections.users).deleteOne({_id:id}, function(err,result){
+            db.collection(config.db.collections.users).updateOne({_id:userId}, {$pop: {"tasks": taskNumber}},function(err,result){
                 if(err) throw err;
 
-                console.log("was deleted user with id " +id);
+                console.log("was deleted task "+taskName+" user with id " +userId);
                 db.close();
-                if(callback)  callback(err,result);
+                if(callback)callback(err,result);
             })
         });
     }
 }
 
-module.exports = UserDao;
+module.exports = TaskDao;

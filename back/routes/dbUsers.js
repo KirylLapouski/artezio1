@@ -80,5 +80,10 @@ router.route("/:name")
     })
 });
 
+router.route("/:name/:task")
+.delete( function(req,resp){
+    
+}
+)
 
 module.exports = router;

@@ -5,7 +5,7 @@ class TaskContainer extends React.Component{
     render(){
             if(this.props.tasks){
                 console.log('tasks');
-                var tasks = JSON.parse(this.props.tasks).slice();
+                var tasks = this.props.tasks.slice();
 
                 var tasksRes = tasks.map(function(task){
                     return <Task key={task.name} name={task.name} description={task.description} />
