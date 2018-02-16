@@ -11,7 +11,6 @@ class Task extends React.Component {
     }
     clickHandler(e){
       e.preventDefault();
-      console.log('!!!');
       this.setState(prevState =>({
         isOpened: !prevState.isOpened
       }));
@@ -20,7 +19,6 @@ class Task extends React.Component {
 
     render(){
       var description = this.state.isOpened?this.props.description:'';
-
         return <a onClick={this.clickHandler} href="#" className="list-group-item list-group-item-action flex-column align-items-start">
         <div className="d-flex w-100 justify-content-between">
           <h5 className="mb-1">{this.props.name}</h5>
@@ -30,6 +28,7 @@ class Task extends React.Component {
           <span aria-hidden="true">&times;</span>
         </button>
         <p className="mb-1">{description}</p>
+       
       </a>
     }
 }

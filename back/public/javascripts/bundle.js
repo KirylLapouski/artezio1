@@ -944,8 +944,8 @@ var ReactDOM = __webpack_require__(15);
 var React = __webpack_require__(1);
 var TaskContainer = __webpack_require__(27);
 var Alert = __webpack_require__(30);
-
-ReactDOM.render(React.createElement(TaskContainer, null), document.getElementById('task'));
+var props = window.PROPS;
+ReactDOM.render(React.createElement(TaskContainer, props), document.getElementById('tasks'));
 
 /***/ }),
 /* 15 */
@@ -18287,6 +18287,7 @@ var TaskContainer = function (_React$Component) {
         key: "render",
         value: function render() {
             if (this.props.tasks) {
+                console.log('tasks');
                 var tasks = JSON.parse(this.props.tasks).slice();
 
                 var tasksRes = tasks.map(function (task) {
@@ -18295,8 +18296,16 @@ var TaskContainer = function (_React$Component) {
             }
             return React.createElement(
                 "div",
-                { className: "list-group" },
-                tasksRes
+                { className: "list-group", style: { marginTop: '10px', boxShadow: '0 0.25rem 0.75rem rgba(0, 0, 0, .05)' } },
+                React.createElement("script", { dangerouslySetInnerHTML: {
+                        __html: 'window.PROPS=' + JSON.stringify(this.props)
+                    } }),
+                tasksRes,
+                React.createElement(
+                    "button",
+                    { type: "button", className: "btn btn-outline-primary", style: { marginTop: '3px' } },
+                    "Add"
+                )
             );
         }
     }]);
@@ -18342,9 +18351,10 @@ var Task = function (_React$Component) {
     key: 'clickHandler',
     value: function clickHandler(e) {
       e.preventDefault();
-      console.log('!!!');
-      this.setState({
-        isOpened: !this.state.isOpened
+      this.setState(function (prevState) {
+        return {
+          isOpened: !prevState.isOpened
+        };
       });
       return false;
     }
@@ -18352,10 +18362,9 @@ var Task = function (_React$Component) {
     key: 'render',
     value: function render() {
       var description = this.state.isOpened ? this.props.description : '';
-
       return React.createElement(
         'a',
-        { onClick: this.clickHandler.bind(this), href: '#', className: 'list-group-item list-group-item-action flex-column align-items-start' },
+        { onClick: this.clickHandler, href: '#', className: 'list-group-item list-group-item-action flex-column align-items-start' },
         React.createElement(
           'div',
           { className: 'd-flex w-100 justify-content-between' },
@@ -18366,8 +18375,17 @@ var Task = function (_React$Component) {
           ),
           React.createElement(
             'small',
-            null,
+            { style: { marginRight: '50px', marginTop: '5px' } },
             '3 days ago'
+          )
+        ),
+        React.createElement(
+          'button',
+          { type: 'button', className: 'close', 'aria-label': 'Close', style: { position: 'absolute', top: '13px', right: '15px' } },
+          React.createElement(
+            'span',
+            { 'aria-hidden': 'true' },
+            '\xD7'
           )
         ),
         React.createElement(
