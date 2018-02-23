@@ -28,7 +28,7 @@ class Task extends React.Component {
     }*/
     render(){
       var description = this.state.isOpened?this.props.description:'';
-        return <a onClick={this.clickHandler} href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+        return (<a onClick={this.clickHandler} href="#" className="list-group-item list-group-item-action flex-column align-items-start">
         <div className="d-flex w-100 justify-content-between">
           <h5 className="mb-1">{this.props.name}</h5>
           <small style={{marginRight:'50px', marginTop:'5px'}}>3 days ago</small>
@@ -38,7 +38,7 @@ class Task extends React.Component {
         </button>
         <p className="mb-1">{description}</p>
        
-      </a>
+      </a>);
     }
 }
 

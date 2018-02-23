@@ -1,6 +1,6 @@
 var React = require("react");
 var config = require('../../etc/config.json');
-var UserInfo = require('./UserInfo');
+var UserInfo = require('./UserInfo.jsx');
 class Navbar extends React.Component{
     constructor(props){
         super(props);
