@@ -19,7 +19,7 @@ class TaskDao{
         });
     }
 
-    read(callback,id){
+  /*  read(callback,id){
 
         mongoClient.connect('mongodb://'+config.db.host+':'+config.db.port+'/'+config.db.name, function(err,db){
            if(err) throw err;
@@ -55,7 +55,7 @@ class TaskDao{
             }
             );
         })
-    }
+    }*/
 
     delete(userId,taskNumber,callback){
         mongoClient.connect('mongodb://'+config.db.host+':'+config.db.port+'/'+config.db.name, function(err,db){

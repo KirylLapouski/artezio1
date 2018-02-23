@@ -1,5 +1,4 @@
 var React = require('react');
-var  XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 var config = require('../../etc/config.json');
 class Task extends React.Component {
 

@@ -2,6 +2,11 @@ var React = require("react");
 var Task = require("./Task.jsx");
 var config = require('../../etc/config.json');
 class TaskContainer extends React.Component{
+   /* addTask(){
+          
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', config.rootUrl+config.dbApi+'/'+req.body.userName+'/');
+    }*/
     render(){
             if(this.props.tasks){
                 console.log('tasks');

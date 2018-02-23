@@ -1,4 +1,4 @@
-﻿//REFACTOR ADMIN TO USER
+﻿//REFACTOR ADMIN TO USERx`
 require('babel-register')({
     presets:['react']
 });
