@@ -377,12 +377,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-2015, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 
@@ -2337,7 +2335,6 @@ var ReactRouterDOM = __webpack_require__(53);
 var Router = ReactRouterDOM.HashRouter;
 var Route = ReactRouterDOM.Route;
 var Switch = ReactRouterDOM.Switch;
-var props = window.PROPS;
 
 ReactDOM.render(React.createElement(
     Router,
@@ -2347,7 +2344,7 @@ ReactDOM.render(React.createElement(
         null,
         React.createElement(Route, { exact: true, path: '/', component: LoginIn }),
         React.createElement(Route, { path: '/user', component: function component() {
-                return React.createElement(TaskContainer, { tasks: props });
+                return React.createElement(TaskContainer, { tasks: window.PROPS });
             } }),
         React.createElement(Route, { component: function component() {
                 React.createElement(
@@ -19737,7 +19734,7 @@ var TaskContainer = function (_React$Component) {
          }*/
         value: function render() {
             if (this.props.tasks) {
-                console.log('tasks');
+                console.log(tasks);
                 var tasks = this.props.tasks.slice();
 
                 var tasksRes = tasks.map(function (task) {
@@ -19927,7 +19924,8 @@ var LoginIn = function (_React$Component) {
 
             xhr.onload = function () {
                 if (this.status == 200) {
-                    alert(this.responseText);
+                    window.PROPS = this.responseText;
+                    console.log(window.PROPS);
                 } else {
                     //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
                 }

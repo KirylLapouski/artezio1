@@ -9,7 +9,7 @@ class TaskContainer extends React.Component{
     }*/
     render(){
             if(this.props.tasks){
-                console.log('tasks');
+                console.log(tasks);
                 var tasks = this.props.tasks.slice();
 
                 var tasksRes = tasks.map(function(task){

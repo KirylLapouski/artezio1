@@ -34,7 +34,8 @@ class LoginIn extends React.Component{
 
         xhr.onload = function(){
             if(this.status==200){
-                alert(this.responseText);
+                window.PROPS = this.responseText;
+                console.log( window.PROPS);
             }else{
                 //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
             }

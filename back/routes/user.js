@@ -18,13 +18,14 @@ var router = express.Router();
 router.route('/')
 .post(function(req,resp){
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', config.rootUrl+config.dbApi+'/'+req.body.userName, true);
+    xhr.open('GET', config.rootUrl+config.dbApi+'/'+req.body.userName, false);
     xhr.send();
 
     xhr.onload = function(){
         if(this.status==200)
         {
                 var user = JSON.parse(this.responseText);
+                console.log(user);
                 if(user.password == req.body.password)
                 {
                     if(!req.session.userName){    
@@ -33,7 +34,8 @@ router.route('/')
                     }else{
                         console.log('Current session ' + req.session.id);
                     }
-                
+
+                        resp.send(user.tasks);
                     if(user.isAdmin)
                     {
                         resp.redirect(307,config.rootUrl+config.adminCabinet);
@@ -59,6 +61,7 @@ router.route('/')
            //ОШИБКА
         }
     }
+
 });
 
 module.exports = router;

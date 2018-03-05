@@ -8,13 +8,12 @@ var ReactRouterDOM = require('react-router-dom');
 var Router = ReactRouterDOM.HashRouter;
 var Route = ReactRouterDOM.Route;
 var Switch = ReactRouterDOM.Switch;
-var props = window.PROPS;
 
 ReactDOM.render(
     <Router>
     <Switch>
         <Route exact   path="/" component={LoginIn}/>
-        <Route  path="/user" component={()=><TaskContainer tasks={props}/>} />
+        <Route  path="/user" component={()=><TaskContainer tasks={window.PROPS}/>} />
         <Route component={()=>{<h2>Not Found</h2>}} />
     </Switch>
 </Router>,document.querySelector('#app'));
