@@ -19915,15 +19915,22 @@ var LoginIn = function (_React$Component) {
         value: function onSubmitHandler(e) {
             e.preventDefault();
 
-            var body = 'userName=' + this.state.userName + '&password=' + this.state.password;
+            var body = {
+                'userName': this.state.userName,
+                'password': this.state.password
+            };
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', config.rootUrl + config.userCabinet, true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send(body);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(body));
 
             xhr.onload = function () {
-                if (this.status == 200) console.log('!!!!!!');
+                if (this.status == 200) {
+                    alert(this.responseText);
+                } else {
+                    //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
+                }
             };
         }
     }, {

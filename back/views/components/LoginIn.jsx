@@ -22,16 +22,19 @@ class LoginIn extends React.Component{
     onSubmitHandler(e){
         e.preventDefault();
         
-        var body = 'userName=' + this.state.userName +'&password=' + this.state.password;
+        var body = {
+                    'userName': this.state.userName ,
+                    'password':  this.state.password
+            };
 
         var xhr =  new XMLHttpRequest();
         xhr.open('POST', config.rootUrl + config.userCabinet,true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send(body);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(body));
 
         xhr.onload = function(){
             if(this.status==200){
-                console.log('!!!!!!');
+                alert(this.responseText);
             }else{
                 //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
             }
