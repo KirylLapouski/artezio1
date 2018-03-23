@@ -1,4 +1,6 @@
 var React = require('react');
+var ReactRouterDom = require('react-router-dom');
+var Link = ReactRouterDom.Link;
 var config = require('../../etc/config.json');
 class LoginIn extends React.Component{
 
@@ -26,24 +28,28 @@ class LoginIn extends React.Component{
                     'userName': this.state.userName ,
                     'password':  this.state.password
             };
-
         var xhr =  new XMLHttpRequest();
-        xhr.open('POST', config.rootUrl + config.userCabinet,true);
+        xhr.open('POST', config.rootUrl + config.userCabinet +'/'+ this.state.userName,true);
         xhr.setRequestHeader('Content-Type', 'application/json');
+        
         xhr.send(JSON.stringify(body));
+        var user = this.state.userName;
 
+        
         xhr.onload = function(){
             if(this.status==200){
-                window.PROPS = this.responseText;
-                console.log( window.PROPS);
-            }else{
-                //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
-            }
+                    //window.PROPS = this.responseText;
+                //console.log( window.PROPS);
+               // history.pushState(null, '', '/user/'+user);
 
+            }else{
+                
+                //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
+            }            
         }
     }
     render(){
-        return (<form method="POST" action="/user" className="form-signin">
+        return (<form method="POST" action="/" className="form-signin">
                 <img className="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"/>
                 <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
                 <label htmlFor="inputEmail" className="sr-only">User name</label>
@@ -55,7 +61,7 @@ class LoginIn extends React.Component{
                     <input type="checkbox" value="remember-me"/> Remember me
                     </label>
                 </div>
-                <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.onSubmitHandler}>Sign in</button>
+                <Link to="user/User2"><button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.onSubmitHandler}>Sign in</button></Link>
                 <p className="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
             </form>);
     }

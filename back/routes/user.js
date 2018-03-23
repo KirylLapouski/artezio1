@@ -15,11 +15,12 @@ var NavBar = require('./../views/components/NavBar');
 
 var router = express.Router();
 
-router.route('/')
+router.route('/:userName')
 .post(function(req,resp){
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', config.rootUrl+config.dbApi+'/'+req.body.userName, false);
+    xhr.open('GET', config.rootUrl+config.dbApi+'/'+req.body.userName, true);
     xhr.send();
+ 
 
     xhr.onload = function(){
         if(this.status==200)
@@ -38,9 +39,9 @@ router.route('/')
                         resp.send(user.tasks);
                     if(user.isAdmin)
                     {
-                        resp.redirect(307,config.rootUrl+config.adminCabinet);
+                     //   resp.redirect(307,config.rootUrl+config.adminCabinet);
                     }else{
-                                resp.sendStatus(200);
+                             //   resp.sendStatus(200);
                     
                          /*   fs.readFile('public/user.html','utf-8',function(err,data){
                                 if(err) throw err;         
@@ -63,5 +64,6 @@ router.route('/')
     }
 
 });
+
 
 module.exports = router;

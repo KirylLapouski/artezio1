@@ -31,7 +31,7 @@ class Navbar extends React.Component{
                         {menuItemsRes}
                     </ul>
                 </div>
-                <UserInfo userName={this.props.userName}/>
+                <UserInfo />
             </nav>;
     }
 }

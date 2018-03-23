@@ -6,7 +6,7 @@ var UserDao = require('../dao/userDao');
 var router = express.Router();
 var jsonParser = bodyParser.json();
 var userDao = new UserDao();
-
+//CHECK CONNECTION
 
 router.route("/")
 .get(function(req,resp){
@@ -62,6 +62,7 @@ router.route("/")
 
 router.route("/:name")
 .get( function(req,resp){
+
     userDao.read(function(err,data){
         //HANDLE ERR
 
