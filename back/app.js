@@ -7,10 +7,10 @@ var bodyParser = require('body-parser');
 var expressSession = require('express-session');
 const mongoose = require('mongoose');
 
-var index = require('./routes/index');
-var dbUsers = require('./routes/dbUsers');
-var user = require('./routes/user');
-var admin = require('./routes/admin');
+var index = require('./services/index');
+var dbUsers = require('./services/dbUsers');
+var user = require('./services/user');
+var admin = require('./services/admin');
 var fs = require('fs');
 //var store = require('./dao/getConnectionToDb.js').createStore();
 

@@ -63,7 +63,10 @@ class LoginIn extends React.Component{
                     <input type="checkbox" value="remember-me"/> Remember me
                     </label>
                 </div>
-                <Link to="user/User2"><button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.onSubmitHandler}>Sign in</button></Link>
+               
+                <Link to="user/User2"><button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.onSubmitHandler}>Sign in</button></Link><br/>
+                <button type="button" class="btn btn-light-blue btn-block btn-li waves-effect waves-light"><i class="fa fa-linkedin pr-1"></i> Linkedin</button>               
+                <button type="button" class="btn btn-indigo btn-block btn-fb waves-effect waves-light"><i class="fa fa-facebook pr-1"></i> Facebook</button>
                 <p className="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
             </form>);
     }

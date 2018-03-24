@@ -23732,6 +23732,19 @@ var LoginIn = function (_React$Component) {
                         'Sign in'
                     )
                 ),
+                React.createElement('br', null),
+                React.createElement(
+                    'button',
+                    { type: 'button', 'class': 'btn btn-light-blue btn-block btn-li waves-effect waves-light' },
+                    React.createElement('i', { 'class': 'fa fa-linkedin pr-1' }),
+                    ' Linkedin'
+                ),
+                React.createElement(
+                    'button',
+                    { type: 'button', 'class': 'btn btn-indigo btn-block btn-fb waves-effect waves-light' },
+                    React.createElement('i', { 'class': 'fa fa-facebook pr-1' }),
+                    ' Facebook'
+                ),
                 React.createElement(
                     'p',
                     { className: 'mt-5 mb-3 text-muted' },
