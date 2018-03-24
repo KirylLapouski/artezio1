@@ -29,15 +29,18 @@ class LoginIn extends React.Component{
                     'password':  this.state.password
             };
         var xhr =  new XMLHttpRequest();
-        xhr.open('POST', config.rootUrl + config.userCabinet +'/'+ this.state.userName,true);
+        xhr.open('POST', config.rootUrl + config.userCabinet +'/'+ this.state.userName,false);
         xhr.setRequestHeader('Content-Type', 'application/json');
         
         xhr.send(JSON.stringify(body));
         var user = this.state.userName;
 
         
-        xhr.onload = function(){
-            if(this.status==200){
+        
+           // window.localStorage.setItem('enteredUser',user);
+            if(xhr.status==200){
+              
+
                     //window.PROPS = this.responseText;
                 //console.log( window.PROPS);
                // history.pushState(null, '', '/user/'+user);
@@ -46,7 +49,6 @@ class LoginIn extends React.Component{
                 
                 //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
             }            
-        }
     }
     render(){
         return (<form method="POST" action="/" className="form-signin">

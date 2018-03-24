@@ -50,7 +50,6 @@ router.route("/")
     var userId = req.body.userName;
     var newProps = Object.assign({},req.body);
     delete newProps.userName;
-
     userDao.update({_id:userId},newProps, function(err,data){
             //HANDLE ERR
 

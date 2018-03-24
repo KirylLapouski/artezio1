@@ -5,13 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressSession = require('express-session');
+const mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var dbUsers = require('./routes/dbUsers');
 var user = require('./routes/user');
 var admin = require('./routes/admin');
 var fs = require('fs');
-var store = require('./dao/getConnectionToDb.js').createStore();
+//var store = require('./dao/getConnectionToDb.js').createStore();
 
 var config = require('./etc/config.json');
 
@@ -28,16 +29,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(expressSession({
+/*app.use(expressSession({
   'store': store,
   resave:false,
   saveUninitialized: true,
   secret: 'SuperPuperSecret'
-}))
+}))*/
 
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Custom services 
 app.use('/', index);
 app.use(config.dbApi, dbUsers);
 app.use(config.userCabinet,user);
@@ -61,4 +63,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// connect to mongodb
+mongoose.connect(config.db.remoteDbURI, () => {
+  console.log('connected to mongodb');
+});
 module.exports = app;

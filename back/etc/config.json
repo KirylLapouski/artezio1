@@ -4,6 +4,7 @@
     "userCabinet": "/userService",
     "adminCabinet":"/admin",
     "db": {
+        "remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico",
         "name": "artezio1",
         "host": "localhost",
         "port": "27017",

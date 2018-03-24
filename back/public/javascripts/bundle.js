@@ -997,7 +997,7 @@ var locationsAreEqual = function locationsAreEqual(a, b) {
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/userService","adminCabinet":"/admin","db":{"name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}}}
+module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/userService","adminCabinet":"/admin","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}}}
 
 /***/ }),
 /* 15 */
@@ -23509,7 +23509,7 @@ var Navbar = function (_React$Component) {
                         menuItemsRes
                     )
                 ),
-                React.createElement(UserInfo, { userName: this.props.userName })
+                React.createElement(UserInfo, null)
             );
         }
     }]);
@@ -23552,7 +23552,7 @@ var UserInfo = function (_React$Component) {
                 "a",
                 { className: "navbar-brand", href: "#", style: { position: 'absolute', right: '70px' } },
                 this.props.userName,
-                React.createElement("img", { src: "images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
+                React.createElement("img", { src: "../../public/images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
             );
         }
     }]);
@@ -23671,24 +23671,23 @@ var LoginIn = function (_React$Component) {
                 'password': this.state.password
             };
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', config.rootUrl + config.userCabinet + '/' + this.state.userName, true);
+            xhr.open('POST', config.rootUrl + config.userCabinet + '/' + this.state.userName, false);
             xhr.setRequestHeader('Content-Type', 'application/json');
 
-            console.log('1111');
             xhr.send(JSON.stringify(body));
             var user = this.state.userName;
 
-            xhr.onload = function () {
-                if (this.status == 200) {
-                    //window.PROPS = this.responseText;
-                    //console.log( window.PROPS);
-                    // history.pushState(null, '', '/user/'+user);
+            // window.localStorage.setItem('enteredUser',user);
+            if (xhr.status == 200) {
 
-                } else {
+                //window.PROPS = this.responseText;
+                //console.log( window.PROPS);
+                // history.pushState(null, '', '/user/'+user);
 
-                        //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
-                    }
-            };
+            } else {
+
+                    //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
+                }
         }
     }, {
         key: 'render',
