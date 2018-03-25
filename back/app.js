@@ -6,12 +6,18 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressSession = require('express-session');
 const mongoose = require('mongoose');
-
+const cookieSession = require('cookie-session');
+var fs = require('fs');
+var passport = require('passport');
+const passportSetup = require('./services/passport/passport-setup');
+//routers
 var index = require('./services/index');
 var dbUsers = require('./services/dbUsers');
 var user = require('./services/user');
 var admin = require('./services/admin');
-var fs = require('fs');
+var auth = require('./services/auth');
+
+
 //var store = require('./dao/getConnectionToDb.js').createStore();
 
 var config = require('./etc/config.json');
@@ -44,6 +50,7 @@ app.use('/', index);
 app.use(config.dbApi, dbUsers);
 app.use(config.userCabinet,user);
 app.use(config.adminCabinet,admin);
+app.use(config.auth,auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -67,4 +74,15 @@ app.use(function(err, req, res, next) {
 mongoose.connect(config.db.remoteDbURI, () => {
   console.log('connected to mongodb');
 });
+
+// set up session cookies
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [config.cookieKey]
+}));
+// initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 module.exports = app;

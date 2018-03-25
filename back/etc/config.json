@@ -3,11 +3,17 @@
     "dbApi": "/db/users",
     "userCabinet": "/userService",
     "adminCabinet":"/admin",
+    "auth":"/auth",
     "db": {
         "remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico",
         "name": "artezio1",
         "host": "localhost",
         "port": "27017",
         "collections": {"users":"users"}
-    }
+    },
+    "facebook":{
+        "clientID":"2031349283745113",
+        "clientSecret":"f7421302b6dcce090442da5a47624cfe"
+    },
+    "cookieKey":"SuperPuperSecret"
 }
