@@ -23477,7 +23477,7 @@ var Navbar = function (_React$Component) {
                 var classValue = component.state.active == index ? 'nav-link active' : 'nav-link';
                 return React.createElement(
                     'li',
-                    { className: 'nav-item' },
+                    { key: index, className: 'nav-item' },
                     React.createElement(
                         'a',
                         { className: classValue, href: '#' },
@@ -23488,24 +23488,24 @@ var Navbar = function (_React$Component) {
 
             return React.createElement(
                 'nav',
-                { 'class': 'navbar navbar-expand-lg navbar-dark primary-color position-absolute', style: { boxShadow: '0 0.25rem 0.75rem rgba(0, 0, 0, .05)', top: '0', left: '0', right: '0' } },
+                { className: 'navbar navbar-expand-lg navbar-dark primary-color position-absolute', style: { boxShadow: '0 0.25rem 0.75rem rgba(0, 0, 0, .05)', top: '0', left: '0', right: '0' } },
                 React.createElement(
                     'a',
-                    { 'class': 'navbar-brand', href: '#' },
+                    { className: 'navbar-brand', href: '#' },
                     'Navbar'
                 ),
                 React.createElement(
                     'button',
-                    { 'class': 'navbar-toggler', type: 'button', 'data-toggle': 'collapse', 'data-target': '#basicExampleNav', 'aria-controls': 'basicExampleNav',
+                    { className: 'navbar-toggler', type: 'button', 'data-toggle': 'collapse', 'data-target': '#basicExampleNav', 'aria-controls': 'basicExampleNav',
                         'aria-expanded': 'false', 'aria-label': 'Toggle navigation' },
-                    React.createElement('span', { 'class': 'navbar-toggler-icon' })
+                    React.createElement('span', { className: 'navbar-toggler-icon' })
                 ),
                 React.createElement(
                     'div',
-                    { 'class': 'collapse navbar-collapse', id: 'basicExampleNav' },
+                    { className: 'collapse navbar-collapse', id: 'basicExampleNav' },
                     React.createElement(
                         'ul',
-                        { 'class': 'navbar-nav mr-auto' },
+                        { className: 'navbar-nav mr-auto' },
                         menuItemsRes
                     )
                 ),
@@ -23551,8 +23551,8 @@ var UserInfo = function (_React$Component) {
             return React.createElement(
                 "a",
                 { className: "navbar-brand", href: "#", style: { position: 'absolute', right: '70px' } },
-                this.props.userName,
-                React.createElement("img", { src: "../../public/images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
+                this.props.userName ? this.props.userName : "User",
+                React.createElement("img", { src: "./images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
             );
         }
     }]);
