@@ -13,6 +13,7 @@ var fs = require('fs');
 var passport = require('passport');
 const passportFacebookSetup = require('./services/passport/passportFacebookSetup');
 const passportLinkedInSetup = require('./services/passport/passportLinkedinSetup');
+const passportLocalSetup = require('./services/passport/passportLocalSetup');
 //routers
 var index = require('./services/index');
 var dbUsers = require('./services/dbUsers');

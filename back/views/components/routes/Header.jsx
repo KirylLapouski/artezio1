@@ -8,6 +8,7 @@ class Header extends React.Component{
       return  <header>
                 <Switch>
                     <Route path='/user/:userName' component={NavBar}/>
+                    <Route path="/signUp" component={NavBar}/>
                 </Switch>
             </header>;
     }

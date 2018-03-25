@@ -4,8 +4,6 @@ var config = require('../../etc/config');
 var UserDao = require('../../dao/userDao.js');
 
 passport.serializeUser((user,done)=>{
-    console.log("ID")
-    console.log(user.id);
     done(null,user.id);
 });
 

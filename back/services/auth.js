@@ -38,4 +38,9 @@ router.get('/linkedin/redirect', passport.authenticate('linkedin'), (req, res) =
     res.send(req.user);
 });
 
+//local auth
+router.post('/local',passport.authenticate('local',{ successRedirect: '/',
+                                                    failureRedirect: '/',
+                                                    failureFlash: true }))
+
 module.exports = router;

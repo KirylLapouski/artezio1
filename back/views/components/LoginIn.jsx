@@ -22,7 +22,7 @@ class LoginIn extends React.Component{
           }));
     }
     onSubmitHandler(e){
-        e.preventDefault();
+        /*e.preventDefault();
         
         var body = {
                     'userName': this.state.userName ,
@@ -48,14 +48,14 @@ class LoginIn extends React.Component{
             }else{
                 
                 //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
-            }            
+            }      */      
     }
     render(){
-        return (<form method="POST" action="/" className="form-signin">
+        return (<form method="POST" action="/auth/local" className="form-signin">
                 <img className="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"/>
                 <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
                 <label htmlFor="inputEmail" className="sr-only">User name</label>
-                <input onChange={this.onChangeHandler} type="text" name="userName" id="inputEmail" className="form-control" placeholder="User name" required autoFocus/>
+                <input onChange={this.onChangeHandler} type="text" name="mail" id="inputEmail" className="form-control" placeholder="User name" required autoFocus/>
                 <label htmlFor="inputPassword" className="sr-only">Password</label>
                 <input onChange={this.onChangeHandler} type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" required/>
                 <div className="checkbox mb-3">
@@ -64,9 +64,14 @@ class LoginIn extends React.Component{
                     </label>
                 </div>
                
-                <Link to="user/User2"><button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.onSubmitHandler}>Sign in</button></Link><br/>
+                <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.onSubmitHandler}>Sign in</button><br/>
                 <a role="button" href="auth/linkedin" className="btn btn-light-blue btn-block btn-li waves-effect waves-light"><i className="fa fa-linkedin pr-1"></i> Linkedin</a>            
-                <a role="button" href="auth/facebook" className="btn btn-indigo btn-block btn-fb waves-effect waves-light"><i className="fa fa-facebook pr-1"></i> Facebook</a>
+                <a role="button" href="auth/facebook" className="btn btn-indigo btn-block btn-fb waves-effect waves-light"><i className="fa fa-facebook pr-1"></i> Facebook</a><br/>
+                <div className="modal-footer pr-0">
+                        <div className="options font-weight-light">
+                            <p>Not a member?  <Link to="/signUp"><a href="#">Sign Up</a></Link></p>
+                        </div>
+                </div>
                 <p className="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
             </form>);
     }
