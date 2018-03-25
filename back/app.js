@@ -8,8 +8,11 @@ var expressSession = require('express-session');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 var fs = require('fs');
+
+//passport
 var passport = require('passport');
-const passportSetup = require('./services/passport/passport-setup');
+const passportFacebookSetup = require('./services/passport/passportFacebookSetup');
+const passportLinkedInSetup = require('./services/passport/passportLinkedinSetup');
 //routers
 var index = require('./services/index');
 var dbUsers = require('./services/dbUsers');
@@ -42,6 +45,9 @@ app.use(cookieParser());
   secret: 'SuperPuperSecret'
 }))*/
 
+// initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -80,9 +86,16 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
   keys: [config.cookieKey]
 }));
-// initialize passport
-app.use(passport.initialize());
-app.use(passport.session());
 
+/*var options = {
+  key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
+  cert: fs.readFileSync('test/fixtures/keys/agent2-cert.cert')
+};
+
+const https = require('https').createServer(options,app);
+const http = require('http').createServer(app);
+
+http.listen(3000,() => console.log('PORT :: 3000'));
+https.listen(4433,() => console.log('PORT :: 4433'));*/
 
 module.exports = app;

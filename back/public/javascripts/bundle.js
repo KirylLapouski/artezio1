@@ -377,12 +377,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-2015, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 
@@ -999,7 +997,7 @@ var locationsAreEqual = function locationsAreEqual(a, b) {
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/userService","adminCabinet":"/admin","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"}}
+module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/userService","adminCabinet":"/admin","auth":"/auth","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
 
 /***/ }),
 /* 15 */
@@ -23736,15 +23734,15 @@ var LoginIn = function (_React$Component) {
                 ),
                 React.createElement('br', null),
                 React.createElement(
-                    'button',
-                    { type: 'button', 'class': 'btn btn-light-blue btn-block btn-li waves-effect waves-light' },
-                    React.createElement('i', { 'class': 'fa fa-linkedin pr-1' }),
+                    'a',
+                    { role: 'button', href: 'auth/linkedin', className: 'btn btn-light-blue btn-block btn-li waves-effect waves-light' },
+                    React.createElement('i', { className: 'fa fa-linkedin pr-1' }),
                     ' Linkedin'
                 ),
                 React.createElement(
-                    'button',
-                    { type: 'button', 'class': 'btn btn-indigo btn-block btn-fb waves-effect waves-light' },
-                    React.createElement('i', { 'class': 'fa fa-facebook pr-1' }),
+                    'a',
+                    { role: 'button', href: 'auth/facebook', className: 'btn btn-indigo btn-block btn-fb waves-effect waves-light' },
+                    React.createElement('i', { className: 'fa fa-facebook pr-1' }),
                     ' Facebook'
                 ),
                 React.createElement(

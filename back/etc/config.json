@@ -15,5 +15,9 @@
         "clientID":"2031349283745113",
         "clientSecret":"f7421302b6dcce090442da5a47624cfe"
     },
+    "linkedin":{
+        "clientID":"86sswpae3wy3ud",
+        "clientSecret":"ncXOxcrjgLAJJG7L"
+    },
     "cookieKey":"SuperPuperSecret"
 }

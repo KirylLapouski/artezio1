@@ -1,11 +1,10 @@
 var express = require('express');
 var bodyParser = require("body-parser");
 var fs = require("fs");
-var UserDao = require('../dao/userDao');
+var userDao = require('../dao/userDao');
 
 var router = express.Router();
 var jsonParser = bodyParser.json();
-var userDao = new UserDao();
 //CHECK CONNECTION
 
 router.route("/")
@@ -24,10 +23,10 @@ router.route("/")
 
     if(!req.body) return resp.status(404).send();
 
-    var userName = req.body.userName;
+    var userEMail = req.body.userName;
     var password = req.body.password;
 
-    var user = {"_id":userName, "password": password}
+    var user = {"email":userEMail, "password": password}
 
     userDao.create(user,function(err,data){
         //HANDLE ERR
@@ -59,7 +58,7 @@ router.route("/")
         });
 });
 
-router.route("/:name")
+router.route("/:id")
 .get( function(req,resp){
 
     userDao.read(function(err,data){
@@ -68,10 +67,10 @@ router.route("/:name")
         console.log('send user:');
         console.log(data);
         resp.send(JSON.stringify(data));
-    },req.params.name);
+    },req.params.id);
 })
 .delete(function(req,resp){
-    userDao.delete(req.params.name, function(err,data){
+    userDao.delete(req.params.id, function(err,data){
         //HANDLE ERR
 
         console.log('send deleted user');

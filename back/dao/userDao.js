@@ -1,47 +1,41 @@
+//CHANGE PARAMETRES ORDER
 var config = require('../etc/config.json');
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var User = require('./userModel');
 
-//mongoose model
-var userSchema = new Schema({
-    username: String,
-    password: String
-});
+var UserDao = {
+        //ERROR HANDLER
+        create:(user,callback)=>{
+           return new User(user).save().then((newUser,err) => {
+                console.log('created new user: ', newUser);
+                // do something
+                callback(err,newUser)
 
-const User = mongoose.model('user', userSchema);
+                return newUser;
+            });
+        },
 
-class UserDao{
- //ERROR HANDLER
-    create(user,callback){
-        new User({
-            googleId: user._id,
-            username: user.password
-        }).save().then((newUser,err) => {
-            console.log('created new user: ', newUser);
-            // do something
-            callback(err,newUser)
-        });
-    }
+        read:(callback,id)=>{
+            return User.find(typeof id == "number"?{_id: id}:id?id:{}).then((currentUser,err) => {
+                if(callback)
+                    callback(err,currentUser);  
+                return currentUser;
+            });
+        },
 
-    read(callback,id){
-        console.log(id);
-        User.find(id?{googleId: id}:{}).then((currentUser,err) => {
-            if(callback)
-                callback(err,currentUser);  
-        });
+        //CHECK SHEMA VALIDATION
+        update:(oldOne,newOne,callback)=>{
+            return User.update(oldOne,newOne).then((result,err)=>{
+                if(callback) callback(err,result)
+                return result;
+            })
+        },
 
-    }
-
-//CHECK SHEMA VALIDATION
-    update(oldOne,newOne,callback){
-        User.update(oldOne,newOne).then((result,err)=>{if(callback) callback(err,result)})
-    }
-
-    delete(id,callback){
-        User.remove({googleId:id}).then((result,err)=>{
-            if(callback)  callback(err,result);
-        })
-    }
+        delete:(id,callback)=>{
+           return User.remove({_id:id}).then((result,err)=>{
+                if(callback)  callback(err,result);
+                return result;
+            })
+        }
 
 }
 
