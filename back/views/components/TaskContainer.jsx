@@ -18,15 +18,16 @@ class TaskContainer extends React.Component{
             return xhr.responseText;
         }
     }
+       
     render(){
                 
                 var users = JSON.parse(this.getUsers()).slice();
                 var usersRes = users.map(function(user){
-                    return <Task key={user._id} name={user._id} description="description" />
+                    return <Task key={user._id} name={user._id} description={user} />
                 });
 
             
-        return (<div className="list-group" style={{marginTop:'90px', boxShadow:'0 0.25rem 0.75rem rgba(0, 0, 0, .05)'}}> 
+        return (<div className="list-group" style={{marginTop:'90px', boxShadow:'0 0.25rem 0.75rem rgba(0, 0, 0, .05)', width:"700px"}}> 
                     {usersRes}
                     <button type="button" className="btn btn-outline-primary" style={{marginTop:'3px'}}>Add</button>
                 </div>);      
