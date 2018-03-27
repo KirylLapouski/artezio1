@@ -19,7 +19,7 @@ var UserDao = {
                 if(callback)
                     callback(err,currentUser);  
                 return currentUser;
-            });
+            },()=>{console.log("eyyyyk")});
         },
 
         //CHECK SHEMA VALIDATION

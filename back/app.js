@@ -20,6 +20,7 @@ var dbUsers = require('./services/dbUsers');
 var user = require('./services/user');
 var admin = require('./services/admin');
 var auth = require('./services/auth');
+var signUp = require('./services/signup');
 
 
 //var store = require('./dao/getConnectionToDb.js').createStore();
@@ -58,6 +59,7 @@ app.use(config.dbApi, dbUsers);
 app.use(config.userCabinet,user);
 app.use(config.adminCabinet,admin);
 app.use(config.auth,auth);
+app.use('/signUp',signUp);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -78,7 +80,8 @@ app.use(function(err, req, res, next) {
 });
 
 // connect to mongodb
-mongoose.connect(config.db.remoteDbURI, () => {
+mongoose.connect(config.db.remoteDbURI, (err) => {
+  console.log(err);
   console.log('connected to mongodb');
 });
 

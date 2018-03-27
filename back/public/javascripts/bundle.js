@@ -377,10 +377,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
+ * Copyright 2013-2015, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 
@@ -828,7 +830,7 @@ var createPath = function createPath(location) {
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/userService","adminCabinet":"/admin","auth":"/auth","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
+module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","auth":"/auth","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
 
 /***/ }),
 /* 12 */
@@ -23423,8 +23425,7 @@ var Header = function (_React$Component) {
                 React.createElement(
                     Switch,
                     null,
-                    React.createElement(Route, { path: "/user/:userName", component: NavBar }),
-                    React.createElement(Route, { path: "/signUp", component: NavBar })
+                    React.createElement(Route, { path: "/user/:userName", component: NavBar })
                 )
             );
         }
@@ -23550,8 +23551,8 @@ var UserInfo = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 "a",
-                { className: "navbar-brand", href: "#", style: { position: 'absolute', right: '70px' } },
-                this.props.userName ? this.props.userName : "User",
+                { className: "navbar-brand", href: "#", style: { position: 'absolute', right: '70px', top: '10px' } },
+                localStorage.getItem("enteredUser") ? localStorage.getItem("enteredUser").email : "User",
                 React.createElement("img", { src: "./images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
             );
         }
@@ -23643,12 +23644,14 @@ var LoginIn = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (LoginIn.__proto__ || Object.getPrototypeOf(LoginIn)).call(this, props));
 
         _this.state = {
-            userName: '',
+            mail: '',
             password: ''
         };
 
         _this.onChangeHandler = _this.onChangeHandler.bind(_this);
         _this.onSubmitHandler = _this.onSubmitHandler.bind(_this);
+        _this.onLinkedAuth = _this.onLinkedAuth.bind(_this);
+
         return _this;
     }
 
@@ -23664,8 +23667,36 @@ var LoginIn = function (_React$Component) {
             });
         }
     }, {
+        key: 'onLinkedAuth',
+        value: function onLinkedAuth(e) {
+            e.preventDefault();
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', config.rootUrl + config.auth + '/linkedin', false);
+
+            xhr.send();
+
+            if (xhr.status == 200) {
+                console.log('/user/' + xhr.responseText);
+
+                localStorage.setItem("enteredUser", JSON.stringify(xhr.responseText));
+                //   history.pushState(null, '', '/user/'+xhr.responseText);            
+            }
+        }
+    }, {
         key: 'onSubmitHandler',
         value: function onSubmitHandler(e) {
+            e.preventDefault();
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', config.rootUrl + config.auth + '/local', false);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.send(JSON.stringify({ mail: this.state.mail, password: this.state.password }));
+
+            if (xhr.status == 200) {
+                localStorage.setItem("enteredUser", JSON.stringify(xhr.responseText));
+                console.log('/user/' + xhr.responseText);
+                //   history.pushState(null, '', '/user/'+xhr.responseText);            
+            }
             /*e.preventDefault();
             
             var body = {
@@ -23685,7 +23716,6 @@ var LoginIn = function (_React$Component) {
                   
                           //window.PROPS = this.responseText;
                     //console.log( window.PROPS);
-                   // history.pushState(null, '', '/user/'+user);
                   }else{
                     
                     //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
@@ -23721,19 +23751,19 @@ var LoginIn = function (_React$Component) {
                     React.createElement(
                         'label',
                         null,
-                        React.createElement('input', { type: 'checkbox', value: 'remember-me' }),
+                        React.createElement('input', { type: 'checkbox', name: 'remember', value: 'remember-me1' }),
                         ' Remember me'
                     )
                 ),
                 React.createElement(
                     'button',
-                    { className: 'btn btn-lg btn-primary btn-block', type: 'submit', onClick: this.onSubmitHandler },
+                    { className: 'btn btn-lg btn-primary btn-block', type: 'submit', onSubmit: this.onSubmitHandler },
                     'Sign in'
                 ),
                 React.createElement('br', null),
                 React.createElement(
                     'a',
-                    { role: 'button', href: 'auth/linkedin', className: 'btn btn-light-blue btn-block btn-li waves-effect waves-light' },
+                    { role: 'button', onClick: this.onLinkedAuth, href: 'auth/linkedin', className: 'btn btn-light-blue btn-block btn-li waves-effect waves-light' },
                     React.createElement('i', { className: 'fa fa-linkedin pr-1' }),
                     ' Linkedin'
                 ),
@@ -23838,7 +23868,7 @@ var TaskContainer = function (_React$Component) {
 
             return React.createElement(
                 "div",
-                { className: "list-group", style: { marginTop: '10px', boxShadow: '0 0.25rem 0.75rem rgba(0, 0, 0, .05)' } },
+                { className: "list-group", style: { marginTop: '90px', boxShadow: '0 0.25rem 0.75rem rgba(0, 0, 0, .05)' } },
                 usersRes,
                 React.createElement(
                     "button",
@@ -23981,8 +24011,9 @@ var SignUp = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).call(this, props));
 
         _this.state = {
-            userName: '',
-            password: ''
+            email: '',
+            password: '',
+            passwordConfirm: ''
         };
 
         _this.onChangeHandler = _this.onChangeHandler.bind(_this);
@@ -24004,37 +24035,17 @@ var SignUp = function (_React$Component) {
     }, {
         key: 'onSubmitHandler',
         value: function onSubmitHandler(e) {
-            /*e.preventDefault();
-            
-            var body = {
-                        'userName': this.state.userName ,
-                        'password':  this.state.password
-                };
-            var xhr =  new XMLHttpRequest();
-            xhr.open('POST', config.rootUrl + config.userCabinet +'/'+ this.state.userName,false);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            
-            xhr.send(JSON.stringify(body));
-            var user = this.state.userName;
-              
-            
-               // window.localStorage.setItem('enteredUser',user);
-                if(xhr.status==200){
-                  
-                          //window.PROPS = this.responseText;
-                    //console.log( window.PROPS);
-                   // history.pushState(null, '', '/user/'+user);
-                  }else{
-                    
-                    //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
-                }      */
+            if (this.state.password !== this.state.passwordConfirm) {
+                //WRONG PASSWORD
+                e.preventDefault();
+            }
         }
     }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 'form',
-                { style: { width: "330px" } },
+                { method: 'POST', action: '/signUp/local', style: { width: "330px" } },
                 React.createElement(
                     'p',
                     { className: 'h4 text-center mb-4' },
@@ -24042,37 +24053,30 @@ var SignUp = function (_React$Component) {
                 ),
                 React.createElement(
                     'label',
-                    { htmlFor: 'defaultFormRegisterNameEx', className: 'grey-text' },
-                    'Your name'
-                ),
-                React.createElement('input', { type: 'text', id: 'defaultFormRegisterNameEx', className: 'form-control' }),
-                React.createElement('br', null),
-                React.createElement(
-                    'label',
                     { htmlFor: 'defaultFormRegisterEmailEx', className: 'grey-text' },
                     'Your email'
                 ),
-                React.createElement('input', { type: 'email', id: 'defaultFormRegisterEmailEx', className: 'form-control' }),
-                React.createElement('br', null),
-                React.createElement(
-                    'label',
-                    { htmlFor: 'defaultFormRegisterConfirmEx', className: 'grey-text' },
-                    'Confirm your email'
-                ),
-                React.createElement('input', { type: 'email', id: 'defaultFormRegisterConfirmEx', className: 'form-control' }),
+                React.createElement('input', { onChange: this.onChangeHandler, type: 'email', id: 'defaultFormRegisterEmailEx', name: 'email', className: 'form-control' }),
                 React.createElement('br', null),
                 React.createElement(
                     'label',
                     { htmlFor: 'defaultFormRegisterPasswordEx', className: 'grey-text' },
                     'Your password'
                 ),
-                React.createElement('input', { type: 'password', id: 'defaultFormRegisterPasswordEx', className: 'form-control' }),
+                React.createElement('input', { onChange: this.onChangeHandler, type: 'password', id: 'defaultFormRegisterPasswordEx', name: 'password', className: 'form-control' }),
+                React.createElement('br', null),
+                React.createElement(
+                    'label',
+                    { htmlFor: 'defaultFormRegisterPasswordEx', className: 'grey-text' },
+                    'COnfirm your password'
+                ),
+                React.createElement('input', { onChange: this.onChangeHandler, type: 'password', id: 'defaultFormRegisterPasswordEx', name: 'passwordConfirm', className: 'form-control' }),
                 React.createElement(
                     'div',
                     { className: 'text-center mt-4' },
                     React.createElement(
                         'button',
-                        { className: 'btn-primary btn', type: 'submit' },
+                        { className: 'btn-primary btn', onSubmit: this.onSubmitHandler, type: 'submit' },
                         'Register'
                     )
                 )

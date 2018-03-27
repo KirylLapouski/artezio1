@@ -7,12 +7,14 @@ class LoginIn extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            userName: '',
+            mail: '',
             password:''
           };
         
           this.onChangeHandler = this.onChangeHandler.bind(this);
           this.onSubmitHandler = this.onSubmitHandler.bind(this);
+          this.onLinkedAuth = this.onLinkedAuth.bind(this);
+          
     }
    
     onChangeHandler(e){
@@ -21,7 +23,33 @@ class LoginIn extends React.Component{
             [name]: value
           }));
     }
+    onLinkedAuth(e){
+        e.preventDefault();
+        var xhr =  new XMLHttpRequest();
+        xhr.open('GET', config.rootUrl + config.auth +'/linkedin',false);
+        
+        xhr.send();
+
+        if(xhr.status == 200){
+            console.log('/user/'+xhr.responseText);
+
+            localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
+         //   history.pushState(null, '', '/user/'+xhr.responseText);            
+        }
+    }
     onSubmitHandler(e){
+        e.preventDefault();
+        var xhr =  new XMLHttpRequest();
+        xhr.open('POST', config.rootUrl + config.auth +'/local',false);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        
+        xhr.send(JSON.stringify({mail:this.state.mail, password:this.state.password}));
+
+        if(xhr.status == 200){
+            localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
+            console.log('/user/'+xhr.responseText);
+         //   history.pushState(null, '', '/user/'+xhr.responseText);            
+        }
         /*e.preventDefault();
         
         var body = {
@@ -43,7 +71,6 @@ class LoginIn extends React.Component{
 
                     //window.PROPS = this.responseText;
                 //console.log( window.PROPS);
-               // history.pushState(null, '', '/user/'+user);
 
             }else{
                 
@@ -60,12 +87,12 @@ class LoginIn extends React.Component{
                 <input onChange={this.onChangeHandler} type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" required/>
                 <div className="checkbox mb-3">
                     <label>
-                    <input type="checkbox" value="remember-me"/> Remember me
+                    <input type="checkbox" name="remember" value="remember-me1"/> Remember me
                     </label>
                 </div>
                
-                <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.onSubmitHandler}>Sign in</button><br/>
-                <a role="button" href="auth/linkedin" className="btn btn-light-blue btn-block btn-li waves-effect waves-light"><i className="fa fa-linkedin pr-1"></i> Linkedin</a>            
+                <button className="btn btn-lg btn-primary btn-block" type="submit" onSubmit={this.onSubmitHandler}>Sign in</button><br/>
+                <a role="button" onClick={this.onLinkedAuth} href="auth/linkedin" className="btn btn-light-blue btn-block btn-li waves-effect waves-light"><i className="fa fa-linkedin pr-1"></i> Linkedin</a>            
                 <a role="button" href="auth/facebook" className="btn btn-indigo btn-block btn-fb waves-effect waves-light"><i className="fa fa-facebook pr-1"></i> Facebook</a><br/>
                 <div className="modal-footer pr-0">
                         <div className="options font-weight-light">

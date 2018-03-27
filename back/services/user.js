@@ -14,10 +14,12 @@ var TaskContainer = require('../views/components/TaskContainer');
 var NavBar = require('./../views/components/NavBar');
 
 var router = express.Router();
+var path = require('path');
 
 router.route('/:userName')
-.post(function(req,resp){
-    var xhr = new XMLHttpRequest();
+.get(function(req,resp){
+    resp.sendFile(path.join(__dirname+'/../public/index.html'));
+    /*  var xhr = new XMLHttpRequest();
     xhr.open('GET', config.rootUrl+config.dbApi+'/'+req.body.userName, true);
     xhr.send();
  
@@ -49,19 +51,19 @@ router.route('/:userName')
                                 var $ = cheerio.load(data);
                                 $('body').prepend(ReactDOMServer.renderToString(React.createElement(NavBar,{menuItems:[{name:'Home'}],userName:req.body.userName})))                                
                                 $('#tasks').append(ReactDOMServer.renderToString(React.createElement(TaskContainer, user)));         
-                        });*/
+                        });
                     }
                     
 			//HAVE TO CHECK
                 }
                 else{
-                    //ОШИБКА 
+                    //ОШИБКА `
                     resp.end();
                 }
         }else{
            //ОШИБКА
         }
-    }
+    }*/
 
 });
 

@@ -7,8 +7,9 @@ class SignUp extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            userName: '',
-            password:''
+            email: '',
+            password:'',
+            passwordConfirm:''
           };
         
           this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -22,59 +23,34 @@ class SignUp extends React.Component{
           }));
     }
     onSubmitHandler(e){
-        /*e.preventDefault();
-        
-        var body = {
-                    'userName': this.state.userName ,
-                    'password':  this.state.password
-            };
-        var xhr =  new XMLHttpRequest();
-        xhr.open('POST', config.rootUrl + config.userCabinet +'/'+ this.state.userName,false);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        
-        xhr.send(JSON.stringify(body));
-        var user = this.state.userName;
+        if(this.state.password!== this.state.passwordConfirm)
+        {
+            //WRONG PASSWORD
+            e.preventDefault();
+        }
 
-        
-        
-           // window.localStorage.setItem('enteredUser',user);
-            if(xhr.status==200){
-              
-
-                    //window.PROPS = this.responseText;
-                //console.log( window.PROPS);
-               // history.pushState(null, '', '/user/'+user);
-
-            }else{
-                
-                //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
-            }      */      
     }
     render(){
         return (    
-        <form style={{width: "330px"}}>
+        <form method="POST" action="/signUp/local" style={{width: "330px"}}>
             <p className="h4 text-center mb-4">Sign up</p>
         
-            <label htmlFor="defaultFormRegisterNameEx" className="grey-text">Your name</label>
-            <input type="text" id="defaultFormRegisterNameEx" className="form-control"/>
-            
-            <br/>
-        
+           
             <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">Your email</label>
-            <input type="email" id="defaultFormRegisterEmailEx" className="form-control"/>
+            <input onChange={this.onChangeHandler} type="email" id="defaultFormRegisterEmailEx" name="email" className="form-control"/>
             
-            <br/>
-        
-            <label htmlFor="defaultFormRegisterConfirmEx" className="grey-text">Confirm your email</label>
-            <input type="email" id="defaultFormRegisterConfirmEx" className="form-control"/>
-        
             <br/>
         
             <label htmlFor="defaultFormRegisterPasswordEx" className="grey-text">Your password</label>
-            <input type="password" id="defaultFormRegisterPasswordEx" className="form-control"/>
+            <input onChange={this.onChangeHandler} type="password" id="defaultFormRegisterPasswordEx" name="password" className="form-control"/>
         
+            <br/>
+
+            <label htmlFor="defaultFormRegisterPasswordEx" className="grey-text">COnfirm your password</label>
+            <input onChange={this.onChangeHandler} type="password" id="defaultFormRegisterPasswordEx" name="passwordConfirm" className="form-control"/>
+            
             <div className="text-center mt-4">
-                <button className="btn-primary btn" type="submit">Register</button>
+                <button className="btn-primary btn" onSubmit={this.onSubmitHandler} type="submit">Register</button>
             </div>
 
         </form>);

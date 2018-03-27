@@ -1,7 +1,7 @@
 {
     "rootUrl": "http://localhost:3000",
     "dbApi": "/db/users",
-    "userCabinet": "/userService",
+    "userCabinet": "/user",
     "adminCabinet":"/admin",
     "auth":"/auth",
     "db": {

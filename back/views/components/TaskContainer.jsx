@@ -26,7 +26,7 @@ class TaskContainer extends React.Component{
                 });
 
             
-        return (<div className="list-group" style={{marginTop:'10px', boxShadow:'0 0.25rem 0.75rem rgba(0, 0, 0, .05)'}}> 
+        return (<div className="list-group" style={{marginTop:'90px', boxShadow:'0 0.25rem 0.75rem rgba(0, 0, 0, .05)'}}> 
                     {usersRes}
                     <button type="button" className="btn btn-outline-primary" style={{marginTop:'3px'}}>Add</button>
                 </div>);      

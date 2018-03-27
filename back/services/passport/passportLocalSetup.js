@@ -6,13 +6,11 @@ var UserDao = require('../../dao/userDao.js');
 passport.use(new LocalStrategy({
     usernameField: 'mail',
     passwordField: 'password',
-    passReqToCallback : true
+    passReqToCallback : true,
   },
     function(req,mail, password, done) {
         UserDao.read( function(err, user) {
             user=user[0];
-
-            
             if (err) { return done(err); }
             if (!user) {
               return done(null, false, { message: 'Incorrect mail.' });
@@ -20,6 +18,7 @@ passport.use(new LocalStrategy({
             if (user.password!=password) {
               return done(null, false, { message: 'Incorrect password.' });
             }
+            req.body = user;
             return done(null, user);
           },{ email: mail });
     }
