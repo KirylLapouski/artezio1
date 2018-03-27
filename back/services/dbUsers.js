@@ -45,10 +45,10 @@ router.route("/")
         resp.sendStatus(404);
         return;
    }
- 
-    var userId = req.body.userName;
+    var userId = req.body._id;
     var newProps = Object.assign({},req.body);
-    delete newProps.userName;
+    delete newProps._id;
+    
     userDao.update({_id:userId},newProps, function(err,data){
             //HANDLE ERR
 

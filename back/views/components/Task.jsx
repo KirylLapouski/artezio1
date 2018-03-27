@@ -9,11 +9,11 @@ class Task extends React.Component {
       this.state = {
         isOpened:false,
         isСhanging:false,
-        email: "",
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-        city: "",
+        email: this.props.description.email,
+        firstName: this.props.description.firstName,
+        lastName: this.props.description.lastName,
+        phoneNumber: this.props.description.phoneNumber,
+        city: this.props.description.city,
       }
       this.clickHandler = this.clickHandler.bind(this);
       this.editUser = this.editUser.bind(this);
@@ -34,6 +34,41 @@ class Task extends React.Component {
         }));
   }
   onSubmitHandler(e){
+    var xhr =  new XMLHttpRequest();
+    xhr.open('PUT', config.rootUrl + config.dbApi,false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    //create request body (user changes)
+    //NEED TO CHANGE
+    var user={_id: "5ab76ecba107a21ea08d9b0b"};
+    if(this.state.email)
+      user.email = this.state.email;
+    if(this.state.firstName)
+      user.firstName = this.state.firstName;
+    if(this.state.lastName)
+      user.lastName = this.state.lastName;
+    if(this.state.phoneNumber)
+      user.phoneNumber = this.state.phoneNumber;
+    if(this.state.city)
+      user.city = this.state.city;
+
+    var self = this;
+    xhr.send(JSON.stringify(user));
+
+  
+    if(xhr.status == 200){
+        self.setState({
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          phoneNumber: user.phoneNumber,
+          city: user.city,
+        });
+        this.props.description.firstName = user.firstName;
+        this.props.description.lastName = user.lastName;
+        this.render();
+    }
+    
     /*e.preventDefault();
     var xhr =  new XMLHttpRequest();
     xhr.open('POST', config.rootUrl + config.auth +'/local',false);
@@ -62,9 +97,9 @@ class Task extends React.Component {
     }
     render(){
       var description  = <p>
-                            {this.props.description.email?"Email: "+ this.props.description.email:""} {this.props.description.email?Parser("<br/>"):""}
-                            {this.props.description.phoneNumber?"Phone number: "+ this.props.description.phoneNumber:""} {this.props.description.phoneNumber?Parser("<br/>"):""}
-                            {this.props.description.city?"City: "+ this.props.description.city:""}{this.props.description.city?Parser("<br/>"):""}
+                            {this.state.email?"Email: "+ this.state.email:""} {this.state.email?Parser("<br/>"):""}
+                            {this.state.phoneNumber?"Phone number: "+ this.state.phoneNumber:""} {this.state.phoneNumber?Parser("<br/>"):""}
+                            {this.state.city?"City: "+ this.state.city:""}{this.state.city?Parser("<br/>"):""}
                           </p> 
       
       description = this.state.isOpened?description:'';
@@ -72,30 +107,30 @@ class Task extends React.Component {
                         <form >
                             <div className="form-row">
                                 <div className="form-group col-md-6">
-                                    <label for="inputEmail4">First Name</label>
+                                    <label htmlFor="inputEmail4">First Name</label>
                                     <input onChange={this.onChangeHandler} name="firstName" type="text" className="form-control" id="inputEmail4" placeholder="Kirill"/>
                                 </div>
                                 <div className="form-group col-md-6">
-                                    <label for="inputPassword4">Surname</label>
+                                    <label htmlFor="inputPassword4">Surname</label>
                                     <input onChange={this.onChangeHandler} name="lastName" type="text" className="form-control" id="inputPassword4" placeholder="Lapkovsky"/>
                                 </div>
                             </div>
                                               
                             <div className="form-group">
-                                <label for="inputEmail">Email</label>
-                                <input onChange={this.onChangeHandler} type="email" name="mail" id="inputEmail" className="form-control" placeholder="lapkovskyk@mail.ru"/>
+                                <label htmlFor="inputEmail">Email</label>
+                                <input onChange={this.onChangeHandler} type="email" name="email" id="inputEmail" className="form-control" placeholder="lapkovskyk@mail.ru"/>
                             </div>
                             <div className="form-row">
                                 <div className="form-group col-md-6">
-                                    <label for="inputCity">City</label>
+                                    <label htmlFor="inputCity">City</label>
                                     <input onChange={this.onChangeHandler} name="city" type="text" className="form-control" id="inputCity" placeholder="New York City"/>
                                 </div>
                                 <div className="form-group col-md-6">
-                                    <label for="inputZip">Phone Number</label>
+                                    <label htmlFor="inputZip">Phone Number</label>
                                     <input onChange={this.onChangeHandler} name="phoneNumber" type="text" className="form-control" id="inputZip" placeholder="+ 375 25 545 55 09"/>
                                 </div>
                             </div>
-                            <button type="submit" onSubmit={this.onSubmitHandler} className="btn btn-primary btn-md">Change</button>
+                            <button type="submit" onClick={this.onSubmitHandler} className="btn btn-primary btn-md">Change</button>
                         </form>
                         </div>
 

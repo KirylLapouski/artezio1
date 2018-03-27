@@ -24332,215 +24332,243 @@ var config = __webpack_require__(11);
 var Parser = __webpack_require__(87);
 
 var Task = function (_React$Component) {
-    _inherits(Task, _React$Component);
+  _inherits(Task, _React$Component);
 
-    function Task(props) {
-        _classCallCheck(this, Task);
+  function Task(props) {
+    _classCallCheck(this, Task);
 
-        var _this = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
-        _this.state = {
-            isOpened: false,
-            isСhanging: false,
-            email: "",
-            firstName: "",
-            lastName: "",
-            phoneNumber: "",
-            city: ""
+    _this.state = {
+      isOpened: false,
+      isСhanging: false,
+      email: _this.props.description.email,
+      firstName: _this.props.description.firstName,
+      lastName: _this.props.description.lastName,
+      phoneNumber: _this.props.description.phoneNumber,
+      city: _this.props.description.city
+    };
+    _this.clickHandler = _this.clickHandler.bind(_this);
+    _this.editUser = _this.editUser.bind(_this);
+    _this.onChangeHandler = _this.onChangeHandler.bind(_this);
+    _this.onSubmitHandler = _this.onSubmitHandler.bind(_this);
+    return _this;
+  }
+
+  _createClass(Task, [{
+    key: 'clickHandler',
+    value: function clickHandler(e) {
+      e.preventDefault();
+      this.setState(function (prevState) {
+        return {
+          isOpened: !prevState.isOpened
         };
-        _this.clickHandler = _this.clickHandler.bind(_this);
-        _this.editUser = _this.editUser.bind(_this);
-        _this.onChangeHandler = _this.onChangeHandler.bind(_this);
-        _this.onSubmitHandler = _this.onSubmitHandler.bind(_this);
-        return _this;
+      });
+      return false;
     }
+  }, {
+    key: 'onChangeHandler',
+    value: function onChangeHandler(e) {
+      var _e$target = e.target,
+          name = _e$target.name,
+          value = _e$target.value;
 
-    _createClass(Task, [{
-        key: 'clickHandler',
-        value: function clickHandler(e) {
-            e.preventDefault();
-            this.setState(function (prevState) {
-                return {
-                    isOpened: !prevState.isOpened
-                };
-            });
-            return false;
-        }
-    }, {
-        key: 'onChangeHandler',
-        value: function onChangeHandler(e) {
-            var _e$target = e.target,
-                name = _e$target.name,
-                value = _e$target.value;
+      this.setState(function (prevState) {
+        return _defineProperty({}, name, value);
+      });
+    }
+  }, {
+    key: 'onSubmitHandler',
+    value: function onSubmitHandler(e) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('PUT', config.rootUrl + config.dbApi, false);
+      xhr.setRequestHeader('Content-Type', 'application/json');
 
-            this.setState(function (prevState) {
-                return _defineProperty({}, name, value);
-            });
-        }
-    }, {
-        key: 'onSubmitHandler',
-        value: function onSubmitHandler(e) {}
-        /*e.preventDefault();
-        var xhr =  new XMLHttpRequest();
-        xhr.open('POST', config.rootUrl + config.auth +'/local',false);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        
-        xhr.send(JSON.stringify({mail:this.state.mail, password:this.state.password}));
-          if(xhr.status == 200){
-            localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
-            console.log('/user/'+xhr.responseText);
-        }*/
+      //create request body (user changes)
+      var user = { _id: "5ab76ecba107a21ea08d9b0b" };
+      if (this.state.email) user.email = this.state.email;
+      if (this.state.firstName) user.firstName = this.state.firstName;
+      if (this.state.lastName) user.lastName = this.state.lastName;
+      if (this.state.phoneNumber) user.phoneNumber = this.state.phoneNumber;
+      if (this.state.city) user.city = this.state.city;
 
-        /* deleteTask(e){
-           e.preventDefault();
-           e.stopPropagation();
-             var xhr = new XMLHttpRequest();
-           xhr.open('DELETE', config.rootUrl+config.dbApi+'/'+req.body.userName);
-           }*/
+      var self = this;
+      xhr.send(JSON.stringify(user));
 
-    }, {
-        key: 'editUser',
-        value: function editUser() {
-            this.setState(function (prevState) {
-                return {
-                    isСhanging: !prevState.isСhanging
-                };
-            });
-            return false;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var description = React.createElement(
-                'p',
-                null,
-                this.props.description.email ? "Email: " + this.props.description.email : "",
-                ' ',
-                this.props.description.email ? Parser("<br/>") : "",
-                this.props.description.phoneNumber ? "Phone number: " + this.props.description.phoneNumber : "",
-                ' ',
-                this.props.description.phoneNumber ? Parser("<br/>") : "",
-                this.props.description.city ? "City: " + this.props.description.city : "",
-                this.props.description.city ? Parser("<br/>") : ""
-            );
+      if (xhr.status == 200) {
+        self.setState({
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          phoneNumber: user.phoneNumber,
+          city: user.city
+        });
+        this.props.description.firstName = user.firstName;
+        this.props.description.lastName = user.lastName;
+        this.render();
+      }
 
-            description = this.state.isOpened ? description : '';
-            var changeForm = React.createElement(
-                'div',
-                null,
-                React.createElement(
-                    'b',
-                    null,
-                    'Edit profile'
-                ),
-                React.createElement(
-                    'form',
-                    null,
-                    React.createElement(
-                        'div',
-                        { className: 'form-row' },
-                        React.createElement(
-                            'div',
-                            { className: 'form-group col-md-6' },
-                            React.createElement(
-                                'label',
-                                { 'for': 'inputEmail4' },
-                                'First Name'
-                            ),
-                            React.createElement('input', { onChange: this.onChangeHandler, name: 'firstName', type: 'text', className: 'form-control', id: 'inputEmail4', placeholder: 'Kirill' })
-                        ),
-                        React.createElement(
-                            'div',
-                            { className: 'form-group col-md-6' },
-                            React.createElement(
-                                'label',
-                                { 'for': 'inputPassword4' },
-                                'Surname'
-                            ),
-                            React.createElement('input', { onChange: this.onChangeHandler, name: 'lastName', type: 'text', className: 'form-control', id: 'inputPassword4', placeholder: 'Lapkovsky' })
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        React.createElement(
-                            'label',
-                            { 'for': 'inputEmail' },
-                            'Email'
-                        ),
-                        React.createElement('input', { onChange: this.onChangeHandler, type: 'email', name: 'mail', id: 'inputEmail', className: 'form-control', placeholder: 'lapkovskyk@mail.ru' })
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'form-row' },
-                        React.createElement(
-                            'div',
-                            { className: 'form-group col-md-6' },
-                            React.createElement(
-                                'label',
-                                { 'for': 'inputCity' },
-                                'City'
-                            ),
-                            React.createElement('input', { onChange: this.onChangeHandler, name: 'city', type: 'text', className: 'form-control', id: 'inputCity', placeholder: 'New York City' })
-                        ),
-                        React.createElement(
-                            'div',
-                            { className: 'form-group col-md-6' },
-                            React.createElement(
-                                'label',
-                                { 'for': 'inputZip' },
-                                'Phone Number'
-                            ),
-                            React.createElement('input', { onChange: this.onChangeHandler, name: 'phoneNumber', type: 'text', className: 'form-control', id: 'inputZip', placeholder: '+ 375 25 545 55 09' })
-                        )
-                    ),
-                    React.createElement(
-                        'button',
-                        { type: 'submit', onClick: this.onSubmitHandler, className: 'btn btn-primary btn-md' },
-                        'Change'
-                    )
-                )
-            );
+      /*e.preventDefault();
+      var xhr =  new XMLHttpRequest();
+      xhr.open('POST', config.rootUrl + config.auth +'/local',false);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      
+      xhr.send(JSON.stringify({mail:this.state.mail, password:this.state.password}));
+        if(xhr.status == 200){
+          localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
+          console.log('/user/'+xhr.responseText);
+      }*/
+    }
+    /* deleteTask(e){
+       e.preventDefault();
+       e.stopPropagation();
+         var xhr = new XMLHttpRequest();
+       xhr.open('DELETE', config.rootUrl+config.dbApi+'/'+req.body.userName);
+       }*/
 
-            return React.createElement(
-                'a',
-                { onClick: this.clickHandler, href: '#', className: 'list-group-item list-group-item-action flex-column align-items-start' },
-                React.createElement(
-                    'div',
-                    { className: 'd-flex w-100 justify-content-between' },
-                    React.createElement(
-                        'h5',
-                        { className: 'mb-1' },
-                        this.props.description.firstName ? this.props.description.firstName : "User",
-                        ' ',
-                        this.props.description.lastName ? this.props.description.lastName : " "
-                    ),
-                    React.createElement(
-                        'small',
-                        { style: { marginRight: '50px', marginTop: '5px' } },
-                        '3 days ago'
-                    )
-                ),
-                React.createElement('i', { onClick: this.editUser, className: 'fa fa-pencil', 'aria-hidden': 'true', style: { position: "absolute", top: "15px", right: "36px" } }),
-                React.createElement(
-                    'button',
-                    { type: 'button', className: 'close', 'aria-label': 'Close', style: { position: 'absolute', top: '13px', right: '15px' } },
-                    React.createElement(
-                        'span',
-                        { 'aria-hidden': 'true' },
-                        '\xD7'
-                    )
-                ),
-                React.createElement(
-                    'p',
-                    { className: 'mb-1', align: 'left' },
-                    this.state.isСhanging ? changeForm : description
-                )
-            );
-        }
-    }]);
+  }, {
+    key: 'editUser',
+    value: function editUser() {
+      this.setState(function (prevState) {
+        return {
+          isСhanging: !prevState.isСhanging
+        };
+      });
+      return false;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var description = React.createElement(
+        'p',
+        null,
+        this.state.email ? "Email: " + this.state.email : "",
+        ' ',
+        this.state.email ? Parser("<br/>") : "",
+        this.state.phoneNumber ? "Phone number: " + this.state.phoneNumber : "",
+        ' ',
+        this.state.phoneNumber ? Parser("<br/>") : "",
+        this.state.city ? "City: " + this.state.city : "",
+        this.state.city ? Parser("<br/>") : ""
+      );
 
-    return Task;
+      description = this.state.isOpened ? description : '';
+      var changeForm = React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'b',
+          null,
+          'Edit profile'
+        ),
+        React.createElement(
+          'form',
+          null,
+          React.createElement(
+            'div',
+            { className: 'form-row' },
+            React.createElement(
+              'div',
+              { className: 'form-group col-md-6' },
+              React.createElement(
+                'label',
+                { htmlFor: 'inputEmail4' },
+                'First Name'
+              ),
+              React.createElement('input', { onChange: this.onChangeHandler, name: 'firstName', type: 'text', className: 'form-control', id: 'inputEmail4', placeholder: 'Kirill' })
+            ),
+            React.createElement(
+              'div',
+              { className: 'form-group col-md-6' },
+              React.createElement(
+                'label',
+                { htmlFor: 'inputPassword4' },
+                'Surname'
+              ),
+              React.createElement('input', { onChange: this.onChangeHandler, name: 'lastName', type: 'text', className: 'form-control', id: 'inputPassword4', placeholder: 'Lapkovsky' })
+            )
+          ),
+          React.createElement(
+            'div',
+            { className: 'form-group' },
+            React.createElement(
+              'label',
+              { htmlFor: 'inputEmail' },
+              'Email'
+            ),
+            React.createElement('input', { onChange: this.onChangeHandler, type: 'email', name: 'email', id: 'inputEmail', className: 'form-control', placeholder: 'lapkovskyk@mail.ru' })
+          ),
+          React.createElement(
+            'div',
+            { className: 'form-row' },
+            React.createElement(
+              'div',
+              { className: 'form-group col-md-6' },
+              React.createElement(
+                'label',
+                { htmlFor: 'inputCity' },
+                'City'
+              ),
+              React.createElement('input', { onChange: this.onChangeHandler, name: 'city', type: 'text', className: 'form-control', id: 'inputCity', placeholder: 'New York City' })
+            ),
+            React.createElement(
+              'div',
+              { className: 'form-group col-md-6' },
+              React.createElement(
+                'label',
+                { htmlFor: 'inputZip' },
+                'Phone Number'
+              ),
+              React.createElement('input', { onChange: this.onChangeHandler, name: 'phoneNumber', type: 'text', className: 'form-control', id: 'inputZip', placeholder: '+ 375 25 545 55 09' })
+            )
+          ),
+          React.createElement(
+            'button',
+            { type: 'submit', onClick: this.onSubmitHandler, className: 'btn btn-primary btn-md' },
+            'Change'
+          )
+        )
+      );
+
+      return React.createElement(
+        'a',
+        { onClick: this.clickHandler, href: '#', className: 'list-group-item list-group-item-action flex-column align-items-start' },
+        React.createElement(
+          'div',
+          { className: 'd-flex w-100 justify-content-between' },
+          React.createElement(
+            'h5',
+            { className: 'mb-1' },
+            this.props.description.firstName ? this.props.description.firstName : "User",
+            ' ',
+            this.props.description.lastName ? this.props.description.lastName : " "
+          ),
+          React.createElement(
+            'small',
+            { style: { marginRight: '50px', marginTop: '5px' } },
+            '3 days ago'
+          )
+        ),
+        React.createElement('i', { onClick: this.editUser, className: 'fa fa-pencil', 'aria-hidden': 'true', style: { position: "absolute", top: "15px", right: "36px" } }),
+        React.createElement(
+          'button',
+          { type: 'button', className: 'close', 'aria-label': 'Close', style: { position: 'absolute', top: '13px', right: '15px' } },
+          React.createElement(
+            'span',
+            { 'aria-hidden': 'true' },
+            '\xD7'
+          )
+        ),
+        React.createElement(
+          'p',
+          { className: 'mb-1', align: 'left' },
+          this.state.isСhanging ? changeForm : description
+        )
+      );
+    }
+  }]);
+
+  return Task;
 }(React.Component);
 
 module.exports = Task;
