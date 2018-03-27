@@ -8,7 +8,7 @@ passport.serializeUser((user,done)=>{
 });
 
 passport.deserializeUser(function(id,done){
-    UserDao.read((user)=>{done(null,user);},id);
+    UserDao.read((err,user)=>{console.log('deserialize user'); done(null,user);},id);
 });
 
 passport.use(
@@ -24,7 +24,7 @@ passport.use(
             currentUser = currentUser[0];
             if(currentUser){
                 // already have this user
-                console.log('user already logged in: ', currentUser);
+                console.log('user already in database: ', currentUser);
                 done(null, currentUser);
             } else {
                 // if not, create user in our db

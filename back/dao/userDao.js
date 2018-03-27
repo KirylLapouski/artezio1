@@ -15,11 +15,12 @@ var UserDao = {
         },
 
         read:(callback,id)=>{
-            return User.find(typeof id == "number"?{_id: id}:id?id:{}).then((currentUser,err) => {
+             return User.find(typeof id == "string"?{_id: id}:id).then((currentUser,err) => {
+                currentUser = currentUser?(currentUser.length==1?currentUser[0]:currentUser):currentUser;
                 if(callback)
                     callback(err,currentUser);  
                 return currentUser;
-            },()=>{console.log("eyyyyk")});
+            });
         },
 
         //CHECK SHEMA VALIDATION

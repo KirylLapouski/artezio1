@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var expressSession = require('express-session');
+//var expressSession = require('express-session');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 var fs = require('fs');
@@ -28,6 +28,12 @@ var signUp = require('./services/signup');
 var config = require('./etc/config.json');
 
 var app = express();
+
+// set up session cookies
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [config.cookieKey]
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -85,11 +91,7 @@ mongoose.connect(config.db.remoteDbURI, (err) => {
   console.log('connected to mongodb');
 });
 
-// set up session cookies
-app.use(cookieSession({
-  maxAge: 24 * 60 * 60 * 1000,
-  keys: [config.cookieKey]
-}));
+
 
 /*var options = {
   key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),

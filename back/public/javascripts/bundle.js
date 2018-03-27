@@ -24095,18 +24095,15 @@ var LoginIn = function (_React$Component) {
     }, {
         key: 'onLinkedAuth',
         value: function onLinkedAuth(e) {
-            e.preventDefault();
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', config.rootUrl + config.auth + '/linkedin', false);
-
-            xhr.send();
-
-            if (xhr.status == 200) {
-                console.log('/user/' + xhr.responseText);
-
-                localStorage.setItem("enteredUser", JSON.stringify(xhr.responseText));
-                //   history.pushState(null, '', '/user/'+xhr.responseText);            
-            }
+            /* var xhr =  new XMLHttpRequest();
+             xhr.open('GET', config.rootUrl + config.auth +'/linkedin',false);
+             
+             xhr.send();
+               alert('/user/'+xhr.responseText);
+             if(xhr.status == 200){
+                   localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
+              //   history.pushState(null, '', '/user/'+xhr.responseText);            
+             }*/
         }
     }, {
         key: 'onSubmitHandler',
@@ -24189,7 +24186,7 @@ var LoginIn = function (_React$Component) {
                 React.createElement('br', null),
                 React.createElement(
                     'a',
-                    { role: 'button', onClick: this.onLinkedAuth, href: 'auth/linkedin', className: 'btn btn-light-blue btn-block btn-li waves-effect waves-light' },
+                    { role: 'button', href: 'auth/linkedin', className: 'btn btn-light-blue btn-block btn-li waves-effect waves-light' },
                     React.createElement('i', { className: 'fa fa-linkedin pr-1' }),
                     ' Linkedin'
                 ),
@@ -24287,7 +24284,12 @@ var TaskContainer = function (_React$Component) {
         key: "render",
         value: function render() {
 
-            var users = JSON.parse(this.getUsers()).slice();
+            var users = JSON.parse(this.getUsers());
+            if (users instanceof Array == false) {
+                console.log(111);
+                users = [users];
+            }
+            users = users.slice();
             var usersRes = users.map(function (user) {
                 return React.createElement(Task, { key: user._id, name: user._id, description: user });
             });
@@ -24385,6 +24387,7 @@ var Task = function (_React$Component) {
       xhr.setRequestHeader('Content-Type', 'application/json');
 
       //create request body (user changes)
+      //NEED TO CHANGE
       var user = { _id: "5ab76ecba107a21ea08d9b0b" };
       if (this.state.email) user.email = this.state.email;
       if (this.state.firstName) user.firstName = this.state.firstName;

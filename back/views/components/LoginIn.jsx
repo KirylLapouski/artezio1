@@ -24,18 +24,17 @@ class LoginIn extends React.Component{
           }));
     }
     onLinkedAuth(e){
-        e.preventDefault();
-        var xhr =  new XMLHttpRequest();
+       /* var xhr =  new XMLHttpRequest();
         xhr.open('GET', config.rootUrl + config.auth +'/linkedin',false);
         
         xhr.send();
 
+        alert('/user/'+xhr.responseText);
         if(xhr.status == 200){
-            console.log('/user/'+xhr.responseText);
 
             localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
          //   history.pushState(null, '', '/user/'+xhr.responseText);            
-        }
+        }*/
     }
     onSubmitHandler(e){
         e.preventDefault();
@@ -92,8 +91,8 @@ class LoginIn extends React.Component{
                 </div>
                
                 <button className="btn btn-lg btn-primary btn-block" type="submit" onSubmit={this.onSubmitHandler}>Sign in</button><br/>
-                <a role="button" onClick={this.onLinkedAuth} href="auth/linkedin" className="btn btn-light-blue btn-block btn-li waves-effect waves-light"><i className="fa fa-linkedin pr-1"></i> Linkedin</a>            
-                <a role="button" href="auth/facebook" className="btn btn-indigo btn-block btn-fb waves-effect waves-light"><i className="fa fa-facebook pr-1"></i> Facebook</a><br/>
+                <a role="button"  href="auth/linkedin" className="btn btn-light-blue btn-block btn-li waves-effect waves-light"><i className="fa fa-linkedin pr-1"></i> Linkedin</a>            
+                <a role="button"  href="auth/facebook" className="btn btn-indigo btn-block btn-fb waves-effect waves-light"><i className="fa fa-facebook pr-1"></i> Facebook</a><br/>
                 <div className="modal-footer pr-0">
                         <div className="options font-weight-light">
                             <p>Not a member?  <Link to="/signUp"><a href="#">Sign Up</a></Link></p>

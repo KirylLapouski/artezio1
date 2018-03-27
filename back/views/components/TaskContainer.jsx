@@ -20,8 +20,15 @@ class TaskContainer extends React.Component{
     }
        
     render(){
-                
-                var users = JSON.parse(this.getUsers()).slice();
+
+                var users = JSON.parse(this.getUsers());
+                if(users instanceof Array==false)
+                {
+                    console.log(111);
+                    users = [users];
+
+                }
+                users = users.slice();
                 var usersRes = users.map(function(user){
                     return <Task key={user._id} name={user._id} description={user} />
                 });

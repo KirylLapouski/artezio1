@@ -3,13 +3,6 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var config = require('../../etc/config');
 var UserDao = require('../../dao/userDao.js');
 
-passport.serializeUser((user,done)=>{
-    done(null,user.id);
-});
-
-passport.deserializeUser(function(id,done){
-    UserDao.read((user)=>{done(null,user);},userId);
-});
 
 passport.use(
     new FacebookStrategy({

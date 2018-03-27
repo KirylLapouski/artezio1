@@ -1,23 +1,10 @@
-﻿//REFACTOR ADMIN TO USERx`
-require('babel-register')({
-    presets:['react']
-});
-
-var express = require('express');
-var  XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-var fs = require('fs');
-var config = require('../etc/config.json');
-const cheerio = require('cheerio');
-var React = require('react');
-var ReactDOMServer = require('react-dom/server');
-var TaskContainer = require('../views/components/TaskContainer');
-var NavBar = require('./../views/components/NavBar');
-
+﻿var express = require('express');
 var router = express.Router();
+var authCheck = require('./utils/authCheck');
 var path = require('path');
-
 router.route('/:userName')
-.get(function(req,resp){
+.get(authCheck,function(req,resp){
+    console.log(req.user);
     resp.sendFile(path.join(__dirname+'/../public/index.html'));
     /*  var xhr = new XMLHttpRequest();
     xhr.open('GET', config.rootUrl+config.dbApi+'/'+req.body.userName, true);
