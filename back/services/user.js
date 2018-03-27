@@ -4,7 +4,6 @@ var authCheck = require('./utils/authCheck');
 var path = require('path');
 router.route('/:userName')
 .get(authCheck,function(req,resp){
-    console.log(req.user);
     resp.sendFile(path.join(__dirname+'/../public/index.html'));
     /*  var xhr = new XMLHttpRequest();
     xhr.open('GET', config.rootUrl+config.dbApi+'/'+req.body.userName, true);

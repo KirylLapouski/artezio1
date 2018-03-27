@@ -8,8 +8,25 @@ class Navbar extends React.Component{
         this.state={
             active: 0
         }
+
+        //get current user
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', config.rootUrl+config.dbApi+'/'+this.props.match.url.split('/')[1], true);
+        xhr.send();
+     
+        console.log(111);
+        
+    
+        xhr.onload = function(){
+            
+            if(this.status==200)
+            {
+                   localStorage.setItem('currentUser',this.responseText);
+            }
+        }
     }
-    render(){    
+    render(){   
+
         var menuItems = this.props.menuItems?this.props.menuItems.slice():[{name:'Home'},{name:'Profile'}];
         var component = this;
         var menuItemsRes = menuItems.map(function(item,index){
