@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const passport = require('passport');
-
+const config = require('../etc/config.json');
 // auth login
 router.get('/login', (req, res) => {
     res.render('login', { user: req.user });
@@ -40,7 +40,7 @@ router.get('/linkedin/redirect', passport.authenticate('linkedin'), (req, res) =
 });
 
 //local auth
-router.post('/local',passport.authenticate('local',{ failureRedirect: '/'}),(req,resp)=>{resp.send(req.body)});
+router.post('/local',passport.authenticate('local',{ failureRedirect: '/'}),(req,resp)=>{resp.redirect('/user/'+ req.user.id)});
 
 
 

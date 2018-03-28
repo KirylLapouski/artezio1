@@ -64,7 +64,7 @@ class TaskContainer extends React.Component{
             var paginatorNumbers = [];
             for(let i=0;i<this.props.length/10;i++){
                 paginatorNumbers[i] = <li key={i+1} onClick={this.onPaginatorClick} className="page-item">
-                                        <a data-key={i+1} class="page-link" href="#">{i+1}{this.state.paginatorCurrentNumber==i?Parser('<span class="sr-only">(current)</span>'):""}
+                                        <a data-key={i+1} className="page-link" href="#">{i+1}{this.state.paginatorCurrentNumber==i?Parser('<span class="sr-only">(current)</span>'):""}
                                         </a>
                                     </li>;
             }

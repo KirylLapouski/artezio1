@@ -8,13 +8,17 @@ class Navbar extends React.Component{
         this.state={
             active: 0
         }
+     
+      
+    }
 
-        //get current user
+    componentDidMount(){
+              //get current user
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', config.rootUrl+config.dbApi+'/'+this.props.match.url.split('/')[1], true);
+        console.log(config.rootUrl+config.dbApi+'/'+this.props.match.url.split('/')[2]);
+        xhr.open('GET', config.rootUrl+config.dbApi+'/'+this.props.match.url.split('/')[2], true);
         xhr.send();
      
-        console.log(111);
         
     
         xhr.onload = function(){
@@ -25,6 +29,7 @@ class Navbar extends React.Component{
             }
         }
     }
+
     render(){   
 
         var menuItems = this.props.menuItems?this.props.menuItems.slice():[{name:'Home'},{name:'Profile'}];
