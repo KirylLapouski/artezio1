@@ -31,7 +31,7 @@ router.get('/facebook/redirect', passport.authenticate('facebook'), (req, res) =
 });
 
 // auth with linkedin
-router.get('/linkedin', passport.authenticate('linkedin', {scope: ['r_basicprofile','r_emailaddress']}));
+router.get('/linkedin', passport.authenticate('linkedin', {scope: ['r_basicprofile','r_emailaddress','rw_company_admin','w_share']}));
 
 // callback route for linkedin to redirect to
 // hand control to passport to use code to grab profile info

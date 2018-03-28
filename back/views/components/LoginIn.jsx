@@ -19,9 +19,9 @@ class LoginIn extends React.Component{
    
     onChangeHandler(e){
         var {name,value} = e.target;
-        this.setState(prevState =>({
+        this.setState({
             [name]: value
-          }));
+          });
     }
     onLinkedAuth(e){
        /* var xhr =  new XMLHttpRequest();

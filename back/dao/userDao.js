@@ -16,6 +16,7 @@ var UserDao = {
 
         read:(callback,id)=>{
              return User.find(typeof id == "string"?{_id: id}:id).then((currentUser,err) => {
+                 console.log(currentUser);
                 currentUser = currentUser?(currentUser.length==1?currentUser[0]:currentUser):currentUser;
                 if(callback)
                     callback(err,currentUser);  
