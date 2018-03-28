@@ -19,6 +19,7 @@ passport.use(
         callbackURL: 'http://localhost:3000/auth/linkedin/redirect',
         profileFields: ['id', 'first-name', 'last-name', 'email-address']
     }, (accessToken, refreshToken, profile, done) => {
+        console.log(profile);
         // check if user already exists in our own db
         var checkUserExisting = function(currentUser) {
             currentUser = currentUser[0];
