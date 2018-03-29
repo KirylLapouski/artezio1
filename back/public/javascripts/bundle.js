@@ -377,10 +377,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
+ * Copyright 2013-2015, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 
@@ -23938,15 +23940,12 @@ var Navbar = function (_React$Component) {
         value: function componentDidMount() {
             //get current user
             var xhr = new XMLHttpRequest();
-            console.log(config.rootUrl + config.dbApi + '/' + this.props.match.url.split('/')[2]);
             xhr.open('GET', config.rootUrl + config.dbApi + '/' + this.props.match.url.split('/')[2], true);
             xhr.send();
 
             xhr.onload = function () {
 
-                if (this.status == 200) {
-                    localStorage.setItem('currentUser', this.responseText);
-                }
+                if (this.status == 200) localStorage.setItem('currentUser', this.responseText);
             };
         }
     }, {
@@ -24038,9 +24037,11 @@ var UserInfo = function (_React$Component) {
         value: function componentDidMount() {
             //load image there
 
-            this.setState({
-                userName: localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User"
-            });
+            setInterval(function () {
+                this.setState({
+                    userName: localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User"
+                });
+            }.bind(this), 500);
         }
     }, {
         key: "render",
@@ -24167,9 +24168,9 @@ var LoginIn = function (_React$Component) {
              xhr.open('GET', config.rootUrl + config.auth +'/linkedin',false);
              
              xhr.send();
-               alert('/user/'+xhr.responseText);
+              alert('/user/'+xhr.responseText);
              if(xhr.status == 200){
-                   localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
+                  localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
               //   history.pushState(null, '', '/user/'+xhr.responseText);            
              }*/
         }
@@ -24200,14 +24201,14 @@ var LoginIn = function (_React$Component) {
             
             xhr.send(JSON.stringify(body));
             var user = this.state.userName;
-              
+             
             
                // window.localStorage.setItem('enteredUser',user);
                 if(xhr.status==200){
                   
-                          //window.PROPS = this.responseText;
+                         //window.PROPS = this.responseText;
                     //console.log( window.PROPS);
-                  }else{
+                 }else{
                     
                     //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
                 }      */
@@ -24511,16 +24512,20 @@ var Task = function (_React$Component) {
     _this.state = {
       isOpened: false,
       isСhanging: false,
+      isDeleted: false,
+      _id: _this.props.description._id,
       email: _this.props.description.email,
       firstName: _this.props.description.firstName,
       lastName: _this.props.description.lastName,
       phoneNumber: _this.props.description.phoneNumber,
       city: _this.props.description.city
     };
+
     _this.clickHandler = _this.clickHandler.bind(_this);
     _this.editUser = _this.editUser.bind(_this);
     _this.onChangeHandler = _this.onChangeHandler.bind(_this);
     _this.onSubmitHandler = _this.onSubmitHandler.bind(_this);
+    _this.deleteTask = _this.deleteTask.bind(_this);
     return _this;
   }
 
@@ -24555,7 +24560,7 @@ var Task = function (_React$Component) {
 
       //create request body (user changes)
       //NEED TO CHANGE
-      var user = { _id: "5ab76ecba107a21ea08d9b0b" };
+      var user = { _id: this.props.description._id };
       if (this.state.email) user.email = this.state.email;
       if (this.state.firstName) user.firstName = this.state.firstName;
       if (this.state.lastName) user.lastName = this.state.lastName;
@@ -24584,18 +24589,32 @@ var Task = function (_React$Component) {
       xhr.setRequestHeader('Content-Type', 'application/json');
       
       xhr.send(JSON.stringify({mail:this.state.mail, password:this.state.password}));
-        if(xhr.status == 200){
+       if(xhr.status == 200){
           localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
           console.log('/user/'+xhr.responseText);
       }*/
     }
-    /* deleteTask(e){
-       e.preventDefault();
-       e.stopPropagation();
-         var xhr = new XMLHttpRequest();
-       xhr.open('DELETE', config.rootUrl+config.dbApi+'/'+req.body.userName);
-       }*/
+  }, {
+    key: 'deleteTask',
+    value: function deleteTask(e) {
+      e.preventDefault();
+      e.stopPropagation();
 
+      var xhr = new XMLHttpRequest();
+      xhr.open('DELETE', config.rootUrl + config.dbApi + '/' + this.props.description._id, true);
+
+      xhr.send();
+
+      var self = this;
+      xhr.onload = function () {
+        if (this.status == 200) {
+          self.setState({
+            isDeleted: true
+          });
+          this.responseText;
+        }
+      };
+    }
   }, {
     key: 'editUser',
     value: function editUser() {
@@ -24702,7 +24721,7 @@ var Task = function (_React$Component) {
 
       return React.createElement(
         'a',
-        { onClick: this.clickHandler, href: '#', className: 'list-group-item list-group-item-action flex-column align-items-start' },
+        { style: { display: this.state.isDeleted ? "none" : "block" }, onClick: this.clickHandler, href: '#', className: 'list-group-item list-group-item-action flex-column align-items-start' },
         React.createElement(
           'div',
           { className: 'd-flex w-100 justify-content-between' },
@@ -24722,7 +24741,7 @@ var Task = function (_React$Component) {
         React.createElement('i', { onClick: this.editUser, className: 'fa fa-pencil', 'aria-hidden': 'true', style: { position: "absolute", top: "15px", right: "36px" } }),
         React.createElement(
           'button',
-          { type: 'button', className: 'close', 'aria-label': 'Close', style: { position: 'absolute', top: '13px', right: '15px' } },
+          { onClick: this.deleteTask, type: 'button', className: 'close', 'aria-label': 'Close', style: { position: 'absolute', top: '13px', right: '15px' } },
           React.createElement(
             'span',
             { 'aria-hidden': 'true' },

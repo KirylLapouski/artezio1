@@ -15,7 +15,6 @@ class Navbar extends React.Component{
     componentDidMount(){
               //get current user
         var xhr = new XMLHttpRequest();
-        console.log(config.rootUrl+config.dbApi+'/'+this.props.match.url.split('/')[2]);
         xhr.open('GET', config.rootUrl+config.dbApi+'/'+this.props.match.url.split('/')[2], true);
         xhr.send();
      
@@ -24,9 +23,8 @@ class Navbar extends React.Component{
         xhr.onload = function(){
             
             if(this.status==200)
-            {
                    localStorage.setItem('currentUser',this.responseText);
-            }
+            
         }
     }
 

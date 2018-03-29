@@ -11,9 +11,10 @@ class UserInfo extends React.Component{
     componentDidMount(){
         //load image there
 
-        this.setState({
+       setInterval(function(){this.setState({
             userName:   localStorage.getItem("currentUser")?JSON.parse(localStorage.getItem("currentUser")).firstName:"User"
-        })
+        })}.bind(this),500);
+
     }
     render(){
         return (<a className="navbar-brand" href="#" style={{position:'absolute', right:'70px',top:'10px'}}>
