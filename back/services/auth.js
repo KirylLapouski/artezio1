@@ -9,6 +9,7 @@ router.get('/login', (req, res) => {
 // auth logout
 router.get('/logout', (req, res) => {
     console.log('loggin out');
+    
     req.logout();
     res.redirect('/');
 });
