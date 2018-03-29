@@ -1,6 +1,8 @@
 var React = require("react");
 var config = require('../../etc/config.json');
 var UserInfo = require('./UserInfo.jsx');
+var ReactRouterDom = require('react-router-dom')
+var Link = ReactRouterDom.Link;
 class Navbar extends React.Component{
     constructor(props){
         super(props);
@@ -30,13 +32,13 @@ class Navbar extends React.Component{
 
     render(){   
 
-        var menuItems = this.props.menuItems?this.props.menuItems.slice():[{name:'Home'},{name:'Profile'}];
+        var menuItems = this.props.menuItems?this.props.menuItems.slice():[{name:'Home',path:'/'},{name:'Profile',path:'/user/profile'}];
         var component = this;
         var menuItemsRes = menuItems.map(function(item,index){
         var classValue = (component.state.active == index)? 'nav-link active':'nav-link';
                 return <li key={index} className="nav-item">
-                <a className={classValue}  href="#">{item.name}
-                </a>
+                <Link to={item.path}><a className={classValue} >{item.name}
+                </a></Link>
                 </li>;
     });
     

@@ -5,10 +5,12 @@ var Route = ReactRouterDOM.Route;
 var LoginIn = require("../LoginIn.jsx");
 var TaskContainer = require("../TaskContainer.jsx");
 var SignUp = require("../SignUp.jsx");
+var Profile = require("../Profile.jsx");
 class Main extends React.Component{
     render(){
         return <Switch>
                     <Route exact   path="/" component={LoginIn}/>
+                    <Route exact path="/user/profile" component={Profile} />                    
                     <Route exact path="/user/:userName" component={TaskContainer} />
                     <Route exact path="/signUp" component={SignUp} />
                 </Switch>

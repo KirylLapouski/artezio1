@@ -7,7 +7,7 @@ class Header extends React.Component{
     render(){
       return  <header>
                 <Switch>
-                    <Route path='/user/:userName' component={NavBar}/>
+                    <Route path='/user' component={NavBar}/>
                 </Switch>
             </header>;
     }

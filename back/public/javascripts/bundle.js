@@ -377,12 +377,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-2015, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 
@@ -534,12 +532,71 @@ module.exports = invariant;
 
 /***/ }),
 /* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(52);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserRouter", function() { return __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(56);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "HashRouter", function() { return __WEBPACK_IMPORTED_MODULE_1__HashRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(32);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(58);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(61);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NavLink", function() { return __WEBPACK_IMPORTED_MODULE_4__NavLink__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(64);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Prompt", function() { return __WEBPACK_IMPORTED_MODULE_5__Prompt__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(66);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(33);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(19);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return __WEBPACK_IMPORTED_MODULE_8__Router__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(72);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StaticRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__StaticRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(74);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(76);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "matchPath", function() { return __WEBPACK_IMPORTED_MODULE_11__matchPath__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(77);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_12__withRouter__["a"]; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","auth":"/auth","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -633,65 +690,6 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 	return to;
 };
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(52);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserRouter", function() { return __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(56);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "HashRouter", function() { return __WEBPACK_IMPORTED_MODULE_1__HashRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(32);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(58);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(61);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NavLink", function() { return __WEBPACK_IMPORTED_MODULE_4__NavLink__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(64);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Prompt", function() { return __WEBPACK_IMPORTED_MODULE_5__Prompt__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(66);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(33);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(19);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return __WEBPACK_IMPORTED_MODULE_8__Router__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(72);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StaticRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__StaticRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(74);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(76);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "matchPath", function() { return __WEBPACK_IMPORTED_MODULE_11__matchPath__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(77);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_12__withRouter__["a"]; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /***/ }),
@@ -2853,7 +2851,7 @@ module.exports = {
 
 var ReactDOM = __webpack_require__(41);
 var React = __webpack_require__(0);
-var ReactRouterDOM = __webpack_require__(9);
+var ReactRouterDOM = __webpack_require__(7);
 var Router = ReactRouterDOM.BrowserRouter;
 var Route = ReactRouterDOM.Route;
 var Switch = ReactRouterDOM.Switch;
@@ -2928,7 +2926,7 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),l=__webpack_require__(23),B=__webpack_require__(8),C=__webpack_require__(5),ba=__webpack_require__(24),da=__webpack_require__(25),ea=__webpack_require__(26),fa=__webpack_require__(27),ia=__webpack_require__(28),D=__webpack_require__(12);
+var aa=__webpack_require__(0),l=__webpack_require__(23),B=__webpack_require__(9),C=__webpack_require__(5),ba=__webpack_require__(24),da=__webpack_require__(25),ea=__webpack_require__(26),fa=__webpack_require__(27),ia=__webpack_require__(28),D=__webpack_require__(12);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -3161,7 +3159,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(8),n=__webpack_require__(12),p=__webpack_require__(5),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
+var m=__webpack_require__(9),n=__webpack_require__(12),p=__webpack_require__(5),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
 function y(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var z={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function A(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}A.prototype.isReactComponent={};A.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?y("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};A.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function B(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}function C(){}C.prototype=A.prototype;var D=B.prototype=new C;D.constructor=B;m(D,A.prototype);D.isPureReactComponent=!0;function E(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}var F=E.prototype=new C;F.constructor=E;m(F,A.prototype);F.unstable_isAsyncReactComponent=!0;F.render=function(){return this.props.children};var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
@@ -3197,7 +3195,7 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(8);
+var _assign = __webpack_require__(9);
 var emptyObject = __webpack_require__(12);
 var invariant = __webpack_require__(6);
 var warning = __webpack_require__(13);
@@ -4622,7 +4620,7 @@ var React = __webpack_require__(0);
 var invariant = __webpack_require__(6);
 var warning = __webpack_require__(13);
 var ExecutionEnvironment = __webpack_require__(23);
-var _assign = __webpack_require__(8);
+var _assign = __webpack_require__(9);
 var emptyFunction = __webpack_require__(5);
 var EventListener = __webpack_require__(24);
 var getActiveElement = __webpack_require__(25);
@@ -20238,7 +20236,7 @@ BrowserRouter.propTypes = {
 var emptyFunction = __webpack_require__(5);
 var invariant = __webpack_require__(6);
 var warning = __webpack_require__(13);
-var assign = __webpack_require__(8);
+var assign = __webpack_require__(9);
 
 var ReactPropTypesSecret = __webpack_require__(16);
 var checkPropTypes = __webpack_require__(15);
@@ -23868,7 +23866,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var React = __webpack_require__(0);
 var NavBar = __webpack_require__(82);
-var ReactRouterDOM = __webpack_require__(9);
+var ReactRouterDOM = __webpack_require__(7);
 var Switch = ReactRouterDOM.Switch;
 var Route = ReactRouterDOM.Route;
 
@@ -23890,7 +23888,7 @@ var Header = function (_React$Component) {
                 React.createElement(
                     Switch,
                     null,
-                    React.createElement(Route, { path: "/user/:userName", component: NavBar })
+                    React.createElement(Route, { path: "/user", component: NavBar })
                 )
             );
         }
@@ -23917,8 +23915,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var config = __webpack_require__(7);
+var config = __webpack_require__(8);
 var UserInfo = __webpack_require__(83);
+var ReactRouterDom = __webpack_require__(7);
+var Link = ReactRouterDom.Link;
 
 var Navbar = function (_React$Component) {
     _inherits(Navbar, _React$Component);
@@ -23952,7 +23952,7 @@ var Navbar = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            var menuItems = this.props.menuItems ? this.props.menuItems.slice() : [{ name: 'Home' }, { name: 'Profile' }];
+            var menuItems = this.props.menuItems ? this.props.menuItems.slice() : [{ name: 'Home', path: '/' }, { name: 'Profile', path: '/user/profile' }];
             var component = this;
             var menuItemsRes = menuItems.map(function (item, index) {
                 var classValue = component.state.active == index ? 'nav-link active' : 'nav-link';
@@ -23960,9 +23960,13 @@ var Navbar = function (_React$Component) {
                     'li',
                     { key: index, className: 'nav-item' },
                     React.createElement(
-                        'a',
-                        { className: classValue, href: '#' },
-                        item.name
+                        Link,
+                        { to: item.path },
+                        React.createElement(
+                            'a',
+                            { className: classValue },
+                            item.name
+                        )
                     )
                 );
             });
@@ -24016,7 +24020,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var config = __webpack_require__(7);
+var config = __webpack_require__(8);
 
 var UserInfo = function (_React$Component) {
     _inherits(UserInfo, _React$Component);
@@ -24037,11 +24041,11 @@ var UserInfo = function (_React$Component) {
         value: function componentDidMount() {
             //load image there
 
-            setInterval(function () {
+            setTimeout(function () {
                 this.setState({
                     userName: localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User"
                 });
-            }.bind(this), 500);
+            }.bind(this), 200);
         }
     }, {
         key: "render",
@@ -24049,6 +24053,7 @@ var UserInfo = function (_React$Component) {
             return React.createElement(
                 "a",
                 { className: "navbar-brand", href: "#", style: { position: 'absolute', right: '70px', top: '10px' } },
+                "Hello, ",
                 this.state.userName,
                 React.createElement("img", { src: config.rootUrl + "/images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
             );
@@ -24076,12 +24081,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var ReactRouterDOM = __webpack_require__(9);
+var ReactRouterDOM = __webpack_require__(7);
 var Switch = ReactRouterDOM.Switch;
 var Route = ReactRouterDOM.Route;
 var LoginIn = __webpack_require__(85);
 var TaskContainer = __webpack_require__(86);
 var SignUp = __webpack_require__(98);
+var Profile = __webpack_require__(99);
 
 var Main = function (_React$Component) {
     _inherits(Main, _React$Component);
@@ -24099,6 +24105,7 @@ var Main = function (_React$Component) {
                 Switch,
                 null,
                 React.createElement(Route, { exact: true, path: "/", component: LoginIn }),
+                React.createElement(Route, { exact: true, path: "/user/profile", component: Profile }),
                 React.createElement(Route, { exact: true, path: "/user/:userName", component: TaskContainer }),
                 React.createElement(Route, { exact: true, path: "/signUp", component: SignUp })
             );
@@ -24128,9 +24135,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var ReactRouterDom = __webpack_require__(9);
+var ReactRouterDom = __webpack_require__(7);
 var Link = ReactRouterDom.Link;
-var config = __webpack_require__(7);
+var config = __webpack_require__(8);
 
 var LoginIn = function (_React$Component) {
     _inherits(LoginIn, _React$Component);
@@ -24168,9 +24175,9 @@ var LoginIn = function (_React$Component) {
              xhr.open('GET', config.rootUrl + config.auth +'/linkedin',false);
              
              xhr.send();
-              alert('/user/'+xhr.responseText);
+               alert('/user/'+xhr.responseText);
              if(xhr.status == 200){
-                  localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
+                   localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
               //   history.pushState(null, '', '/user/'+xhr.responseText);            
              }*/
         }
@@ -24201,14 +24208,14 @@ var LoginIn = function (_React$Component) {
             
             xhr.send(JSON.stringify(body));
             var user = this.state.userName;
-             
+              
             
                // window.localStorage.setItem('enteredUser',user);
                 if(xhr.status==200){
                   
-                         //window.PROPS = this.responseText;
+                          //window.PROPS = this.responseText;
                     //console.log( window.PROPS);
-                 }else{
+                  }else{
                     
                     //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
                 }      */
@@ -24319,7 +24326,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var React = __webpack_require__(0);
 var Task = __webpack_require__(87);
-var config = __webpack_require__(7);
+var config = __webpack_require__(8);
 var Parser = __webpack_require__(36);
 
 var TaskContainer = function (_React$Component) {
@@ -24498,7 +24505,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var config = __webpack_require__(7);
+var config = __webpack_require__(8);
 var Parser = __webpack_require__(36);
 
 var Task = function (_React$Component) {
@@ -24589,7 +24596,7 @@ var Task = function (_React$Component) {
       xhr.setRequestHeader('Content-Type', 'application/json');
       
       xhr.send(JSON.stringify({mail:this.state.mail, password:this.state.password}));
-       if(xhr.status == 200){
+        if(xhr.status == 200){
           localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
           console.log('/user/'+xhr.responseText);
       }*/
@@ -26533,9 +26540,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var ReactRouterDom = __webpack_require__(9);
+var ReactRouterDom = __webpack_require__(7);
 var Link = ReactRouterDom.Link;
-var config = __webpack_require__(7);
+var config = __webpack_require__(8);
 
 var SignUp = function (_React$Component) {
     _inherits(SignUp, _React$Component);
@@ -26623,6 +26630,129 @@ var SignUp = function (_React$Component) {
 }(React.Component);
 
 module.exports = SignUp;
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var React = __webpack_require__(0);
+
+var Profile = function (_React$Component) {
+    _inherits(Profile, _React$Component);
+
+    function Profile(props) {
+        _classCallCheck(this, Profile);
+
+        var _this = _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
+
+        _this.state = {
+            userName: "User"
+        };
+        return _this;
+    }
+
+    _createClass(Profile, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            //load image there
+
+
+            setTimeout(function () {
+                this.setState({
+                    userName: localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User"
+                });
+            }.bind(this), 0);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+
+            return React.createElement(
+                "div",
+                { "class": "card card-cascade wider" },
+                React.createElement(
+                    "div",
+                    { "class": "view overlay" },
+                    React.createElement("img", { src: "https://mdbootstrap.com/img/Photos/Horizontal/People/6-col/img%20%283%29.jpg", "class": "img-fluid" }),
+                    React.createElement(
+                        "a",
+                        { href: "#!" },
+                        React.createElement("div", { "class": "mask rgba-white-slight" })
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { "class": "card-body text-center" },
+                    React.createElement(
+                        "h4",
+                        { "class": "card-title" },
+                        React.createElement(
+                            "strong",
+                            null,
+                            this.state.userName
+                        )
+                    ),
+                    React.createElement(
+                        "h5",
+                        { "class": "indigo-text" },
+                        React.createElement(
+                            "strong",
+                            null,
+                            "Photographer"
+                        )
+                    ),
+                    React.createElement(
+                        "p",
+                        { "class": "card-text" },
+                        "Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totam rem aperiam. "
+                    ),
+                    React.createElement(
+                        "a",
+                        { "class": "icons-sm li-ic" },
+                        React.createElement(
+                            "i",
+                            { "class": "fa fa-linkedin" },
+                            " "
+                        )
+                    ),
+                    React.createElement(
+                        "a",
+                        { "class": "icons-sm tw-ic" },
+                        React.createElement(
+                            "i",
+                            { "class": "fa fa-twitter" },
+                            " "
+                        )
+                    ),
+                    React.createElement(
+                        "a",
+                        { "class": "icons-sm fb-ic" },
+                        React.createElement(
+                            "i",
+                            { "class": "fa fa-facebook" },
+                            " "
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Profile;
+}(React.Component);
+
+module.exports = Profile;
 
 /***/ })
 /******/ ]);

@@ -11,9 +11,9 @@ class UserInfo extends React.Component{
     componentDidMount(){
         //load image there
 
-       setInterval(function(){this.setState({
+       setTimeout(function(){this.setState({
             userName:   localStorage.getItem("currentUser")?JSON.parse(localStorage.getItem("currentUser")).firstName:"User"
-        })}.bind(this),0);
+        })}.bind(this),200);
 
     }
     render(){
