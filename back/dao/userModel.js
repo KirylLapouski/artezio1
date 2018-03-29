@@ -10,7 +10,8 @@ var userSchema = new Schema({
     phoneNumber: String,
     city: String,
     facebookId: String,
-    linkedinId: String
+    linkedinId: String,
+    img: { data: Buffer, contentType: String }    
 });
 
 const User = mongoose.model('user', userSchema);

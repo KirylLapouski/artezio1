@@ -3,6 +3,7 @@
     "dbApi": "/db/users",
     "userCabinet": "/user",
     "adminCabinet":"/admin",
+    "userProfile":"/user/profile",
     "auth":"/auth",
     "db": {
         "remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico",

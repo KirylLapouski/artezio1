@@ -472,66 +472,6 @@ module.exports = emptyFunction;
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var validateFormat = function validateFormat(format) {};
-
-if (process.env.NODE_ENV !== 'production') {
-  validateFormat = function validateFormat(format) {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  };
-}
-
-function invariant(condition, format, a, b, c, d, e, f) {
-  validateFormat(format);
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(format.replace(/%s/g, function () {
-        return args[argIndex++];
-      }));
-      error.name = 'Invariant Violation';
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-}
-
-module.exports = invariant;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -590,10 +530,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports) {
 
-module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","auth":"/auth","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
+module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","userProfile":"/user/profile","auth":"/auth","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var validateFormat = function validateFormat(format) {};
+
+if (process.env.NODE_ENV !== 'production') {
+  validateFormat = function validateFormat(format) {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  };
+}
+
+function invariant(condition, format, a, b, c, d, e, f) {
+  validateFormat(format);
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return args[argIndex++];
+      }));
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+}
+
+module.exports = invariant;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 9 */
@@ -1014,7 +1014,7 @@ var locationsAreEqual = function locationsAreEqual(a, b) {
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(6);
+  var invariant = __webpack_require__(8);
   var warning = __webpack_require__(13);
   var ReactPropTypesSecret = __webpack_require__(16);
   var loggedTypeFailures = {};
@@ -2504,7 +2504,7 @@ module.exports = {
 
 var _prodInvariant = __webpack_require__(92);
 
-var invariant = __webpack_require__(6);
+var invariant = __webpack_require__(8);
 
 function checkMask(value, bitmask) {
   return (value & bitmask) === bitmask;
@@ -2851,7 +2851,7 @@ module.exports = {
 
 var ReactDOM = __webpack_require__(41);
 var React = __webpack_require__(0);
-var ReactRouterDOM = __webpack_require__(7);
+var ReactRouterDOM = __webpack_require__(6);
 var Router = ReactRouterDOM.BrowserRouter;
 var Route = ReactRouterDOM.Route;
 var Switch = ReactRouterDOM.Switch;
@@ -3197,7 +3197,7 @@ if (process.env.NODE_ENV !== "production") {
 
 var _assign = __webpack_require__(9);
 var emptyObject = __webpack_require__(12);
-var invariant = __webpack_require__(6);
+var invariant = __webpack_require__(8);
 var warning = __webpack_require__(13);
 var emptyFunction = __webpack_require__(5);
 var checkPropTypes = __webpack_require__(15);
@@ -4617,7 +4617,7 @@ if (process.env.NODE_ENV !== "production") {
 'use strict';
 
 var React = __webpack_require__(0);
-var invariant = __webpack_require__(6);
+var invariant = __webpack_require__(8);
 var warning = __webpack_require__(13);
 var ExecutionEnvironment = __webpack_require__(23);
 var _assign = __webpack_require__(9);
@@ -20234,7 +20234,7 @@ BrowserRouter.propTypes = {
 
 
 var emptyFunction = __webpack_require__(5);
-var invariant = __webpack_require__(6);
+var invariant = __webpack_require__(8);
 var warning = __webpack_require__(13);
 var assign = __webpack_require__(9);
 
@@ -20784,7 +20784,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 var emptyFunction = __webpack_require__(5);
-var invariant = __webpack_require__(6);
+var invariant = __webpack_require__(8);
 var ReactPropTypesSecret = __webpack_require__(16);
 
 module.exports = function() {
@@ -23866,7 +23866,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var React = __webpack_require__(0);
 var NavBar = __webpack_require__(82);
-var ReactRouterDOM = __webpack_require__(7);
+var ReactRouterDOM = __webpack_require__(6);
 var Switch = ReactRouterDOM.Switch;
 var Route = ReactRouterDOM.Route;
 
@@ -23915,9 +23915,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var config = __webpack_require__(8);
+var config = __webpack_require__(7);
 var UserInfo = __webpack_require__(83);
-var ReactRouterDom = __webpack_require__(7);
+var ReactRouterDom = __webpack_require__(6);
 var Link = ReactRouterDom.Link;
 
 var Navbar = function (_React$Component) {
@@ -24020,7 +24020,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var config = __webpack_require__(8);
+var ReactRouterDom = __webpack_require__(6);
+var Link = ReactRouterDom.Link;
+var config = __webpack_require__(7);
 
 var UserInfo = function (_React$Component) {
     _inherits(UserInfo, _React$Component);
@@ -24051,11 +24053,16 @@ var UserInfo = function (_React$Component) {
         key: "render",
         value: function render() {
             return React.createElement(
-                "a",
-                { className: "navbar-brand", href: "#", style: { position: 'absolute', right: '70px', top: '10px' } },
-                "Hello, ",
-                this.state.userName,
-                React.createElement("img", { src: config.rootUrl + "/images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
+                Link,
+                { to: config.userProfile },
+                React.createElement(
+                    "a",
+                    { className: "navbar-brand", href: "#", style: { position: 'absolute', right: '70px', top: '10px' } },
+                    "Hello, ",
+                    this.state.userName,
+                    React.createElement("img", { src: config.rootUrl + "/images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
+                ),
+                " "
             );
         }
     }]);
@@ -24081,13 +24088,14 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var ReactRouterDOM = __webpack_require__(7);
+var ReactRouterDOM = __webpack_require__(6);
 var Switch = ReactRouterDOM.Switch;
 var Route = ReactRouterDOM.Route;
 var LoginIn = __webpack_require__(85);
 var TaskContainer = __webpack_require__(86);
 var SignUp = __webpack_require__(98);
 var Profile = __webpack_require__(99);
+var config = __webpack_require__(7);
 
 var Main = function (_React$Component) {
     _inherits(Main, _React$Component);
@@ -24105,7 +24113,7 @@ var Main = function (_React$Component) {
                 Switch,
                 null,
                 React.createElement(Route, { exact: true, path: "/", component: LoginIn }),
-                React.createElement(Route, { exact: true, path: "/user/profile", component: Profile }),
+                React.createElement(Route, { exact: true, path: config.userProfile, component: Profile }),
                 React.createElement(Route, { exact: true, path: "/user/:userName", component: TaskContainer }),
                 React.createElement(Route, { exact: true, path: "/signUp", component: SignUp })
             );
@@ -24135,9 +24143,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var ReactRouterDom = __webpack_require__(7);
+var ReactRouterDom = __webpack_require__(6);
 var Link = ReactRouterDom.Link;
-var config = __webpack_require__(8);
+var config = __webpack_require__(7);
 
 var LoginIn = function (_React$Component) {
     _inherits(LoginIn, _React$Component);
@@ -24326,7 +24334,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var React = __webpack_require__(0);
 var Task = __webpack_require__(87);
-var config = __webpack_require__(8);
+var config = __webpack_require__(7);
 var Parser = __webpack_require__(36);
 
 var TaskContainer = function (_React$Component) {
@@ -24505,7 +24513,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var config = __webpack_require__(8);
+var config = __webpack_require__(7);
 var Parser = __webpack_require__(36);
 
 var Task = function (_React$Component) {
@@ -26540,9 +26548,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var ReactRouterDom = __webpack_require__(7);
+var ReactRouterDom = __webpack_require__(6);
 var Link = ReactRouterDom.Link;
-var config = __webpack_require__(8);
+var config = __webpack_require__(7);
 
 var SignUp = function (_React$Component) {
     _inherits(SignUp, _React$Component);
@@ -26742,6 +26750,34 @@ var Profile = function (_React$Component) {
                             "i",
                             { "class": "fa fa-facebook" },
                             " "
+                        )
+                    )
+                ),
+                "//CHECK REQ",
+                React.createElement(
+                    "form",
+                    null,
+                    React.createElement(
+                        "div",
+                        { "class": "md-form" },
+                        React.createElement(
+                            "div",
+                            { "class": "file-field" },
+                            React.createElement(
+                                "div",
+                                { "class": "btn btn-primary btn-sm float-left" },
+                                React.createElement(
+                                    "span",
+                                    null,
+                                    "Choose file"
+                                ),
+                                React.createElement("input", { type: "file" })
+                            ),
+                            React.createElement(
+                                "div",
+                                { "class": "file-path-wrapper" },
+                                React.createElement("input", { "class": "file-path validate", type: "text", placeholder: "Upload your file" })
+                            )
                         )
                     )
                 )

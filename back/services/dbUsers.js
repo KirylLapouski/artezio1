@@ -2,11 +2,17 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var fs = require("fs");
 var userDao = require('../dao/userDao');
-
+var user = require('../dao/userModel.js')
 var router = express.Router();
 var jsonParser = bodyParser.json();
 //CHECK CONNECTION
 
+router.get("/images", function(req,res) {
+    user.findOne({ "email": "check" },function(err,user) {
+       res.set("Content-Type", "image/jpg");
+       res.send(user.img.data);
+    });
+});
 router.route("/")
 .get(function(req,resp){
     userDao.read(function(err,data){
@@ -14,7 +20,6 @@ router.route("/")
 
 
         console.log('send all users:');
-        console.log(JSON.stringify(data));
         resp.send(JSON.stringify(data));
     });
    
@@ -33,7 +38,6 @@ router.route("/")
 
 
         console.log('send added user:');
-        console.log(data);
         resp.send(JSON.stringify(data));
     })
 })
@@ -65,7 +69,6 @@ router.route("/:id")
         //HANDLE ERR
 
         console.log('send user:');
-        console.log(data);
         resp.send(JSON.stringify(data));
     },req.params.id);
 })
@@ -74,15 +77,16 @@ router.route("/:id")
         //HANDLE ERR
 
         console.log('send deleted user');
-        console.log(data);
         resp.send(JSON.stringify(data.result));
     })
 });
 
-router.route("/:name/:task")
+
+/*router.route("/:name/:task")
 .delete( function(req,resp){
     
 }
 )
+*/
 
 module.exports = router;
