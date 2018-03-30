@@ -20,10 +20,11 @@ passport.use(
         profileFields: ['id', 'first-name', 'last-name', 'email-address']
     }, (accessToken, refreshToken, profile, done) => {
         // check if user already exists in our own db
-        var checkUserExisting = function(currentUser) {
+        var checkUserExisting = function(err,currentUser) {
+
             if(currentUser){
-                
-                currentUser = currentUser[0];
+                if(currentUser instanceof Array)
+                    currentUser = currentUser[0];
                 
                 // already have this user
                 console.log('user already in database: ', currentUser);
@@ -36,12 +37,12 @@ passport.use(
                     lastName: profile.name.familyName,
                     linkedinId: profile.id,
                 },(err,newUser) => {
-                    console.log('created new user: ', newUser);
+                    console.log('created new user: ');
                     done(null, newUser);
                 })
             }
         }
 
-        UserDao.read(checkUserExisting,{linkedinId: profile.id});
+        UserDao.read(checkUserExisting,{linkedinId:'5N0xV-BWcv'});
     })
 );

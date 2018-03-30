@@ -10,7 +10,9 @@ passport.use(new LocalStrategy({
   },
     function(req,mail, password, done) {
         UserDao.read( function(err, user) {
-            user=user[0];
+
+            if(user instanceof Array)
+              user=user[0];
             if (err) { return done(err); }
             if (!user) {
               return done(null, false, { message: 'Incorrect mail.' });

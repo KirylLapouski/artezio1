@@ -377,12 +377,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-2015, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 
@@ -24055,19 +24053,22 @@ var UserInfo = function (_React$Component) {
             }.bind(this), 300);
         }
     }, {
+        key: "onLogOut",
+        value: function onLogOut() {
+            console.log(111);
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', '/auth/logout', true);
+            xhr.send();
+
+            xhr.onload = function () {
+                localStorage.removeItem("currentUser");
+            };
+        }
+    }, {
         key: "render",
         value: function render() {
-            //<div class="btn-group">
-            //<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Basic dropdown</button>
 
-            // <div class="dropdown-menu">
-            //    <a class="dropdown-item" href="#">Action</a>
-            //    <a class="dropdown-item" href="#">Another action</a>
-            //    <a class="dropdown-item" href="#">Something else here</a>
-            //    <div class="dropdown-divider"></div>
-            //    <a class="dropdown-item" href="#">Separated link</a>
-            //</div>
-            //</div>
             return React.createElement(
                 "div",
                 { className: "navbar-brand dropdown-toggle", style: { position: 'absolute', right: '70px', top: '10px', cursor: "pointer" }, "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
@@ -24082,7 +24083,7 @@ var UserInfo = function (_React$Component) {
                     React.createElement("div", { className: "dropdown-divider" }),
                     React.createElement(
                         "a",
-                        { className: "dropdown-item", href: config.logOut },
+                        { onClick: this.onLogOut, className: "dropdown-item" },
                         "Log out"
                     )
                 ),
@@ -24209,9 +24210,9 @@ var LoginIn = function (_React$Component) {
              xhr.open('GET', config.rootUrl + config.auth +'/linkedin',false);
              
              xhr.send();
-              alert('/user/'+xhr.responseText);
+               alert('/user/'+xhr.responseText);
              if(xhr.status == 200){
-                  localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
+                   localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
               //   history.pushState(null, '', '/user/'+xhr.responseText);            
              }*/
         }
@@ -24242,14 +24243,14 @@ var LoginIn = function (_React$Component) {
             
             xhr.send(JSON.stringify(body));
             var user = this.state.userName;
-             
+              
             
                // window.localStorage.setItem('enteredUser',user);
                 if(xhr.status==200){
                   
-                         //window.PROPS = this.responseText;
+                          //window.PROPS = this.responseText;
                     //console.log( window.PROPS);
-                 }else{
+                  }else{
                     
                     //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
                 }      */
@@ -24630,7 +24631,7 @@ var Task = function (_React$Component) {
       xhr.setRequestHeader('Content-Type', 'application/json');
       
       xhr.send(JSON.stringify({mail:this.state.mail, password:this.state.password}));
-       if(xhr.status == 200){
+        if(xhr.status == 200){
           localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
           console.log('/user/'+xhr.responseText);
       }*/
@@ -24652,7 +24653,6 @@ var Task = function (_React$Component) {
           self.setState({
             isDeleted: true
           });
-          this.responseText;
         }
       };
     }

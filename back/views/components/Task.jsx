@@ -94,13 +94,14 @@ class Task extends React.Component {
 
         xhr.send()
 
+        
         var self = this;
         xhr.onload = function(){
           if(this.status == 200){
             self.setState({
               isDeleted: true
             })
-            this.responseText;
+
           }
         }
 
@@ -160,7 +161,6 @@ class Task extends React.Component {
           <span aria-hidden="true">&times;</span>
         </button>
         <p className="mb-1" align="left">{this.state.isСhanging?changeForm:description}</p>
-       
       </a>);
     }
 }
