@@ -26611,17 +26611,12 @@ var SignUp = function (_React$Component) {
     }, {
         key: 'onSubmitHandler',
         value: function onSubmitHandler(e) {
-            var _this2 = this;
 
-            console.log(e.target);
-            xhr.onload = function () {
-                console.log(_this2);
-            };
-            debugger;
+            var formData = new FormData(document.forms.signUp);
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/signUp/local', true);
 
-            xhr.send();
+            xhr.send(formData);
 
             if (this.state.password !== this.state.passwordConfirm) {
                 //WRONG PASSWORD
@@ -26633,7 +26628,7 @@ var SignUp = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 'form',
-                { method: 'POST', action: '/signUp/local', style: { width: "330px" } },
+                { name: 'signUp', method: 'POST', action: '/signUp/local', style: { width: "330px" } },
                 React.createElement(
                     'p',
                     { className: 'h4 text-center mb-4' },

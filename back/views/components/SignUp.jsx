@@ -24,14 +24,11 @@ class SignUp extends React.Component{
     }
     onSubmitHandler(e){
 
-        console.log(e.target);
-        xhr.onload = ()=>{
-            console.log(this);
-        }
+        var formData = new FormData(document.forms.signUp);
         var xhr = new XMLHttpRequest();
         xhr.open('POST','/signUp/local',true);
 
-        xhr.send();
+        xhr.send(formData);
 
       
         if(this.state.password!== this.state.passwordConfirm)
@@ -43,7 +40,7 @@ class SignUp extends React.Component{
     }
     render(){
         return (    
-        <form method="POST" action="/signUp/local" style={{width: "330px"}}>
+        <form name="signUp" method="POST" action="/signUp/local" style={{width: "330px"}}>
             <p className="h4 text-center mb-4">Sign up</p>
         
            
