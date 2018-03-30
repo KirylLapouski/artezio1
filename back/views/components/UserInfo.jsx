@@ -31,10 +31,15 @@ class UserInfo extends React.Component{
     //    <a class="dropdown-item" href="#">Separated link</a>
     //</div>
     //</div>
-        return <Link className="navbar-brand" href="#" style={{position:'absolute', right:'70px',top:'10px'}} to={config.userProfile}  >
+        return <div className="navbar-brand dropdown-toggle" style={{position:'absolute', right:'70px',top:'10px',cursor: "pointer"}}   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <div className="dropdown-menu">
+                        <a href={config.userProfile} className="dropdown-item">Profile</a>
+                        <div className="dropdown-divider"></div>
+                        <a className="dropdown-item" href={config.logOut}>Log out</a>
+                    </div>
                     Hello, {this.state.userName}
                     <img src={config.rootUrl+"/images/user.png"} width="30" height="30" className="d-inline-block align-top rounded-circle" alt="" style={{marginLeft:'3px'}}></img>                    
-                     </Link>
+                     </div>
     }
 }
 module.exports = UserInfo;

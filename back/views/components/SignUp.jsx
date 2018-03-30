@@ -23,6 +23,17 @@ class SignUp extends React.Component{
           }));
     }
     onSubmitHandler(e){
+
+        console.log(e.target);
+        xhr.onload = ()=>{
+            console.log(this);
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST','/signUp/local',true);
+
+        xhr.send();
+
+      
         if(this.state.password!== this.state.passwordConfirm)
         {
             //WRONG PASSWORD
@@ -46,11 +57,11 @@ class SignUp extends React.Component{
         
             <br/>
 
-            <label htmlFor="defaultFormRegisterPasswordEx" className="grey-text">COnfirm your password</label>
-            <input onChange={this.onChangeHandler} type="password" id="defaultFormRegisterPasswordEx" name="passwordConfirm" className="form-control"/>
+            <label htmlFor="defaultFormRegisterCheckPassword" className="grey-text">COnfirm your password</label>
+            <input onChange={this.onChangeHandler} type="password" id="defaultFormRegisterCheckPassword" name="passwordConfirm" className="form-control"/>
             
             <div className="text-center mt-4">
-                <button className="btn-primary btn" onSubmit={this.onSubmitHandler} type="submit">Register</button>
+                <button className="btn-primary btn" onClick={this.onSubmitHandler} type="submit">Register</button>
             </div>
 
         </form>);

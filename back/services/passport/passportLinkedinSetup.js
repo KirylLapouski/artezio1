@@ -21,8 +21,10 @@ passport.use(
     }, (accessToken, refreshToken, profile, done) => {
         // check if user already exists in our own db
         var checkUserExisting = function(currentUser) {
-            currentUser = currentUser[0];
             if(currentUser){
+                
+                currentUser = currentUser[0];
+                
                 // already have this user
                 console.log('user already in database: ', currentUser);
                 done(null, currentUser);
@@ -40,6 +42,6 @@ passport.use(
             }
         }
 
-        UserDao.read(null,{linkedinId: profile.id}).then(checkUserExisting);
+        UserDao.read(checkUserExisting,{linkedinId: profile.id});
     })
 );

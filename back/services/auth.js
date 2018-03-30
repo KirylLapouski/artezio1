@@ -10,6 +10,8 @@ router.get('/login', (req, res) => {
 router.get('/logout', (req, res) => {
     console.log('loggin out');
     
+    res.clearCookie('session',{path:'/'});
+    res.clearCookie('session.sig',{path:'/'});
     req.logout();
     res.redirect('/');
 });

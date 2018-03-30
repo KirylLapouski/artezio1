@@ -476,7 +476,7 @@ module.exports = emptyFunction;
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","userProfile":"/user/profile","auth":"/auth","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
+module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","userProfile":"/user/profile","auth":"/auth","logOut":"/auth/logout","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
 
 /***/ }),
 /* 7 */
@@ -24069,8 +24069,23 @@ var UserInfo = function (_React$Component) {
             //</div>
             //</div>
             return React.createElement(
-                Link,
-                { className: "navbar-brand", href: "#", style: { position: 'absolute', right: '70px', top: '10px' }, to: config.userProfile },
+                "div",
+                { className: "navbar-brand dropdown-toggle", style: { position: 'absolute', right: '70px', top: '10px', cursor: "pointer" }, "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
+                React.createElement(
+                    "div",
+                    { className: "dropdown-menu" },
+                    React.createElement(
+                        "a",
+                        { href: config.userProfile, className: "dropdown-item" },
+                        "Profile"
+                    ),
+                    React.createElement("div", { className: "dropdown-divider" }),
+                    React.createElement(
+                        "a",
+                        { className: "dropdown-item", href: config.logOut },
+                        "Log out"
+                    )
+                ),
                 "Hello, ",
                 this.state.userName,
                 React.createElement("img", { src: config.rootUrl + "/images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
@@ -26596,6 +26611,18 @@ var SignUp = function (_React$Component) {
     }, {
         key: 'onSubmitHandler',
         value: function onSubmitHandler(e) {
+            var _this2 = this;
+
+            console.log(e.target);
+            xhr.onload = function () {
+                console.log(_this2);
+            };
+            debugger;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/signUp/local', true);
+
+            xhr.send();
+
             if (this.state.password !== this.state.passwordConfirm) {
                 //WRONG PASSWORD
                 e.preventDefault();
@@ -26628,16 +26655,16 @@ var SignUp = function (_React$Component) {
                 React.createElement('br', null),
                 React.createElement(
                     'label',
-                    { htmlFor: 'defaultFormRegisterPasswordEx', className: 'grey-text' },
+                    { htmlFor: 'defaultFormRegisterCheckPassword', className: 'grey-text' },
                     'COnfirm your password'
                 ),
-                React.createElement('input', { onChange: this.onChangeHandler, type: 'password', id: 'defaultFormRegisterPasswordEx', name: 'passwordConfirm', className: 'form-control' }),
+                React.createElement('input', { onChange: this.onChangeHandler, type: 'password', id: 'defaultFormRegisterCheckPassword', name: 'passwordConfirm', className: 'form-control' }),
                 React.createElement(
                     'div',
                     { className: 'text-center mt-4' },
                     React.createElement(
                         'button',
-                        { className: 'btn-primary btn', onSubmit: this.onSubmitHandler, type: 'submit' },
+                        { className: 'btn-primary btn', onClick: this.onSubmitHandler, type: 'submit' },
                         'Register'
                     )
                 )
