@@ -7,12 +7,7 @@ var router = express.Router();
 var jsonParser = bodyParser.json();
 //CHECK CONNECTION
 
-router.get("/images", function(req,res) {
-    user.findOne({ "email": "check" },function(err,user) {
-       res.set("Content-Type", "image/jpg");
-       res.send(user.img.data);
-    });
-});
+
 router.route("/")
 .get(function(req,resp){
     userDao.read(function(err,data){
@@ -62,6 +57,7 @@ router.route("/")
         });
 });
 
+
 router.route("/:id")
 .get( function(req,resp){
 
@@ -81,7 +77,19 @@ router.route("/:id")
     })
 });
 
-
+router.route("/:id/image")
+.get( function(req,res) {
+    console.log("send user image");
+    user.findOne({ _id:req.params.id },function(err,user) {
+       res.set("Content-Type", "image/jpg");
+       res.send(user.img.data);
+    });
+})
+.post(
+    function(req,res){
+        console.log("save user image");
+    }
+)
 /*router.route("/:name/:task")
 .delete( function(req,resp){
     

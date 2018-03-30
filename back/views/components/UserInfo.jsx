@@ -7,15 +7,16 @@ class UserInfo extends React.Component{
         super(props);
 
         this.state={
-            userName: "User"
+            userName: "User",
         }
     }
     componentDidMount(){
         //load image there
+        this.setState( {userId:JSON.parse(localStorage.getItem('currentUser'))._id});       
 
        setTimeout(function(){this.setState({
-            userName:   localStorage.getItem("currentUser")?JSON.parse(localStorage.getItem("currentUser")).firstName:"User"
-        })}.bind(this),200);
+            userName:   localStorage.getItem("currentUser")?JSON.parse(localStorage.getItem("currentUser")).firstName:"User",
+        })}.bind(this),300);
 
     }
     render(){
@@ -30,10 +31,10 @@ class UserInfo extends React.Component{
     //    <a class="dropdown-item" href="#">Separated link</a>
     //</div>
     //</div>
-        return <Link to={config.userProfile}><a className="navbar-brand" href="#" style={{position:'absolute', right:'70px',top:'10px'}}>
+        return <Link className="navbar-brand" href="#" style={{position:'absolute', right:'70px',top:'10px'}} to={config.userProfile}  >
                     Hello, {this.state.userName}
                     <img src={config.rootUrl+"/images/user.png"} width="30" height="30" className="d-inline-block align-top rounded-circle" alt="" style={{marginLeft:'3px'}}></img>                    
-                </a> </Link>
+                     </Link>
     }
 }
 module.exports = UserInfo;

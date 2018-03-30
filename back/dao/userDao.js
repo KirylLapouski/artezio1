@@ -6,7 +6,7 @@ var UserDao = {
         //ERROR HANDLER
         create:(user,callback)=>{
            return new User(user).save().then((newUser,err) => {
-                console.log('created new user: ', newUser);
+                console.log('created new user: ');
                 // do something
                 callback(err,newUser)
 
@@ -16,7 +16,6 @@ var UserDao = {
 
         read:(callback,id)=>{
              return User.find(typeof id == "string"?{_id: id}:id).then((currentUser,err) => {
-                 console.log(currentUser);
                 currentUser = currentUser?(currentUser.length==1?currentUser[0]:currentUser):currentUser;
                 if(callback)
                     callback(err,currentUser);  

@@ -377,10 +377,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
+ * Copyright 2013-2015, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 
@@ -472,6 +474,12 @@ module.exports = emptyFunction;
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","userProfile":"/user/profile","auth":"/auth","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
+
+/***/ }),
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -528,12 +536,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","userProfile":"/user/profile","auth":"/auth","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
 
 /***/ }),
 /* 8 */
@@ -2851,7 +2853,7 @@ module.exports = {
 
 var ReactDOM = __webpack_require__(41);
 var React = __webpack_require__(0);
-var ReactRouterDOM = __webpack_require__(6);
+var ReactRouterDOM = __webpack_require__(7);
 var Router = ReactRouterDOM.BrowserRouter;
 var Route = ReactRouterDOM.Route;
 var Switch = ReactRouterDOM.Switch;
@@ -23866,7 +23868,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var React = __webpack_require__(0);
 var NavBar = __webpack_require__(82);
-var ReactRouterDOM = __webpack_require__(6);
+var ReactRouterDOM = __webpack_require__(7);
 var Switch = ReactRouterDOM.Switch;
 var Route = ReactRouterDOM.Route;
 
@@ -23888,7 +23890,7 @@ var Header = function (_React$Component) {
                 React.createElement(
                     Switch,
                     null,
-                    React.createElement(Route, { path: "/user", component: NavBar })
+                    React.createElement(Route, { path: "/user/:id", component: NavBar })
                 )
             );
         }
@@ -23915,9 +23917,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var config = __webpack_require__(7);
+var config = __webpack_require__(6);
 var UserInfo = __webpack_require__(83);
-var ReactRouterDom = __webpack_require__(6);
+var ReactRouterDom = __webpack_require__(7);
 var Link = ReactRouterDom.Link;
 
 var Navbar = function (_React$Component) {
@@ -23929,7 +23931,8 @@ var Navbar = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this, props));
 
         _this.state = {
-            active: 0
+            active: 0,
+            userId: ''
         };
 
         return _this;
@@ -23938,21 +23941,26 @@ var Navbar = function (_React$Component) {
     _createClass(Navbar, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            //get current user
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', config.rootUrl + config.dbApi + '/' + this.props.match.url.split('/')[2], true);
-            xhr.send();
 
-            xhr.onload = function () {
+            if (!localStorage.getItem('currentUser')) {
+                console.log("try to save user to local storage");
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', config.rootUrl + config.dbApi + '/' + this.props.match.url.split('/')[2], true);
+                xhr.send();
 
-                if (this.status == 200) localStorage.setItem('currentUser', this.responseText);
-            };
+                xhr.onload = function () {
+
+                    if (this.status == 200) {
+                        localStorage.setItem('currentUser', this.responseText);
+                    }
+                };
+            }
         }
     }, {
         key: 'render',
         value: function render() {
 
-            var menuItems = this.props.menuItems ? this.props.menuItems.slice() : [{ name: 'Home', path: '/' }, { name: 'Profile', path: '/user/profile' }];
+            var menuItems = this.props.menuItems ? this.props.menuItems.slice() : [{ name: 'Home', path: '/' }, { name: 'Profile', path: config.userProfile }];
             var component = this;
             var menuItemsRes = menuItems.map(function (item, index) {
                 var classValue = component.state.active == index ? 'nav-link active' : 'nav-link';
@@ -23961,12 +23969,8 @@ var Navbar = function (_React$Component) {
                     { key: index, className: 'nav-item' },
                     React.createElement(
                         Link,
-                        { to: item.path },
-                        React.createElement(
-                            'a',
-                            { className: classValue },
-                            item.name
-                        )
+                        { className: classValue, to: item.path },
+                        item.name
                     )
                 );
             });
@@ -24020,9 +24024,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var ReactRouterDom = __webpack_require__(6);
+var ReactRouterDom = __webpack_require__(7);
 var Link = ReactRouterDom.Link;
-var config = __webpack_require__(7);
+var config = __webpack_require__(6);
 
 var UserInfo = function (_React$Component) {
     _inherits(UserInfo, _React$Component);
@@ -24042,27 +24046,34 @@ var UserInfo = function (_React$Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             //load image there
+            this.setState({ userId: JSON.parse(localStorage.getItem('currentUser'))._id });
 
             setTimeout(function () {
                 this.setState({
                     userName: localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User"
                 });
-            }.bind(this), 200);
+            }.bind(this), 300);
         }
     }, {
         key: "render",
         value: function render() {
+            //<div class="btn-group">
+            //<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Basic dropdown</button>
+
+            // <div class="dropdown-menu">
+            //    <a class="dropdown-item" href="#">Action</a>
+            //    <a class="dropdown-item" href="#">Another action</a>
+            //    <a class="dropdown-item" href="#">Something else here</a>
+            //    <div class="dropdown-divider"></div>
+            //    <a class="dropdown-item" href="#">Separated link</a>
+            //</div>
+            //</div>
             return React.createElement(
                 Link,
-                { to: config.userProfile },
-                React.createElement(
-                    "a",
-                    { className: "navbar-brand", href: "#", style: { position: 'absolute', right: '70px', top: '10px' } },
-                    "Hello, ",
-                    this.state.userName,
-                    React.createElement("img", { src: config.rootUrl + "/images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
-                ),
-                " "
+                { className: "navbar-brand", href: "#", style: { position: 'absolute', right: '70px', top: '10px' }, to: config.userProfile },
+                "Hello, ",
+                this.state.userName,
+                React.createElement("img", { src: config.rootUrl + "/images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
             );
         }
     }]);
@@ -24088,14 +24099,14 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var ReactRouterDOM = __webpack_require__(6);
+var ReactRouterDOM = __webpack_require__(7);
 var Switch = ReactRouterDOM.Switch;
 var Route = ReactRouterDOM.Route;
 var LoginIn = __webpack_require__(85);
 var TaskContainer = __webpack_require__(86);
 var SignUp = __webpack_require__(98);
 var Profile = __webpack_require__(99);
-var config = __webpack_require__(7);
+var config = __webpack_require__(6);
 
 var Main = function (_React$Component) {
     _inherits(Main, _React$Component);
@@ -24143,9 +24154,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var ReactRouterDom = __webpack_require__(6);
+var ReactRouterDom = __webpack_require__(7);
 var Link = ReactRouterDom.Link;
-var config = __webpack_require__(7);
+var config = __webpack_require__(6);
 
 var LoginIn = function (_React$Component) {
     _inherits(LoginIn, _React$Component);
@@ -24183,9 +24194,9 @@ var LoginIn = function (_React$Component) {
              xhr.open('GET', config.rootUrl + config.auth +'/linkedin',false);
              
              xhr.send();
-               alert('/user/'+xhr.responseText);
+              alert('/user/'+xhr.responseText);
              if(xhr.status == 200){
-                   localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
+                  localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
               //   history.pushState(null, '', '/user/'+xhr.responseText);            
              }*/
         }
@@ -24216,14 +24227,14 @@ var LoginIn = function (_React$Component) {
             
             xhr.send(JSON.stringify(body));
             var user = this.state.userName;
-              
+             
             
                // window.localStorage.setItem('enteredUser',user);
                 if(xhr.status==200){
                   
-                          //window.PROPS = this.responseText;
+                         //window.PROPS = this.responseText;
                     //console.log( window.PROPS);
-                  }else{
+                 }else{
                     
                     //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
                 }      */
@@ -24334,7 +24345,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var React = __webpack_require__(0);
 var Task = __webpack_require__(87);
-var config = __webpack_require__(7);
+var config = __webpack_require__(6);
 var Parser = __webpack_require__(36);
 
 var TaskContainer = function (_React$Component) {
@@ -24513,7 +24524,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var config = __webpack_require__(7);
+var config = __webpack_require__(6);
 var Parser = __webpack_require__(36);
 
 var Task = function (_React$Component) {
@@ -24604,7 +24615,7 @@ var Task = function (_React$Component) {
       xhr.setRequestHeader('Content-Type', 'application/json');
       
       xhr.send(JSON.stringify({mail:this.state.mail, password:this.state.password}));
-        if(xhr.status == 200){
+       if(xhr.status == 200){
           localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
           console.log('/user/'+xhr.responseText);
       }*/
@@ -26548,9 +26559,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var ReactRouterDom = __webpack_require__(6);
+var ReactRouterDom = __webpack_require__(7);
 var Link = ReactRouterDom.Link;
-var config = __webpack_require__(7);
+var config = __webpack_require__(6);
 
 var SignUp = function (_React$Component) {
     _inherits(SignUp, _React$Component);
@@ -26655,6 +26666,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
+var config = __webpack_require__(6);
 
 var Profile = function (_React$Component) {
     _inherits(Profile, _React$Component);
@@ -26671,7 +26683,7 @@ var Profile = function (_React$Component) {
     }
 
     _createClass(Profile, [{
-        key: "componentDidMount",
+        key: 'componentDidMount',
         value: function componentDidMount() {
             //load image there
 
@@ -26680,103 +26692,114 @@ var Profile = function (_React$Component) {
                 this.setState({
                     userName: localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User"
                 });
-            }.bind(this), 0);
+            }.bind(this), 300);
+
+            setTimeout(function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', config.rootUrl + config.dbApi + '/' + JSON.parse(localStorage.getItem("currentUser"))._id + '/image', false);
+
+                xhr.send();
+
+                if (xhr.status == 200) {
+                    console.log(xhr.responseText);
+                }
+            }, 300);
         }
     }, {
-        key: "render",
+        key: 'render',
         value: function render() {
 
             return React.createElement(
-                "div",
-                { "class": "card card-cascade wider" },
+                'div',
+                { className: 'card card-cascade wider' },
                 React.createElement(
-                    "div",
-                    { "class": "view overlay" },
-                    React.createElement("img", { src: "https://mdbootstrap.com/img/Photos/Horizontal/People/6-col/img%20%283%29.jpg", "class": "img-fluid" }),
+                    'div',
+                    { className: 'view overlay' },
+                    React.createElement('img', { src: 'https://mdbootstrap.com/img/Photos/Horizontal/People/6-col/img%20%283%29.jpg', 'class': 'img-fluid' }),
                     React.createElement(
-                        "a",
-                        { href: "#!" },
-                        React.createElement("div", { "class": "mask rgba-white-slight" })
+                        'a',
+                        { href: '#!' },
+                        React.createElement('div', { 'class': 'mask rgba-white-slight' })
                     )
                 ),
                 React.createElement(
-                    "div",
-                    { "class": "card-body text-center" },
+                    'div',
+                    { className: 'card-body text-center' },
                     React.createElement(
-                        "h4",
-                        { "class": "card-title" },
+                        'h4',
+                        { className: 'card-title' },
                         React.createElement(
-                            "strong",
+                            'strong',
                             null,
                             this.state.userName
                         )
                     ),
                     React.createElement(
-                        "h5",
-                        { "class": "indigo-text" },
+                        'h5',
+                        { className: 'indigo-text' },
                         React.createElement(
-                            "strong",
+                            'strong',
                             null,
-                            "Photographer"
+                            'Photographer'
                         )
                     ),
                     React.createElement(
-                        "p",
-                        { "class": "card-text" },
-                        "Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totam rem aperiam. "
+                        'p',
+                        { className: 'card-text' },
+                        'Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totam rem aperiam. '
                     ),
                     React.createElement(
-                        "a",
-                        { "class": "icons-sm li-ic" },
+                        'a',
+                        { className: 'icons-sm li-ic' },
                         React.createElement(
-                            "i",
-                            { "class": "fa fa-linkedin" },
-                            " "
+                            'i',
+                            { className: 'fa fa-linkedin' },
+                            ' '
                         )
                     ),
                     React.createElement(
-                        "a",
-                        { "class": "icons-sm tw-ic" },
+                        'a',
+                        { className: 'icons-sm tw-ic' },
                         React.createElement(
-                            "i",
-                            { "class": "fa fa-twitter" },
-                            " "
+                            'i',
+                            { className: 'fa fa-twitter' },
+                            ' '
                         )
                     ),
                     React.createElement(
-                        "a",
-                        { "class": "icons-sm fb-ic" },
+                        'a',
+                        { className: 'icons-sm fb-ic' },
                         React.createElement(
-                            "i",
-                            { "class": "fa fa-facebook" },
-                            " "
+                            'i',
+                            { className: 'fa fa-facebook' },
+                            ' '
                         )
                     )
                 ),
-                "//CHECK REQ",
+                '//CHECK REQ',
                 React.createElement(
-                    "form",
+                    'form',
                     null,
                     React.createElement(
-                        "div",
-                        { "class": "md-form" },
+                        'div',
+                        { className: 'md-form' },
                         React.createElement(
-                            "div",
-                            { "class": "file-field" },
+                            'div',
+                            { className: 'file-field' },
                             React.createElement(
-                                "div",
-                                { "class": "btn btn-primary btn-sm float-left" },
+                                'div',
+                                { className: 'btn btn-primary btn-sm float-left' },
                                 React.createElement(
-                                    "span",
+                                    'span',
                                     null,
-                                    "Choose file"
+                                    'Choose file'
                                 ),
-                                React.createElement("input", { type: "file" })
+                                React.createElement('input', { type: 'file' })
                             ),
                             React.createElement(
-                                "div",
-                                { "class": "file-path-wrapper" },
-                                React.createElement("input", { "class": "file-path validate", type: "text", placeholder: "Upload your file" })
+                                'div',
+                                { className: 'file-path-wrapper' },
+                                React.createElement('input', { className: 'file-path validate', type: 'text', placeholder: 'Upload your file' })
                             )
                         )
                     )

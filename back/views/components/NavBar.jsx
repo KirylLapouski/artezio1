@@ -1,3 +1,4 @@
+
 var React = require("react");
 var config = require('../../etc/config.json');
 var UserInfo = require('./UserInfo.jsx');
@@ -8,37 +9,40 @@ class Navbar extends React.Component{
         super(props);
 
         this.state={
-            active: 0
+            active: 0,
+            userId: ''
         }
      
       
     }
 
     componentDidMount(){
-              //get current user
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', config.rootUrl+config.dbApi+'/'+this.props.match.url.split('/')[2], true);
-        xhr.send();
-     
         
-    
-        xhr.onload = function(){
-            
-            if(this.status==200)
-                   localStorage.setItem('currentUser',this.responseText);
-            
+        if(!localStorage.getItem('currentUser')){
+            console.log("try to save user to local storage")
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', config.rootUrl+config.dbApi+'/'+this.props.match.url.split('/')[2], true);
+            xhr.send();        
+        
+            xhr.onload = function(){
+                
+                if(this.status==200){
+                    localStorage.setItem('currentUser',this.responseText);
+                }
+                
+            }
         }
     }
 
     render(){   
 
-        var menuItems = this.props.menuItems?this.props.menuItems.slice():[{name:'Home',path:'/'},{name:'Profile',path:'/user/profile'}];
+        var menuItems = this.props.menuItems?this.props.menuItems.slice():[{name:'Home',path:'/'},{name:'Profile',path:config.userProfile}];
         var component = this;
         var menuItemsRes = menuItems.map(function(item,index){
         var classValue = (component.state.active == index)? 'nav-link active':'nav-link';
                 return <li key={index} className="nav-item">
-                <Link to={item.path}><a className={classValue} >{item.name}
-                </a></Link>
+                <Link className={classValue}  to={item.path}>{item.name}
+                </Link>
                 </li>;
     });
     
