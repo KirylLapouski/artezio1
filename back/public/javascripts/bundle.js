@@ -24045,15 +24045,11 @@ var UserInfo = function (_React$Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             //load image there
-            setTimeout(function () {
-                this.setState({ userId: JSON.parse(localStorage.getItem('currentUser'))._id });
-            }, 0);
+            this.setState({ userId: JSON.parse(localStorage.getItem('currentUser'))._id });
 
-            setTimeout(function () {
-                this.setState({
-                    userName: localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User"
-                });
-            }.bind(this), 300);
+            this.setState({
+                userName: localStorage.getItem("currentUser").firstName ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User"
+            });
         }
     }, {
         key: "onLogOut",
@@ -24233,7 +24229,7 @@ var LoginIn = function (_React$Component) {
                 xhr.send();
 
                 xhr.onload = function () {
-                    if (xhr.status == 200) localStorage.setItem("enteredUser", JSON.stringify(xhr.responseText));
+                    if (xhr.status == 200) localStorage.setItem("currentUser", xhr.responseText);
                 };
                 //   history.pushState(null, '', '/user/'+xhr.responseText);            
             };

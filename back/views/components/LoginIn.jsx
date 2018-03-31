@@ -49,7 +49,7 @@ class LoginIn extends React.Component{
 
             xhr.onload = ()=>{
                 if(xhr.status==200)
-                    localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
+                    localStorage.setItem("currentUser",xhr.responseText);
             }
         //   history.pushState(null, '', '/user/'+xhr.responseText);            
         }
