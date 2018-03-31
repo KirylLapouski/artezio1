@@ -26667,6 +26667,8 @@ var SignUp = function (_React$Component) {
             xhr.send(JSON.stringify({ email: this.state.email, password: this.state.password }));
 
             xhr.onload = function () {
+                console.log(1111);
+                console.log(xhr.status);
                 xhr.open('GET', config.rootUrl + config.dbApi + "/getEnteredUser", true);
                 xhr.send();
 

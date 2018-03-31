@@ -36,15 +36,19 @@ class SignUp extends React.Component{
         xhr.send(JSON.stringify({email:this.state.email,password:this.state.password}));
 
         xhr.onload = ()=>{
-            xhr.open('GET',config.rootUrl+config.dbApi+"/getEnteredUser",true);
-            xhr.send();
+            if(xhr.status==200){
+                xhr.open('GET',config.rootUrl+config.dbApi+"/getEnteredUser",true);
+                xhr.send();
 
-            xhr.onload = ()=>{
-                if(xhr.status==200)
-                {
-                    localStorage.setItem("currentUser",xhr.responseText);
-                    document.location.href = "/user/" + JSON.parse(xhr.responseText)._id;
+                xhr.onload = ()=>{
+                    if(xhr.status==200)
+                    {
+                        localStorage.setItem("currentUser",xhr.responseText);
+                        document.location.href = "/user/" + JSON.parse(xhr.responseText)._id;
+                    }
                 }
+            }else{
+                
             }
         }
       
