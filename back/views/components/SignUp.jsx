@@ -40,28 +40,39 @@ class SignUp extends React.Component{
     }
     render(){
         return (    
-        <form name="signUp" method="POST" action="/signUp/local" style={{width: "330px"}}>
-            <p className="h4 text-center mb-4">Sign up</p>
-        
-           
-            <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">Your email</label>
-            <input onChange={this.onChangeHandler} type="email" id="defaultFormRegisterEmailEx" name="email" className="form-control"/>
-            
-            <br/>
-        
-            <label htmlFor="defaultFormRegisterPasswordEx" className="grey-text">Your password</label>
-            <input onChange={this.onChangeHandler} type="password" id="defaultFormRegisterPasswordEx" name="password" className="form-control"/>
-        
-            <br/>
+            <div className="w-100 h-100" style={{backgroundImage: "url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg')", backgroundRepeat:"no-repeat", backgroundSize: "cover"}}>
 
-            <label htmlFor="defaultFormRegisterCheckPassword" className="grey-text">COnfirm your password</label>
-            <input onChange={this.onChangeHandler} type="password" id="defaultFormRegisterCheckPassword" name="passwordConfirm" className="form-control"/>
-            
-            <div className="text-center mt-4">
-                <button className="btn-primary btn" onClick={this.onSubmitHandler} type="submit">Register</button>
-            </div>
+                <div className="w-100 h-100 mask rgba-black-light d-flex justify-content-center align-items-center">
+                
+                    <div className="container" style={{display:"flex",justifyContent:"center"}}>
+                
+                        <div className="row wow fadeIn" style={{visibility: "visible", animationName: "fadeIn"}}>
+                            <form name="signUp" method="POST" action="/signUp/local" style={{width: "370px",padding:"30px 30px", borderRadius: "5px",backgroundColor:"#fff",color:"#4f4f4f"}}>
+                                <p className="h4 text-center mb-4">Sign up</p>
+                            
+                            
+                                <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">Your email</label>
+                                <input onChange={this.onChangeHandler} type="email" id="defaultFormRegisterEmailEx" name="email" className="form-control"/>
+                                
+                                <br/>
+                            
+                                <label htmlFor="defaultFormRegisterPasswordEx" className="grey-text">Your password</label>
+                                <input onChange={this.onChangeHandler} type="password" id="defaultFormRegisterPasswordEx" name="password" className="form-control"/>
+                            
+                                <br/>
 
-        </form>);
+                                <label htmlFor="defaultFormRegisterCheckPassword" className="grey-text">COnfirm your password</label>
+                                <input onChange={this.onChangeHandler} type="password" id="defaultFormRegisterCheckPassword" name="passwordConfirm" className="form-control"/>
+                                
+                                <div className="text-center mt-4">
+                                    <button className="btn-primary btn" onClick={this.onSubmitHandler} type="submit">Register</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>);
     }
 }
 

@@ -23837,7 +23837,7 @@ var App = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 "div",
-                null,
+                { "class": "w-100 h-100", style: { display: "flex", justifyContent: "center", alignItems: "center" } },
                 React.createElement(Header, null),
                 React.createElement(Main, null)
             );
@@ -24054,7 +24054,8 @@ var UserInfo = function (_React$Component) {
         }
     }, {
         key: "onLogOut",
-        value: function onLogOut() {
+        value: function onLogOut(e) {
+            e.preventDefault();
             console.log(111);
             var xhr = new XMLHttpRequest();
 
@@ -24259,81 +24260,131 @@ var LoginIn = function (_React$Component) {
         key: 'render',
         value: function render() {
             return React.createElement(
-                'form',
-                { method: 'POST', action: '/auth/local', className: 'form-signin' },
-                React.createElement('img', { className: 'mb-4', src: 'https://getbootstrap.com/assets/brand/bootstrap-solid.svg', alt: '', width: '72', height: '72' }),
-                React.createElement(
-                    'h1',
-                    { className: 'h3 mb-3 font-weight-normal' },
-                    'Please sign in'
-                ),
-                React.createElement(
-                    'label',
-                    { htmlFor: 'inputEmail', className: 'sr-only' },
-                    'User name'
-                ),
-                React.createElement('input', { onChange: this.onChangeHandler, type: 'text', name: 'mail', id: 'inputEmail', className: 'form-control', placeholder: 'User name', required: true, autoFocus: true }),
-                React.createElement(
-                    'label',
-                    { htmlFor: 'inputPassword', className: 'sr-only' },
-                    'Password'
-                ),
-                React.createElement('input', { onChange: this.onChangeHandler, type: 'password', name: 'password', id: 'inputPassword', className: 'form-control', placeholder: 'Password', required: true }),
+                'div',
+                { className: 'w-100 h-100', style: { backgroundImage: "url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg')", backgroundRepeat: "no-repeat", backgroundSize: "cover" } },
                 React.createElement(
                     'div',
-                    { className: 'checkbox mb-3' },
-                    React.createElement(
-                        'label',
-                        null,
-                        React.createElement('input', { type: 'checkbox', name: 'remember', value: 'remember-me1' }),
-                        ' Remember me'
-                    )
-                ),
-                React.createElement(
-                    'button',
-                    { className: 'btn btn-lg btn-primary btn-block', type: 'submit', onSubmit: this.onSubmitHandler },
-                    'Sign in'
-                ),
-                React.createElement('br', null),
-                React.createElement(
-                    'a',
-                    { role: 'button', href: 'auth/linkedin', className: 'btn btn-light-blue btn-block btn-li waves-effect waves-light' },
-                    React.createElement('i', { className: 'fa fa-linkedin pr-1' }),
-                    ' Linkedin'
-                ),
-                React.createElement(
-                    'a',
-                    { role: 'button', href: 'auth/facebook', className: 'btn btn-indigo btn-block btn-fb waves-effect waves-light' },
-                    React.createElement('i', { className: 'fa fa-facebook pr-1' }),
-                    ' Facebook'
-                ),
-                React.createElement('br', null),
-                React.createElement(
-                    'div',
-                    { className: 'modal-footer pr-0' },
+                    { className: 'w-100 h-100 mask rgba-black-light d-flex justify-content-center align-items-center' },
                     React.createElement(
                         'div',
-                        { className: 'options font-weight-light' },
+                        { className: 'container' },
                         React.createElement(
-                            'p',
-                            null,
-                            'Not a member?  ',
+                            'div',
+                            { className: 'row wow fadeIn', style: { visibility: "visible", animationName: "fadeIn" } },
                             React.createElement(
-                                Link,
-                                { to: '/signUp' },
+                                'div',
+                                { className: 'col-md-6 mb-4 white-text text-center text-md-left' },
+                                React.createElement(
+                                    'h1',
+                                    { className: 'display-4 font-weight-bold' },
+                                    'Learn Bootstrap 4 with MDB'
+                                ),
+                                React.createElement('hr', { className: 'hr-light' }),
+                                React.createElement(
+                                    'p',
+                                    null,
+                                    React.createElement(
+                                        'strong',
+                                        null,
+                                        'Best & free guide of responsive web design'
+                                    )
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { className: 'mb-4 d-none d-md-block' },
+                                    React.createElement(
+                                        'strong',
+                                        null,
+                                        'The most comprehensive tutorial for the Bootstrap 4. Loved by over 500 000 users. Video and written versions available. Create your own, stunning website.'
+                                    )
+                                ),
                                 React.createElement(
                                     'a',
-                                    { href: '#' },
-                                    'Sign Up'
+                                    { target: '_blank', href: 'https://mdbootstrap.com/bootstrap-tutorial/', className: 'btn btn-indigo btn-lg waves-effect waves-light' },
+                                    'Start free tutorial',
+                                    React.createElement('i', { className: 'fa fa-graduation-cap ml-2' })
+                                )
+                            ),
+                            React.createElement(
+                                'form',
+                                { method: 'POST', action: '/auth/local', className: 'form-signin', style: { borderRadius: "5px", backgroundColor: "#fff", color: "#4f4f4f" } },
+                                React.createElement('img', { className: 'mb-4', src: 'https://getbootstrap.com/assets/brand/bootstrap-solid.svg', alt: '', width: '72', height: '72' }),
+                                React.createElement(
+                                    'h1',
+                                    { className: 'h3 mb-3 font-weight-normal' },
+                                    'Please sign in'
+                                ),
+                                React.createElement(
+                                    'label',
+                                    { htmlFor: 'inputEmail', className: 'sr-only' },
+                                    'User name'
+                                ),
+                                React.createElement('input', { onChange: this.onChangeHandler, type: 'text', name: 'mail', id: 'inputEmail', className: 'form-control', placeholder: 'User name', required: true, autoFocus: true }),
+                                React.createElement(
+                                    'label',
+                                    { htmlFor: 'inputPassword', className: 'sr-only' },
+                                    'Password'
+                                ),
+                                React.createElement('input', { onChange: this.onChangeHandler, type: 'password', name: 'password', id: 'inputPassword', className: 'form-control', placeholder: 'Password', required: true }),
+                                React.createElement(
+                                    'div',
+                                    { className: 'checkbox mb-3' },
+                                    React.createElement(
+                                        'label',
+                                        null,
+                                        React.createElement('input', { type: 'checkbox', name: 'remember', value: 'remember-me1' }),
+                                        ' Remember me'
+                                    )
+                                ),
+                                React.createElement(
+                                    'button',
+                                    { className: 'btn btn-lg btn-primary btn-block', type: 'submit', onSubmit: this.onSubmitHandler },
+                                    'Sign in'
+                                ),
+                                React.createElement('br', null),
+                                React.createElement(
+                                    'a',
+                                    { role: 'button', href: 'auth/linkedin', className: 'btn btn-light-blue btn-block btn-li waves-effect waves-light' },
+                                    React.createElement('i', { className: 'fa fa-linkedin pr-1' }),
+                                    ' Linkedin'
+                                ),
+                                React.createElement(
+                                    'a',
+                                    { role: 'button', href: 'auth/facebook', className: 'btn btn-indigo btn-block btn-fb waves-effect waves-light' },
+                                    React.createElement('i', { className: 'fa fa-facebook pr-1' }),
+                                    ' Facebook'
+                                ),
+                                React.createElement('br', null),
+                                React.createElement(
+                                    'div',
+                                    { className: 'modal-footer pr-0' },
+                                    React.createElement(
+                                        'div',
+                                        { className: 'options font-weight-light' },
+                                        React.createElement(
+                                            'p',
+                                            null,
+                                            'Not a member?  ',
+                                            React.createElement(
+                                                Link,
+                                                { to: '/signUp' },
+                                                React.createElement(
+                                                    'a',
+                                                    { href: '#' },
+                                                    'Sign Up'
+                                                )
+                                            )
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { className: 'mt-5 mb-3 text-muted' },
+                                    '\xA9 2017-2018'
                                 )
                             )
                         )
                     )
-                ),
-                React.createElement(
-                    'p',
-                    { className: 'mt-5 mb-3 text-muted' },
-                    '\xA9 2017-2018'
                 )
             );
         }
@@ -24505,7 +24556,7 @@ var TaskContainer = function (_React$Component) {
 
             return React.createElement(
                 "div",
-                { className: "list-group", style: { marginTop: '90px', boxShadow: '0 0.210rem 0.710rem rgba(0, 0, 0, .010)', width: "700px" } },
+                { className: "list-group", style: { margin: "0 auto", marginTop: '90px', boxShadow: '0 0.210rem 0.710rem rgba(0, 0, 0, .010)', width: "700px" } },
                 usersRes.slice(this.state.paginatorCurrentNumber * 10 - 10, this.state.paginatorCurrentNumber * 10 < this.props.length ? this.state.paginatorCurrentNumber * 10 : this.props.length),
                 React.createElement(
                     "button",
@@ -26627,40 +26678,56 @@ var SignUp = function (_React$Component) {
         key: 'render',
         value: function render() {
             return React.createElement(
-                'form',
-                { name: 'signUp', method: 'POST', action: '/signUp/local', style: { width: "330px" } },
-                React.createElement(
-                    'p',
-                    { className: 'h4 text-center mb-4' },
-                    'Sign up'
-                ),
-                React.createElement(
-                    'label',
-                    { htmlFor: 'defaultFormRegisterEmailEx', className: 'grey-text' },
-                    'Your email'
-                ),
-                React.createElement('input', { onChange: this.onChangeHandler, type: 'email', id: 'defaultFormRegisterEmailEx', name: 'email', className: 'form-control' }),
-                React.createElement('br', null),
-                React.createElement(
-                    'label',
-                    { htmlFor: 'defaultFormRegisterPasswordEx', className: 'grey-text' },
-                    'Your password'
-                ),
-                React.createElement('input', { onChange: this.onChangeHandler, type: 'password', id: 'defaultFormRegisterPasswordEx', name: 'password', className: 'form-control' }),
-                React.createElement('br', null),
-                React.createElement(
-                    'label',
-                    { htmlFor: 'defaultFormRegisterCheckPassword', className: 'grey-text' },
-                    'COnfirm your password'
-                ),
-                React.createElement('input', { onChange: this.onChangeHandler, type: 'password', id: 'defaultFormRegisterCheckPassword', name: 'passwordConfirm', className: 'form-control' }),
+                'div',
+                { className: 'w-100 h-100', style: { backgroundImage: "url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg')", backgroundRepeat: "no-repeat", backgroundSize: "cover" } },
                 React.createElement(
                     'div',
-                    { className: 'text-center mt-4' },
+                    { className: 'w-100 h-100 mask rgba-black-light d-flex justify-content-center align-items-center' },
                     React.createElement(
-                        'button',
-                        { className: 'btn-primary btn', onClick: this.onSubmitHandler, type: 'submit' },
-                        'Register'
+                        'div',
+                        { className: 'container', style: { display: "flex", justifyContent: "center" } },
+                        React.createElement(
+                            'div',
+                            { className: 'row wow fadeIn', style: { visibility: "visible", animationName: "fadeIn" } },
+                            React.createElement(
+                                'form',
+                                { name: 'signUp', method: 'POST', action: '/signUp/local', style: { width: "370px", padding: "30px 30px", borderRadius: "5px", backgroundColor: "#fff", color: "#4f4f4f" } },
+                                React.createElement(
+                                    'p',
+                                    { className: 'h4 text-center mb-4' },
+                                    'Sign up'
+                                ),
+                                React.createElement(
+                                    'label',
+                                    { htmlFor: 'defaultFormRegisterEmailEx', className: 'grey-text' },
+                                    'Your email'
+                                ),
+                                React.createElement('input', { onChange: this.onChangeHandler, type: 'email', id: 'defaultFormRegisterEmailEx', name: 'email', className: 'form-control' }),
+                                React.createElement('br', null),
+                                React.createElement(
+                                    'label',
+                                    { htmlFor: 'defaultFormRegisterPasswordEx', className: 'grey-text' },
+                                    'Your password'
+                                ),
+                                React.createElement('input', { onChange: this.onChangeHandler, type: 'password', id: 'defaultFormRegisterPasswordEx', name: 'password', className: 'form-control' }),
+                                React.createElement('br', null),
+                                React.createElement(
+                                    'label',
+                                    { htmlFor: 'defaultFormRegisterCheckPassword', className: 'grey-text' },
+                                    'COnfirm your password'
+                                ),
+                                React.createElement('input', { onChange: this.onChangeHandler, type: 'password', id: 'defaultFormRegisterCheckPassword', name: 'passwordConfirm', className: 'form-control' }),
+                                React.createElement(
+                                    'div',
+                                    { className: 'text-center mt-4' },
+                                    React.createElement(
+                                        'button',
+                                        { className: 'btn-primary btn', onClick: this.onSubmitHandler, type: 'submit' },
+                                        'Register'
+                                    )
+                                )
+                            )
+                        )
                     )
                 )
             );
