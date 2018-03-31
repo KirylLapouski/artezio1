@@ -1,18 +1,14 @@
 const router = require('express').Router();
 const passport = require('passport');
 const config = require('../etc/config.json');
-// auth login
-router.get('/login', (req, res) => {
-    res.render('login', { user: req.user });
-});
 
 // auth logout
 router.get('/logout', (req, res) => {
     console.log('loggin out');
     
+    req.logout();    
     res.clearCookie('session',{path:'/'});
     res.clearCookie('session.sig',{path:'/'});
-    req.logout();
     res.redirect('/');
 });
 

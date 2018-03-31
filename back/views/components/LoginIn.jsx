@@ -44,7 +44,7 @@ class LoginIn extends React.Component{
         
         xhr.onload = ()=>{
 
-            xhr.open('GET',config.rootUrl+config.dbApi+"/getEnteredUser");
+            xhr.open('GET',config.rootUrl+config.dbApi+"/getEnteredUser",true);
             xhr.send();
 
             xhr.onload = ()=>{

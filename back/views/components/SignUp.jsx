@@ -24,18 +24,31 @@ class SignUp extends React.Component{
     }
     onSubmitHandler(e){
 
-        var formData = new FormData(document.forms.signUp);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST','/signUp/local',true);
-
-        xhr.send(formData);
-
-      
         if(this.state.password!== this.state.passwordConfirm)
         {
             //WRONG PASSWORD
-            e.preventDefault();
         }
+        e.preventDefault();
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST','/signUp/local',true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({email:this.state.email,password:this.state.password}));
+
+        xhr.onload = ()=>{
+            xhr.open('GET',config.rootUrl+config.dbApi+"/getEnteredUser",true);
+            xhr.send();
+
+            xhr.onload = ()=>{
+                if(xhr.status==200)
+                {
+                    localStorage.setItem("currentUser",xhr.responseText);
+                    document.location.href = "/user/" + JSON.parse(xhr.responseText)._id;
+                }
+            }
+        }
+      
+
 
     }
     render(){
@@ -47,7 +60,7 @@ class SignUp extends React.Component{
                     <div className="container" style={{display:"flex",justifyContent:"center"}}>
                 
                         <div className="row wow fadeIn" style={{visibility: "visible", animationName: "fadeIn"}}>
-                            <form name="signUp" method="POST" action="/signUp/local" style={{width: "370px",padding:"30px 30px", borderRadius: "5px",backgroundColor:"#fff",color:"#4f4f4f"}}>
+                            <form name="signUp" method="POST" action="" style={{width: "370px",padding:"30px 30px", borderRadius: "5px",backgroundColor:"#fff",color:"#4f4f4f"}}>
                                 <p className="h4 text-center mb-4">Sign up</p>
                             
                             

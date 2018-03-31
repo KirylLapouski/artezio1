@@ -9,27 +9,18 @@ router.post('/local',(req,resp,next)=>{
                                 
     if (err) { return done(err); }
     if (!user) {
-    UserDao.create({
-         email:req.body.email,
-         password: req.body.password},(err,newUser)=>{
+    UserDao.create({email:req.body.email,password: req.body.password},(err,newUser)=>{
         if(err) 
-        resp.sendStatus(406);
+            resp.sendStatus(406);
         else{
             req.login(newUser, function(err) {
                 if (err) { return next(err); }
                 return resp.redirect('/user/' + req.user.id);
               });
             
-        }                            
-    })
-}
-                                    
-                               /* if (user.password!=password) {
-                                  return done(null, false, { message: 'Incorrect password.' });
-                                }*/
-                                //return done(null, user);
-                              },{ email: req.body.email });
-                        });
+            }})
+        }
+    },{ email: req.body.email });});
 
 
 

@@ -24054,15 +24054,13 @@ var UserInfo = function (_React$Component) {
     }, {
         key: "onLogOut",
         value: function onLogOut(e) {
-            e.preventDefault();
-            var xhr = new XMLHttpRequest();
-
-            xhr.open('GET', '/auth/logout', true);
-            xhr.send();
-
-            xhr.onload = function () {
-                localStorage.removeItem("currentUser");
-            };
+            /* var xhr = new XMLHttpRequest();
+               xhr.open('GET','/auth/logout',true);
+             xhr.send()
+               xhr.onload = function(){
+                 localStorage.removeItem("currentUser");
+                 console.log(xhr.responseText);
+             }*/
         }
     }, {
         key: "render",
@@ -24070,25 +24068,16 @@ var UserInfo = function (_React$Component) {
 
             return React.createElement(
                 "div",
-                { className: "navbar-brand dropdown-toggle", style: { position: 'absolute', right: '70px', top: '10px', cursor: "pointer" }, "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
-                React.createElement(
-                    "div",
-                    { className: "dropdown-menu" },
-                    React.createElement(
-                        "a",
-                        { href: config.userProfile, className: "dropdown-item" },
-                        "Profile"
-                    ),
-                    React.createElement("div", { className: "dropdown-divider" }),
-                    React.createElement(
-                        "a",
-                        { onClick: this.onLogOut, className: "dropdown-item" },
-                        "Log out"
-                    )
-                ),
+                { className: "navbar-brand", style: { position: 'absolute', right: '70px', top: '10px' }, "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                 "Hello, ",
                 this.state.userName,
-                React.createElement("img", { src: config.rootUrl + "/images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } })
+                React.createElement("img", { src: config.rootUrl + "/images/user.png", width: "30", height: "30", className: "d-inline-block align-top rounded-circle", alt: "", style: { marginLeft: '3px' } }),
+                React.createElement(
+                    "a",
+                    { href: "/auth/logout" },
+                    " ",
+                    React.createElement("i", { style: { cursor: "pointer" }, className: "fa fa-sign-out", "aria-hidden": "true" })
+                )
             );
         }
     }]);
@@ -24225,7 +24214,7 @@ var LoginIn = function (_React$Component) {
 
             xhr.onload = function () {
 
-                xhr.open('GET', config.rootUrl + config.dbApi + "/getEnteredUser");
+                xhr.open('GET', config.rootUrl + config.dbApi + "/getEnteredUser", true);
                 xhr.send();
 
                 xhr.onload = function () {
@@ -26667,16 +26656,27 @@ var SignUp = function (_React$Component) {
         key: 'onSubmitHandler',
         value: function onSubmitHandler(e) {
 
-            var formData = new FormData(document.forms.signUp);
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/signUp/local', true);
-
-            xhr.send(formData);
-
             if (this.state.password !== this.state.passwordConfirm) {
                 //WRONG PASSWORD
-                e.preventDefault();
             }
+            e.preventDefault();
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/signUp/local', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({ email: this.state.email, password: this.state.password }));
+
+            xhr.onload = function () {
+                xhr.open('GET', config.rootUrl + config.dbApi + "/getEnteredUser", true);
+                xhr.send();
+
+                xhr.onload = function () {
+                    if (xhr.status == 200) {
+                        localStorage.setItem("currentUser", xhr.responseText);
+                        document.location.href = "/user/" + JSON.parse(xhr.responseText)._id;
+                    }
+                };
+            };
         }
     }, {
         key: 'render',
@@ -26695,7 +26695,7 @@ var SignUp = function (_React$Component) {
                             { className: 'row wow fadeIn', style: { visibility: "visible", animationName: "fadeIn" } },
                             React.createElement(
                                 'form',
-                                { name: 'signUp', method: 'POST', action: '/signUp/local', style: { width: "370px", padding: "30px 30px", borderRadius: "5px", backgroundColor: "#fff", color: "#4f4f4f" } },
+                                { name: 'signUp', method: 'POST', action: '', style: { width: "370px", padding: "30px 30px", borderRadius: "5px", backgroundColor: "#fff", color: "#4f4f4f" } },
                                 React.createElement(
                                     'p',
                                     { className: 'h4 text-center mb-4' },
