@@ -26,6 +26,7 @@ class Task extends React.Component {
       this.onSubmitHandler = this.onSubmitHandler.bind(this);
       this.deleteTask = this.deleteTask.bind(this);
     }
+
     clickHandler(e){
       e.preventDefault();
       this.setState(prevState =>({
@@ -33,69 +34,71 @@ class Task extends React.Component {
       }));
       return false;
     }
+
     onChangeHandler(e){
       var {name,value} = e.target;
       this.setState(prevState =>({
           [name]: value
         }));
-  }
-  onSubmitHandler(e){
-    var xhr =  new XMLHttpRequest();
-    xhr.open('PUT', config.rootUrl + config.dbApi,true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-
-    //create request body (user changes)
-    //NEED TO CHANGE
-    var user={_id: this.props.description._id};
-    if(this.state.email)
-      user.email = this.state.email;
-    if(this.state.firstName)
-      user.firstName = this.state.firstName;
-    if(this.state.lastName)
-      user.lastName = this.state.lastName;
-    if(this.state.phoneNumber)
-      user.phoneNumber = this.state.phoneNumber;
-    if(this.state.city)
-      user.city = this.state.city;
-
-    var self = this;
-    xhr.send(JSON.stringify(user));
-
-  
-    xhr.onload = ()=>{ 
-      if(xhr.status == 200){
-          self.setState(()=>{
-            self.props.description.firstName = user.firstName;
-            self.props.description.lastName = user.lastName;
-
-            self.state.email =  user.email;
-            self.state.firstName =  user.firstName;
-            self.state.lastName = user.lastName;
-            self.state.phoneNumber = user.phoneNumber;
-            self.state.city= user.city;
-          });
-          
-          self.setState({
-            isСhanging:false
-          })
-
-          toastr.success('User was edited successful');
-      }else{
-        toastr.error('Something goes wrong','User was not edited');
-      }
     }
-    
-    /*e.preventDefault();
-    var xhr =  new XMLHttpRequest();
-    xhr.open('POST', config.rootUrl + config.auth +'/local',false);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    
-    xhr.send(JSON.stringify({mail:this.state.mail, password:this.state.password}));
 
-    if(xhr.status == 200){
-        localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
-        console.log('/user/'+xhr.responseText);
-    }*/
+    onSubmitHandler(e){
+        var xhr =  new XMLHttpRequest();
+        xhr.open('PUT', config.rootUrl + config.dbApi,true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        //create request body (user changes)
+        //NEED TO CHANGE
+        var user={_id: this.props.description._id};
+        if(this.state.email)
+          user.email = this.state.email;
+        if(this.state.firstName)
+          user.firstName = this.state.firstName;
+        if(this.state.lastName)
+          user.lastName = this.state.lastName;
+        if(this.state.phoneNumber)
+          user.phoneNumber = this.state.phoneNumber;
+        if(this.state.city)
+          user.city = this.state.city;
+
+        var self = this;
+        xhr.send(JSON.stringify(user));
+
+      
+        xhr.onload = ()=>{ 
+          if(xhr.status == 200){
+              self.setState(()=>{
+                self.props.description.firstName = user.firstName;
+                self.props.description.lastName = user.lastName;
+
+                self.state.email =  user.email;
+                self.state.firstName =  user.firstName;
+                self.state.lastName = user.lastName;
+                self.state.phoneNumber = user.phoneNumber;
+                self.state.city= user.city;
+              });
+              
+              self.setState({
+                isСhanging:false
+              })
+
+              toastr.success('User was edited successful');
+          }else{
+            toastr.error('Something goes wrong','User was not edited');
+          }
+        }
+        
+        /*e.preventDefault();
+        var xhr =  new XMLHttpRequest();
+        xhr.open('POST', config.rootUrl + config.auth +'/local',false);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        
+        xhr.send(JSON.stringify({mail:this.state.mail, password:this.state.password}));
+
+        if(xhr.status == 200){
+            localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
+            console.log('/user/'+xhr.responseText);
+        }*/
     }
     deleteTask(e){
         e.preventDefault();
@@ -166,16 +169,16 @@ class Task extends React.Component {
                         </div>
 
         return (<a style={ {display:this.state.isDeleted?"none":"block"}} onClick={this.clickHandler} href="#" className="list-group-item list-group-item-action flex-column align-items-start">
-        <div className="d-flex w-100 justify-content-between">
-          <h5 className="mb-1">{this.props.description.firstName?this.props.description.firstName:"User"} {this.props.description.lastName?this.props.description.lastName:" "}</h5>
-          <small style={{marginRight:'50px', marginTop:'5px'}}>3 days ago</small>
-        </div>
-        <i onClick={this.editUser} className="fa fa-pencil" aria-hidden="true" style={{position: "absolute", top: "15px",right: "36px"}}></i>
-        <button onClick={this.deleteTask} type="button" className="close" aria-label="Close" style={{position:'absolute',top:'13px',right:'15px'}} >
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <p className="mb-1" align="left">{this.state.isСhanging?changeForm:description}</p>
-      </a>);
+                  <div className="d-flex w-100 justify-content-between">
+                    <h5 className="mb-1">{this.props.description.firstName?this.props.description.firstName:"User"} {this.props.description.lastName?this.props.description.lastName:" "}</h5>
+                    <small style={{marginRight:'50px', marginTop:'5px'}}>3 days ago</small>
+                  </div>
+                  <i onClick={this.editUser} className="fa fa-pencil" aria-hidden="true" style={{position: "absolute", top: "15px",right: "36px"}}></i>
+                  <button onClick={this.deleteTask} type="button" className="close" aria-label="Close" style={{position:'absolute',top:'13px',right:'15px'}} >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <p className="mb-1" align="left">{this.state.isСhanging?changeForm:description}</p>
+                </a>);
     }
 }
 

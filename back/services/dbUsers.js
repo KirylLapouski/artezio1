@@ -50,10 +50,12 @@ router.route("/")
     
     userDao.update({_id:userId},newProps, function(err,data){
             //HANDLE ERR
-
-
-                console.log('send updated user:');
-                resp.send(JSON.stringify(data));
+                if(err) {
+                    resp.sendStatus(404);
+                }else{
+                    console.log('send updated user:');
+                    resp.send(JSON.stringify(data));
+                }
         });
 });
 
