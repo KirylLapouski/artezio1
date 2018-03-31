@@ -1,6 +1,8 @@
 var React = require('react');
 var config = require('../../etc/config.json');
 var Parser = require('html-react-parser');
+var toastr = require('toastr');
+
 class Task extends React.Component {
 
     constructor(props){
@@ -39,7 +41,7 @@ class Task extends React.Component {
   }
   onSubmitHandler(e){
     var xhr =  new XMLHttpRequest();
-    xhr.open('PUT', config.rootUrl + config.dbApi,false);
+    xhr.open('PUT', config.rootUrl + config.dbApi,true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     //create request body (user changes)
@@ -60,17 +62,19 @@ class Task extends React.Component {
     xhr.send(JSON.stringify(user));
 
   
-    if(xhr.status == 200){
-        self.setState({
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          phoneNumber: user.phoneNumber,
-          city: user.city,
-        });
-        this.props.description.firstName = user.firstName;
-        this.props.description.lastName = user.lastName;
-        this.render();
+    xhr.onload = ()=>{ 
+      if(xhr.status == 200){
+          self.setState({
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phoneNumber: user.phoneNumber,
+            city: user.city,
+          });
+          this.props.description.firstName = user.firstName;
+          this.props.description.lastName = user.lastName;
+          this.render();
+      }
     }
     
     /*e.preventDefault();
@@ -98,12 +102,16 @@ class Task extends React.Component {
         var self = this;
         xhr.onload = function(){
           if(this.status == 200){
+            
+            toastr.success('User was deleted successful');
             self.setState({
               isDeleted: true
             })
-
+          }else{
+            toastr.error('Something goes wrong','User was not deleted');
           }
         }
+
 
     }
     editUser(){

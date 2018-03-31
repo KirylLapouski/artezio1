@@ -12,11 +12,11 @@ class UserInfo extends React.Component{
     }
     componentDidMount(){
         //load image there
-        this.setState( {userId:JSON.parse(localStorage.getItem('currentUser'))._id})      
+        setTimeout(()=>{ this.setState( {userId:JSON.parse(localStorage.getItem('currentUser'))._id})},0);      
 
-       this.setState({
+       setTimeout(()=>this.setState({
             userName:localStorage.getItem("currentUser").firstName?JSON.parse(localStorage.getItem("currentUser")).firstName:"User",
-        })
+        }),0);
 
     }
 

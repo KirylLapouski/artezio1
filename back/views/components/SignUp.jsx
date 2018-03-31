@@ -2,6 +2,8 @@ var React = require('react');
 var ReactRouterDom = require('react-router-dom');
 var Link = ReactRouterDom.Link;
 var config = require('../../etc/config.json');
+var toastr = require('toastr');
+
 class SignUp extends React.Component{
 
     constructor(props){
@@ -15,7 +17,7 @@ class SignUp extends React.Component{
           this.onChangeHandler = this.onChangeHandler.bind(this);
           this.onSubmitHandler = this.onSubmitHandler.bind(this);
     }
-   
+
     onChangeHandler(e){
         var {name,value} = e.target;
         this.setState(prevState =>({
@@ -23,32 +25,35 @@ class SignUp extends React.Component{
           }));
     }
     onSubmitHandler(e){
-
-        if(this.state.password!== this.state.passwordConfirm)
+        if(!this.state.email || !this.state.password || !this.state.passwordConfirm){
+            toastr.error('All fields should be filled');
+        }else if(this.state.password!== this.state.passwordConfirm)
         {
+            toastr.error('Passwords are not equal');
             //WRONG PASSWORD
-        }
-        e.preventDefault();
-        
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST','/signUp/local',true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({email:this.state.email,password:this.state.password}));
+        }else{
+            e.preventDefault();
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST','/signUp/local',true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({email:this.state.email,password:this.state.password}));
 
-        xhr.onload = ()=>{
-            if(xhr.status==200){
-                xhr.open('GET',config.rootUrl+config.dbApi+"/getEnteredUser",true);
-                xhr.send();
+            xhr.onload = ()=>{
+                if(xhr.status==200){
+                    xhr.open('GET',config.rootUrl+config.dbApi+"/getEnteredUser",true);
+                    xhr.send();
 
-                xhr.onload = ()=>{
-                    if(xhr.status==200)
-                    {
-                        localStorage.setItem("currentUser",xhr.responseText);
-                        document.location.href = "/user/" + JSON.parse(xhr.responseText)._id;
+                    xhr.onload = ()=>{
+                        if(xhr.status==200)
+                        {
+                            localStorage.setItem("currentUser",xhr.responseText);
+                            document.location.href = "/user/" + JSON.parse(xhr.responseText)._id;
+                        }
                     }
+                }else {
+                    toastr.error(xhr.responseText);
                 }
-            }else{
-                
             }
         }
       
@@ -82,9 +87,9 @@ class SignUp extends React.Component{
                                 <input onChange={this.onChangeHandler} type="password" id="defaultFormRegisterCheckPassword" name="passwordConfirm" className="form-control"/>
                                 
                                 <div className="text-center mt-4">
-                                    <button className="btn-primary btn" onClick={this.onSubmitHandler} type="submit">Register</button>
+                                    <button className="btn-primary btn"   onClick={this.onSubmitHandler} type="submit">Register</button>
                                 </div>
-
+                                
                             </form>
                         </div>
                     </div>

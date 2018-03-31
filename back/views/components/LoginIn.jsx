@@ -24,17 +24,16 @@ class LoginIn extends React.Component{
           });
     }
     onLinkedAuth(e){
-       /* var xhr =  new XMLHttpRequest();
-        xhr.open('GET', config.rootUrl + config.auth +'/linkedin',false);
+        var xhr =  new XMLHttpRequest();
+        xhr.open('GET', config.rootUrl + config.auth +'/linkedin',true);
         
         xhr.send();
 
-        alert('/user/'+xhr.responseText);
-        if(xhr.status == 200){
-
-            localStorage.setItem("enteredUser",JSON.stringify(xhr.responseText));
+        xhr.onload = ()=>{
+            if(xhr.status == 200)
+                localStorage.setItem("currentUser",JSON.stringify(xhr.responseText));
+        }
          //   history.pushState(null, '', '/user/'+xhr.responseText);            
-        }*/
     }
     onSubmitHandler(e){
 
@@ -126,14 +125,13 @@ class LoginIn extends React.Component{
                                 </div>
                             
                                 <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.onSubmitHandler}>Sign in</button><br/>
-                                <a role="button"  href="auth/linkedin" className="btn btn-light-blue btn-block btn-li waves-effect waves-light"><i className="fa fa-linkedin pr-1"></i> Linkedin</a>            
+                                <a role="button" onClick={this.onLinkedAuth}  className="btn btn-light-blue btn-block btn-li waves-effect waves-light"><i className="fa fa-linkedin pr-1"></i> Linkedin</a>            
                                 <a role="button"  href="auth/facebook" className="btn btn-indigo btn-block btn-fb waves-effect waves-light"><i className="fa fa-facebook pr-1"></i> Facebook</a><br/>
                                 <div className="modal-footer pr-0">
                                         <div className="options font-weight-light">
                                             <p>Not a member?  <Link to="/signUp"><a href="#">Sign Up</a></Link></p>
                                         </div>
                                 </div>
-                                <p className="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
                             </form>
                         </div>
                     </div>
