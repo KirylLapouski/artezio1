@@ -12,7 +12,7 @@ class UserInfo extends React.Component{
     }
     componentDidMount(){
         //load image there
-        this.setState( {userId:JSON.parse(localStorage.getItem('currentUser'))._id});       
+        setTimeout(function(){ this.setState( {userId:JSON.parse(localStorage.getItem('currentUser'))._id})},0);       
 
        setTimeout(function(){this.setState({
             userName:   localStorage.getItem("currentUser")?JSON.parse(localStorage.getItem("currentUser")).firstName:"User",
@@ -22,7 +22,6 @@ class UserInfo extends React.Component{
 
     onLogOut(e){
         e.preventDefault();
-        console.log(111);
         var xhr = new XMLHttpRequest();
 
         xhr.open('GET','/auth/logout',true);

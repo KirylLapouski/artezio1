@@ -18,7 +18,7 @@ class Navbar extends React.Component{
 
     componentDidMount(){
         
-        if(!localStorage.getItem('currentUser')){
+       /* if(!localStorage.getItem('currentUser')){
             console.log("try to save user to local storage")
             var xhr = new XMLHttpRequest();
             xhr.open('GET', config.rootUrl+config.dbApi+'/'+this.props.match.url.split('/')[2], true);
@@ -31,7 +31,7 @@ class Navbar extends React.Component{
                 }
                 
             }
-        }
+        }*/
     }
 
     render(){   

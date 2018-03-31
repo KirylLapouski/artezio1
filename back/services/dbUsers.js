@@ -57,6 +57,11 @@ router.route("/")
         });
 });
 
+router.route("/getEnteredUser")
+.get(function(req,resp){
+    console.log("send entered user");
+    resp.send(req.user);
+})
 
 router.route("/:id")
 .get( function(req,resp){
@@ -90,6 +95,8 @@ router.route("/:id/image")
         console.log("save user image");
     }
 )
+
+
 /*router.route("/:name/:task")
 .delete( function(req,resp){
     

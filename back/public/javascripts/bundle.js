@@ -23837,7 +23837,7 @@ var App = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 "div",
-                { "class": "w-100 h-100", style: { display: "flex", justifyContent: "center", alignItems: "center" } },
+                { className: "w-100 h-100", style: { display: "flex", justifyContent: "center", alignItems: "center" } },
                 React.createElement(Header, null),
                 React.createElement(Main, null)
             );
@@ -23940,19 +23940,20 @@ var Navbar = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
 
-            if (!localStorage.getItem('currentUser')) {
-                console.log("try to save user to local storage");
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', config.rootUrl + config.dbApi + '/' + this.props.match.url.split('/')[2], true);
-                xhr.send();
-
-                xhr.onload = function () {
-
-                    if (this.status == 200) {
-                        localStorage.setItem('currentUser', this.responseText);
-                    }
-                };
-            }
+            /* if(!localStorage.getItem('currentUser')){
+                 console.log("try to save user to local storage")
+                 var xhr = new XMLHttpRequest();
+                 xhr.open('GET', config.rootUrl+config.dbApi+'/'+this.props.match.url.split('/')[2], true);
+                 xhr.send();        
+             
+                 xhr.onload = function(){
+                     
+                     if(this.status==200){
+                         localStorage.setItem('currentUser',this.responseText);
+                     }
+                     
+                 }
+             }*/
         }
     }, {
         key: 'render',
@@ -24044,7 +24045,9 @@ var UserInfo = function (_React$Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             //load image there
-            this.setState({ userId: JSON.parse(localStorage.getItem('currentUser'))._id });
+            setTimeout(function () {
+                this.setState({ userId: JSON.parse(localStorage.getItem('currentUser'))._id });
+            }, 0);
 
             setTimeout(function () {
                 this.setState({
@@ -24056,7 +24059,6 @@ var UserInfo = function (_React$Component) {
         key: "onLogOut",
         value: function onLogOut(e) {
             e.preventDefault();
-            console.log(111);
             var xhr = new XMLHttpRequest();
 
             xhr.open('GET', '/auth/logout', true);
@@ -24220,18 +24222,24 @@ var LoginIn = function (_React$Component) {
     }, {
         key: 'onSubmitHandler',
         value: function onSubmitHandler(e) {
-            e.preventDefault();
+
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', config.rootUrl + config.auth + '/local', false);
+            xhr.open('POST', config.rootUrl + config.auth + '/local', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = function () {
+
+                xhr.open('GET', config.rootUrl + config.dbApi + "/getEnteredUser");
+                xhr.send();
+
+                xhr.onload = function () {
+                    if (xhr.status == 200) localStorage.setItem("enteredUser", JSON.stringify(xhr.responseText));
+                };
+                //   history.pushState(null, '', '/user/'+xhr.responseText);            
+            };
 
             xhr.send(JSON.stringify({ mail: this.state.mail, password: this.state.password }));
 
-            if (xhr.status == 200) {
-                localStorage.setItem("enteredUser", JSON.stringify(xhr.responseText));
-                console.log('/user/' + xhr.responseText);
-                //   history.pushState(null, '', '/user/'+xhr.responseText);            
-            }
             /*e.preventDefault();
             
             var body = {
@@ -24338,7 +24346,7 @@ var LoginIn = function (_React$Component) {
                                 ),
                                 React.createElement(
                                     'button',
-                                    { className: 'btn btn-lg btn-primary btn-block', type: 'submit', onSubmit: this.onSubmitHandler },
+                                    { className: 'btn btn-lg btn-primary btn-block', type: 'submit', onClick: this.onSubmitHandler },
                                     'Sign in'
                                 ),
                                 React.createElement('br', null),
