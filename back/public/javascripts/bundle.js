@@ -25126,8 +25126,6 @@ var Task = function (_React$Component) {
   }, {
     key: 'onSubmitHandler',
     value: function onSubmitHandler(e) {
-      var _this2 = this;
-
       var xhr = new XMLHttpRequest();
       xhr.open('PUT', config.rootUrl + config.dbApi, true);
       xhr.setRequestHeader('Content-Type', 'application/json');
@@ -25146,15 +25144,20 @@ var Task = function (_React$Component) {
 
       xhr.onload = function () {
         if (xhr.status == 200) {
-          self.setState({
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            phoneNumber: user.phoneNumber,
-            city: user.city
+          self.setState(function () {
+            self.props.description.firstName = user.firstName;
+            self.props.description.lastName = user.lastName;
+
+            self.state.email = user.email;
+            self.state.firstName = user.firstName;
+            self.state.lastName = user.lastName;
+            self.state.phoneNumber = user.phoneNumber;
+            self.state.city = user.city;
           });
-          _this2.props.description.firstName = user.firstName;
-          _this2.props.description.lastName = user.lastName;
+
+          self.setState({
+            isСhanging: false
+          });
 
           toastr.success('User was edited successful');
         } else {

@@ -64,15 +64,20 @@ class Task extends React.Component {
   
     xhr.onload = ()=>{ 
       if(xhr.status == 200){
-          self.setState({
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            phoneNumber: user.phoneNumber,
-            city: user.city,
+          self.setState(()=>{
+            self.props.description.firstName = user.firstName;
+            self.props.description.lastName = user.lastName;
+
+            self.state.email =  user.email;
+            self.state.firstName =  user.firstName;
+            self.state.lastName = user.lastName;
+            self.state.phoneNumber = user.phoneNumber;
+            self.state.city= user.city;
           });
-          this.props.description.firstName = user.firstName;
-          this.props.description.lastName = user.lastName;
+          
+          self.setState({
+            isСhanging:false
+          })
 
           toastr.success('User was edited successful');
       }else{
@@ -114,8 +119,6 @@ class Task extends React.Component {
             toastr.error('Something goes wrong','User was not deleted');
           }
         }
-
-
     }
     editUser(){
       this.setState(prevState =>({
@@ -162,7 +165,7 @@ class Task extends React.Component {
                         </form>
                         </div>
 
-        return (<a style={ {display:this.state.isDeleted?"none":"block"}}onClick={this.clickHandler} href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+        return (<a style={ {display:this.state.isDeleted?"none":"block"}} onClick={this.clickHandler} href="#" className="list-group-item list-group-item-action flex-column align-items-start">
         <div className="d-flex w-100 justify-content-between">
           <h5 className="mb-1">{this.props.description.firstName?this.props.description.firstName:"User"} {this.props.description.lastName?this.props.description.lastName:" "}</h5>
           <small style={{marginRight:'50px', marginTop:'5px'}}>3 days ago</small>
