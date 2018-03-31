@@ -25,6 +25,8 @@ class SignUp extends React.Component{
           }));
     }
     onSubmitHandler(e){
+        e.preventDefault();
+        
         if(!this.state.email || !this.state.password || !this.state.passwordConfirm){
             toastr.error('All fields should be filled');
         }else if(this.state.password!== this.state.passwordConfirm)
@@ -32,7 +34,6 @@ class SignUp extends React.Component{
             toastr.error('Passwords are not equal');
             //WRONG PASSWORD
         }else{
-            e.preventDefault();
             
             var xhr = new XMLHttpRequest();
             xhr.open('POST','/signUp/local',true);
@@ -53,6 +54,7 @@ class SignUp extends React.Component{
                     }
                 }else {
                     toastr.error(xhr.responseText);
+                    xhr.abort();
                 }
             }
         }
@@ -69,7 +71,7 @@ class SignUp extends React.Component{
                     <div className="container" style={{display:"flex",justifyContent:"center"}}>
                 
                         <div className="row wow fadeIn" style={{visibility: "visible", animationName: "fadeIn"}}>
-                            <form name="signUp" method="POST" action="" style={{width: "370px",padding:"30px 30px", borderRadius: "5px",backgroundColor:"#fff",color:"#4f4f4f"}}>
+                            <form name="signUp" method="POST" action={config.signUp} style={{width: "370px",padding:"30px 30px", borderRadius: "5px",backgroundColor:"#fff",color:"#4f4f4f"}}>
                                 <p className="h4 text-center mb-4">Sign up</p>
                             
                             

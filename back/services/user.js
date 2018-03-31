@@ -5,7 +5,7 @@ var path = require('path');
 router.route('/:userName')
 .get(authCheck,function(req,resp){
 
-    resp.sendFile(path.join(__dirname+'/../public/index.html'));
+    resp.render('index');
     /*  var xhr = new XMLHttpRequest();
     xhr.open('GET', config.rootUrl+config.dbApi+'/'+req.body.userName, true);
     xhr.send();

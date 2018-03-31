@@ -73,7 +73,10 @@ class Task extends React.Component {
           });
           this.props.description.firstName = user.firstName;
           this.props.description.lastName = user.lastName;
-          this.render();
+
+          toastr.success('User was edited successful');
+      }else{
+        toastr.error('Something goes wrong','User was not edited');
       }
     }
     

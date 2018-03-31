@@ -13,10 +13,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   
-  fs.readFile('../public/index.html', function(err, data){
-    if(err) throw err;   
-    resp.send(data);
-  });
+    res.render('index');
 });
 
 module.exports = router;

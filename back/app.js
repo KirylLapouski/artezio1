@@ -36,7 +36,7 @@ app.use(cookieSession({
 }));
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'public'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
@@ -65,7 +65,7 @@ app.use(config.dbApi, dbUsers);
 app.use(config.userCabinet,user);
 app.use(config.adminCabinet,admin);
 app.use(config.auth,auth);
-app.use('/signUp',signUp);
+app.use(config.signUp,signUp);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

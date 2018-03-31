@@ -6,6 +6,7 @@
     "userProfile":"/user/profile",
     "auth":"/auth",
     "logOut":"/auth/logout",
+    "signUp":"/signUp/local",
     "db": {
         "remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico",
         "name": "artezio1",

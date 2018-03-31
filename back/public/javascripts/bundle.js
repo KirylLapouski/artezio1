@@ -474,7 +474,7 @@ module.exports = emptyFunction;
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","userProfile":"/user/profile","auth":"/auth","logOut":"/auth/logout","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
+module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","userProfile":"/user/profile","auth":"/auth","logOut":"/auth/logout","signUp":"/signUp/local","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
 
 /***/ }),
 /* 7 */
@@ -24321,7 +24321,7 @@ var App = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 "div",
-                { className: "w-100 h-100", style: { display: "flex", justifyContent: "center", alignItems: "center" } },
+                { className: "w-100 h-100", style: { display: "flex", justifyContent: "center" } },
                 React.createElement(Header, null),
                 React.createElement(Main, null)
             );
@@ -24460,7 +24460,7 @@ var Navbar = function (_React$Component) {
 
             return React.createElement(
                 'nav',
-                { className: 'navbar navbar-expand-lg navbar-dark primary-color position-absolute', style: { boxShadow: '0 0.25rem 0.75rem rgba(0, 0, 0, .05)', top: '0', left: '0', right: '0' } },
+                { className: 'navbar navbar-expand-lg navbar-dark primary-color position-absolute', style: { boxShadow: '0 0.25rem 0.75rem rgba(0, 0, 0, .05)', top: '0', left: '0', right: '0', zIndex: '1' } },
                 React.createElement(
                     'a',
                     { className: 'navbar-brand', href: '#' },
@@ -25034,7 +25034,7 @@ var TaskContainer = function (_React$Component) {
 
             return React.createElement(
                 "div",
-                { className: "list-group", style: { margin: "0 auto", marginTop: '-53vh', boxShadow: '0 0.210rem 0.710rem rgba(0, 0, 0, .010)', width: "700px" } },
+                { className: "list-group", style: { margin: "0 auto", marginTop: '12vh', boxShadow: '0 0.210rem 0.710rem rgba(0, 0, 0, .010)', width: "700px" } },
                 usersRes.slice(this.state.paginatorCurrentNumber * 10 - 10, this.state.paginatorCurrentNumber * 10 < this.props.length ? this.state.paginatorCurrentNumber * 10 : this.props.length),
                 React.createElement(
                     "button",
@@ -25155,7 +25155,10 @@ var Task = function (_React$Component) {
           });
           _this2.props.description.firstName = user.firstName;
           _this2.props.description.lastName = user.lastName;
-          _this2.render();
+
+          toastr.success('User was edited successful');
+        } else {
+          toastr.error('Something goes wrong', 'User was not edited');
         }
       };
 
@@ -37530,12 +37533,14 @@ var SignUp = function (_React$Component) {
     }, {
         key: 'onSubmitHandler',
         value: function onSubmitHandler(e) {
+            e.preventDefault();
 
-            if (this.state.password !== this.state.passwordConfirm) {
+            if (!this.state.email || !this.state.password || !this.state.passwordConfirm) {
+                toastr.error('All fields should be filled');
+            } else if (this.state.password !== this.state.passwordConfirm) {
                 toastr.error('Passwords are not equal');
                 //WRONG PASSWORD
             } else {
-                e.preventDefault();
 
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', '/signUp/local', true);
@@ -37555,6 +37560,7 @@ var SignUp = function (_React$Component) {
                         };
                     } else {
                         toastr.error(xhr.responseText);
+                        xhr.abort();
                     }
                 };
             }
@@ -37576,7 +37582,7 @@ var SignUp = function (_React$Component) {
                             { className: 'row wow fadeIn', style: { visibility: "visible", animationName: "fadeIn" } },
                             React.createElement(
                                 'form',
-                                { name: 'signUp', method: 'POST', action: '', style: { width: "370px", padding: "30px 30px", borderRadius: "5px", backgroundColor: "#fff", color: "#4f4f4f" } },
+                                { name: 'signUp', method: 'POST', action: config.signUp, style: { width: "370px", padding: "30px 30px", borderRadius: "5px", backgroundColor: "#fff", color: "#4f4f4f" } },
                                 React.createElement(
                                     'p',
                                     { className: 'h4 text-center mb-4' },

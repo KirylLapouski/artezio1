@@ -46,7 +46,7 @@ class Navbar extends React.Component{
                 </li>;
     });
     
-    return <nav className="navbar navbar-expand-lg navbar-dark primary-color position-absolute" style={{boxShadow:'0 0.25rem 0.75rem rgba(0, 0, 0, .05)',top:'0',left:'0',right:'0'}}>
+    return <nav className="navbar navbar-expand-lg navbar-dark primary-color position-absolute" style={{boxShadow:'0 0.25rem 0.75rem rgba(0, 0, 0, .05)',top:'0',left:'0',right:'0',zIndex:'1'}}>
                 <a className="navbar-brand" href="#">Logo</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
                     aria-expanded="false" aria-label="Toggle navigation">
