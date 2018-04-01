@@ -88,8 +88,13 @@ router.route("/:id/image")
 .get( function(req,res) {
     console.log("send user image");
     user.findOne({ _id:req.params.id },function(err,user) {
-       res.set("Content-Type", "image/jpg");
-       res.send(user.img.data);
+        if(JSON.stringify(user.img) == "{}"){
+            console.log("This user does not have photo");
+            res.status("404").send("User does not have an image");
+        }else{
+            res.set("Content-Type", "image/jpg");
+            res.send(user.img.data);
+        }
     });
 })
 .post(

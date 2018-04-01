@@ -124,7 +124,7 @@ class LoginIn extends React.Component{
                                     </label>
                                 </div>
                             
-                                <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.onSubmitHandler}>Sign in</button><br/>
+                                <button className="btn btn-lg btn-primary btn-block" type="submit" onSubmit={this.onSubmitHandler}>Sign in</button><br/>
                                 <a role="button" onClick={this.onLinkedAuth}  className="btn btn-light-blue btn-block btn-li waves-effect waves-light"><i className="fa fa-linkedin pr-1"></i> Linkedin</a>            
                                 <a role="button"  href="auth/facebook" className="btn btn-indigo btn-block btn-fb waves-effect waves-light"><i className="fa fa-facebook pr-1"></i> Facebook</a><br/>
                                 <div className="modal-footer pr-0">

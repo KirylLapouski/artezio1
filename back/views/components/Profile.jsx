@@ -61,7 +61,6 @@ class Profile extends React.Component{
         }
     }
     componentDidMount(){
-        //load image there
        setTimeout(()=>{   
            this.setState({
             _id:JSON.parse(localStorage.getItem("currentUser"))._id?JSON.parse(localStorage.getItem("currentUser"))._id:"",
@@ -70,17 +69,32 @@ class Profile extends React.Component{
             email: JSON.parse(localStorage.getItem("currentUser")).email?JSON.parse(localStorage.getItem("currentUser")).email:"",
             phoneNumber: JSON.parse(localStorage.getItem("currentUser")).phoneNumber?JSON.parse(localStorage.getItem("currentUser")).phoneNumber:"",
             city: JSON.parse(localStorage.getItem("currentUser")).city?JSON.parse(localStorage.getItem("currentUser")).city:"",
-        })},300);
+        })},0);
 
+        //load image there
         setTimeout(function(){
             var xhr =  new XMLHttpRequest();
             xhr.open('GET', config.rootUrl + config.dbApi +'/'+ JSON.parse(localStorage.getItem("currentUser"))._id + '/image',true);
-            
-            xhr.send();
+            xhr.responseType = "arraybuffer";
 
-            xhr.onload = ()=>{if(xhr.status == 200){
-                console.log(xhr.responseText);
-        }}},300);
+            xhr.onload = function(){
+                
+                if(xhr.status == 404){
+                    toastr.info("You do not have a photo");
+                }else{
+                    var arrayBufferView = new Uint8Array(this.response);
+
+                    var blob = new Blob([arrayBufferView],{type:this.responseType})
+                    var urlCreator = window.URL || window.webkitURL;
+                    var imageUrl = urlCreator.createObjectURL(blob);
+                    var img = document.querySelector(".img-fluid");
+                    img.src = imageUrl;
+                }
+              
+            }
+
+            xhr.send();            
+    },300);
 
     }
     render(){

@@ -24532,13 +24532,9 @@ var UserInfo = function (_React$Component) {
 
             //load image there
             setTimeout(function () {
-                _this2.setState({ userId: JSON.parse(localStorage.getItem('currentUser'))._id });
-            }, 0);
-
-            setTimeout(function () {
-                return _this2.setState({
-                    userName: localStorage.getItem("currentUser").firstName ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User"
-                });
+                _this2.setState({
+                    userName: JSON.parse(localStorage.getItem("currentUser")).firstName ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User",
+                    userId: JSON.parse(localStorage.getItem('currentUser'))._id ? JSON.parse(localStorage.getItem('currentUser'))._id : "" });
             }, 0);
         }
     }, {
@@ -37721,7 +37717,6 @@ var Profile = function (_React$Component) {
         value: function componentDidMount() {
             var _this2 = this;
 
-            //load image there
             setTimeout(function () {
                 _this2.setState({
                     _id: JSON.parse(localStorage.getItem("currentUser"))._id ? JSON.parse(localStorage.getItem("currentUser"))._id : "",
@@ -37731,19 +37726,30 @@ var Profile = function (_React$Component) {
                     phoneNumber: JSON.parse(localStorage.getItem("currentUser")).phoneNumber ? JSON.parse(localStorage.getItem("currentUser")).phoneNumber : "",
                     city: JSON.parse(localStorage.getItem("currentUser")).city ? JSON.parse(localStorage.getItem("currentUser")).city : ""
                 });
-            }, 300);
+            }, 0);
 
+            //load image there
             setTimeout(function () {
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', config.rootUrl + config.dbApi + '/' + JSON.parse(localStorage.getItem("currentUser"))._id + '/image', true);
-
-                xhr.send();
+                xhr.responseType = "arraybuffer";
 
                 xhr.onload = function () {
-                    if (xhr.status == 200) {
-                        console.log(xhr.responseText);
+
+                    if (xhr.status == 404) {
+                        toastr.info("You do not have a photo");
+                    } else {
+                        var arrayBufferView = new Uint8Array(this.response);
+
+                        var blob = new Blob([arrayBufferView], { type: this.responseType });
+                        var urlCreator = window.URL || window.webkitURL;
+                        var imageUrl = urlCreator.createObjectURL(blob);
+                        var img = document.querySelector(".img-fluid");
+                        img.src = imageUrl;
                     }
                 };
+
+                xhr.send();
             }, 300);
         }
     }, {
@@ -37803,13 +37809,17 @@ var Profile = function (_React$Component) {
                         'div',
                         { className: 'card' },
                         React.createElement(
-                            'p',
-                            null,
-                            'Edit profile'
-                        ),
-                        React.createElement(
                             'form',
                             { style: { padding: "40px" } },
+                            React.createElement(
+                                'p',
+                                null,
+                                React.createElement(
+                                    'b',
+                                    null,
+                                    'Edit profile'
+                                )
+                            ),
                             React.createElement(
                                 'div',
                                 { className: 'form-row' },
