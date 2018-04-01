@@ -104,7 +104,6 @@ class TaskContainer extends React.Component{
 
         return (<div className="list-group" style={{margin:"0 auto", marginTop:'12vh', boxShadow:'0 0.210rem 0.710rem rgba(0, 0, 0, .010)', width:"700px",}}> 
                     {usersRes.slice(this.state.paginatorCurrentNumber*10-10,this.state.paginatorCurrentNumber*10< this.props.length?this.state.paginatorCurrentNumber*10:this.props.length)}
-                    <button type="button" className="btn btn-outline-primary" style={{marginTop:'3px'}}>Add</button>
                     {paginator}
                 </div>);      
     }

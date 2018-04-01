@@ -14,9 +14,11 @@ class Profile extends React.Component{
             email: "",
             phoneNumber: "",
             city: "",
+            fileName:""            
         }
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
+        this.log = this.log.bind(this);
     }
 
     onChangeHandler(e){
@@ -26,12 +28,47 @@ class Profile extends React.Component{
           }));
     }
 
+    log(loaded,total){
+        console.log("profile")
+        console.log(loaded);
+        this.setState({
+            progressBar: Math.floor(loaded*100 / total)
+        }) 
+    }
+
+    upload(file) {
+
+        var data = new FormData();
+        data.append('file', file);
+
+        console.log(file);
+        var xhr = new XMLHttpRequest();
+        // обработчики можно объединить в один,
+        // если status == 200, то это успех, иначе ошибка
+        xhr.onload = xhr.onerror = function() {
+          if (this.status == 200) {
+            toastr.success("Image was loaded");
+          } else {
+            toastr.error("Error when load image");
+            }
+        };
+
+        var self = this;
+        xhr.upload.onprogress = function(event) {
+            self.log(event.loaded ,event.total);
+        }
+
+        xhr.open("POST",config.dbApi +"/"+ this.state._id +"/image", true);
+        xhr.send(data);
+    }
     onSubmitHandler(e){
         e.preventDefault();
         
         var form = document.querySelector('form[name="userEdit"]');
-        var file = elements.myfile.files[0];
-        console.log(file);
+        var file = form.elements.imageFile.files[0];
+        if (file) {
+            this.upload(file);
+        }
         
         var xhr =  new XMLHttpRequest();
         xhr.open('PUT', config.rootUrl + config.dbApi,true);
@@ -50,7 +87,6 @@ class Profile extends React.Component{
         if(this.state.city)
           user.city = this.state.city;
     
-        console.log(user);
     
       
         xhr.onload = ()=>{ 
@@ -103,7 +139,7 @@ class Profile extends React.Component{
     }
     render(){
 
-    return <div className="row" style={{marginTop:"10vh"}}>
+    return <div className="row" style={{maxWidth:"1200px" ,marginTop:"10vh"}}>
                 <div className="col-4">
                 
                 <div className="card card-cascade">
@@ -159,11 +195,11 @@ class Profile extends React.Component{
                                 <div className="form-group">
                                         <label htmlFor="inputGroupFile01">Photo</label><br/>
                                         <div className="custom-file">
-                                            <input type="file" className="custom-file-input" id="inputGroupFile01"/>
-                                            <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
+                                            <input name="imageFile" type="file" className="custom-file-input" id="inputGroupFile01"/>
+                                            <label  className="custom-file-label" htmlFor="inputGroupFile01">{document.querySelector?this.state.fileName:"Choose file"}</label>
                                         </div>
                                 </div>
-                                <button type="submit" onSubmit={this.onSubmitHandler} className="btn btn-primary btn-md">Change</button>
+                                <button type="button" onClick={this.onSubmitHandler} className="btn btn-primary btn-md">Change</button>
                             </form>
                         </div>
                     </div>

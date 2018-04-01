@@ -6,10 +6,11 @@ const config = require('../etc/config.json');
 router.get('/logout', (req, res) => {
     console.log('loggin out');
     
-    req.logout();    
-    res.clearCookie('session',{path:'/'});
-    res.clearCookie('session.sig',{path:'/'});
-    res.redirect('/');
+    req.logout();  
+    req.cookies.session = ""; 
+    res.cookie('session',"",{expires: new Date(Date.now()-1),path:"/",keys:[config.cookieKey]});
+    res.cookie('session.sig',"",{expires: new Date(Date.now()-1),path:"/"});
+    res.sendStatus(200);
 });
 
 // auth with facebook
@@ -30,12 +31,13 @@ router.get('/facebook/redirect', passport.authenticate('facebook'), (req, res) =
 });
 
 // auth with linkedin
-router.get('/linkedin', passport.authenticate('linkedin', {scope: ['r_basicprofile','r_emailaddress','rw_company_admin','w_share']}));
+router.get('/linkedin', passport.authenticate('linkedin'));
 
 // callback route for linkedin to redirect to
 // hand control to passport to use code to grab profile info
 router.get('/linkedin/redirect', passport.authenticate('linkedin'), (req, res) => {
-    res.redirect('/user/'+req.user.id);
+    console.log(req.user);
+    res.status(200).redirect('/user/'+req.user.id);
 });
 
 //local auth

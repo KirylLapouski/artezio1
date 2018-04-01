@@ -85,7 +85,7 @@ class SignUp extends React.Component{
                             
                                 <br/>
 
-                                <label htmlFor="defaultFormRegisterCheckPassword" className="grey-text">COnfirm your password</label>
+                                <label htmlFor="defaultFormRegisterCheckPassword" className="grey-text">Confirm your password</label>
                                 <input onChange={this.onChangeHandler} type="password" id="defaultFormRegisterCheckPassword" name="passwordConfirm" className="form-control"/>
                                 
                                 <div className="text-center mt-4">

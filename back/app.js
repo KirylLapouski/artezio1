@@ -4,12 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//var expressSession = require('express-session');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 var fs = require('fs');
 
-//require('./services/utils/saveImage.js');
+const fileUpload = require('express-fileupload');
+
 //passport
 var passport = require('passport');
 const passportFacebookSetup = require('./services/passport/passportFacebookSetup');
@@ -24,7 +24,6 @@ var auth = require('./services/auth');
 var signUp = require('./services/signup');
 
 
-//var store = require('./dao/getConnectionToDb.js').createStore();
 
 var config = require('./etc/config.json');
 
@@ -35,6 +34,8 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
   keys: [config.cookieKey]
 }));
+
+app.use(fileUpload());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'public'));

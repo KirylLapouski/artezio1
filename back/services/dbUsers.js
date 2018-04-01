@@ -5,6 +5,7 @@ var userDao = require('../dao/userDao');
 var user = require('../dao/userModel.js')
 var router = express.Router();
 var jsonParser = bodyParser.json();
+
 //CHECK CONNECTION
 
 
@@ -62,7 +63,6 @@ router.route("/")
 router.route("/getEnteredUser")
 .get(function(req,resp){
     console.log("send entered user");
-    console.log(req.user);
 
     var user ={};
     user._id = req.user._id;
@@ -111,8 +111,8 @@ router.route("/:id/image")
         console.log("save user image");
         var userImage = {};
         userImage.img = {};
-        userImage.img.data =fs.readFileSync('public/images/norm-ymilitelnuj-pes-4.jpg');
-        userImage.img.contentType = 'image/jpg';
+        userImage.img.data =req.files.file.data;
+        userImage.img.contentType = req.files.file.mimetype;
         userDao.update({_id:req.user.id},userImage,(err,data)=>{
             if(err) {
                 resp.sendStatus(404);

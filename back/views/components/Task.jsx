@@ -177,7 +177,7 @@ class Task extends React.Component {
                   <button onClick={this.deleteTask} type="button" className="close" aria-label="Close" style={{position:'absolute',top:'13px',right:'15px'}} >
                     <span aria-hidden="true">&times;</span>
                   </button>
-                  <p className="mb-1" align="left">{this.state.isСhanging?changeForm:description}</p>
+                  <div className="mb-1" align="left">{this.state.isСhanging?changeForm:description}</div>
                 </a>);
     }
 }

@@ -9,6 +9,8 @@ class UserInfo extends React.Component{
         this.state={
             userName: "User",
         }
+
+        this.onLogOut = this.onLogOut.bind(this);
     }
     componentDidMount(){
         setTimeout(()=>{ this.setState( {
@@ -42,22 +44,24 @@ class UserInfo extends React.Component{
     }
 
     onLogOut(e){
-       /* var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest();
 
         xhr.open('GET','/auth/logout',true);
         xhr.send()
 
         xhr.onload = function(){
             localStorage.removeItem("currentUser");
-            console.log(xhr.responseText);
-        }*/
+
+            
+            document.location.href = config.rootUrl;
+        }
     }
     render(){
        
         return <div  className="navbar-brand" style={{position:'absolute', right:'70px',top:'10px'}}   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Hello, {this.state.userName}
                     <img src={config.rootUrl+"/images/user.png"} width="30" height="30" className="d-inline-block align-top rounded-circle" alt="" style={{marginLeft:'3px'}}></img>                    
-                   <a href="/auth/logout" > <i  style={{cursor:"pointer"}} className="fa fa-sign-out" aria-hidden="true"></i></a>            
+                   <a onClick={this.onLogOut} href="/auth/logout" > <i  style={{cursor:"pointer",color:"pink"}} className="fa fa-sign-out" aria-hidden="true"></i></a>            
                 </div>
     }
 }

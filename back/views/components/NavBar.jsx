@@ -18,20 +18,17 @@ class Navbar extends React.Component{
 
     componentDidMount(){
         
-       /* if(!localStorage.getItem('currentUser')){
-            console.log("try to save user to local storage")
+        if(!localStorage.getItem('currentUser')){
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', config.rootUrl+config.dbApi+'/'+this.props.match.url.split('/')[2], true);
+            xhr.open('GET', config.rootUrl+config.dbApi+'/getEnteredUser', true);
             xhr.send();        
         
             xhr.onload = function(){
-                
-                if(this.status==200){
+                if(this.status==200)
                     localStorage.setItem('currentUser',this.responseText);
-                }
                 
             }
-        }*/
+        }
     }
 
     render(){   
