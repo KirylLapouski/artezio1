@@ -49,12 +49,8 @@ class LoginIn extends React.Component{
             xhr.send();
     
             xhr.onload = ()=>{
-                console.log("Login")
-                console.log(xhr.responseText);
 
                 var currentUser = JSON.parse(xhr.responseText);
-                delete currentUser.img.data;
-                delete currentUser.img.contentType;
                 localStorage.setItem("currentUser",JSON.stringify(currentUser));
             }
         //   history.pushState(null, '', '/user/'+xhr.responseText);            

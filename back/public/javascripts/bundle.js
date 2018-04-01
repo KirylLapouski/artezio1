@@ -24530,12 +24530,35 @@ var UserInfo = function (_React$Component) {
         value: function componentDidMount() {
             var _this2 = this;
 
-            //load image there
             setTimeout(function () {
                 _this2.setState({
                     userName: JSON.parse(localStorage.getItem("currentUser")).firstName ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User",
                     userId: JSON.parse(localStorage.getItem('currentUser'))._id ? JSON.parse(localStorage.getItem('currentUser'))._id : "" });
-            }, 0);
+            }, 300);
+
+            //load image there            
+            setTimeout(function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', config.rootUrl + config.dbApi + '/' + JSON.parse(localStorage.getItem("currentUser"))._id + '/image', true);
+                xhr.responseType = "arraybuffer";
+
+                xhr.onload = function () {
+
+                    if (xhr.status == 404) {
+                        toastr.info("You do not have a photo");
+                    } else {
+                        var arrayBufferView = new Uint8Array(this.response);
+
+                        var blob = new Blob([arrayBufferView], { type: this.responseType });
+                        var urlCreator = window.URL || window.webkitURL;
+                        var imageUrl = urlCreator.createObjectURL(blob);
+                        var img = document.querySelector("img.d-inline-block.align-top.rounded-circle");
+                        img.src = imageUrl;
+                    }
+                };
+
+                xhr.send();
+            }, 300);
         }
     }, {
         key: "onLogOut",
@@ -24704,12 +24727,8 @@ var LoginIn = function (_React$Component) {
                 xhr.send();
 
                 xhr.onload = function () {
-                    console.log("Login");
-                    console.log(xhr.responseText);
 
                     var currentUser = JSON.parse(xhr.responseText);
-                    delete currentUser.img.data;
-                    delete currentUser.img.contentType;
                     localStorage.setItem("currentUser", JSON.stringify(currentUser));
                 };
                 //   history.pushState(null, '', '/user/'+xhr.responseText);            

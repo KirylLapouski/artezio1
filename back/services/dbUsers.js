@@ -62,7 +62,16 @@ router.route("/")
 router.route("/getEnteredUser")
 .get(function(req,resp){
     console.log("send entered user");
-    resp.send(req.user);
+    console.log(req.user);
+
+    var user ={};
+    user._id = req.user._id;
+    user.email = req.user.email;
+    user.firstName = req.user.firstName;
+    user.lastName = req.user.lastName;
+    user.phoneNumber = req.user.phoneNumber;
+    user.city = req.user.city;
+    resp.send(user);
 })
 
 router.route("/:id")
