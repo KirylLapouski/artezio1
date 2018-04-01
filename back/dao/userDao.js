@@ -13,6 +13,7 @@ var UserDao = {
                 return newUser;
             },(err)=>{
                 console.log("failed to create a new user");
+                console.log(err);
                 callback(err)});
         },
 
@@ -24,6 +25,7 @@ var UserDao = {
                 return currentUser;
             },(err)=>{
                 console.log("failed to read user");
+                console.log(err);
                 callback(err);});
         },
 
@@ -34,6 +36,7 @@ var UserDao = {
                 return result;
             },(err)=>{
                 console.log("failed to update a user");
+                console.log(err);
                 callback(err)})
         },
 
@@ -43,6 +46,7 @@ var UserDao = {
                 return result;
             },(err)=>{
                 console.log("fail to delete a user");
+                console.log(err);
                 callback(err)})
         }
 

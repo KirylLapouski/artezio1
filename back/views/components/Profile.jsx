@@ -28,6 +28,11 @@ class Profile extends React.Component{
 
     onSubmitHandler(e){
         e.preventDefault();
+        
+        var form = document.querySelector('form[name="userEdit"]');
+        var file = elements.myfile.files[0];
+        console.log(file);
+        
         var xhr =  new XMLHttpRequest();
         xhr.open('PUT', config.rootUrl + config.dbApi,true);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -46,7 +51,6 @@ class Profile extends React.Component{
           user.city = this.state.city;
     
         console.log(user);
-        xhr.send(JSON.stringify(user));
     
       
         xhr.onload = ()=>{ 
@@ -94,7 +98,7 @@ class Profile extends React.Component{
             }
 
             xhr.send();            
-    },300);
+        },300);
 
     }
     render(){
@@ -125,7 +129,7 @@ class Profile extends React.Component{
             </div>
                 <div className="col-8" style={{textAlign:"left"}}>
                     <div className="card" >
-                            <form style={{padding:"40px"}}>
+                            <form name="userEdit" style={{padding:"40px"}}>
                                 <p><b>Edit profile</b></p>                            
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
@@ -159,7 +163,7 @@ class Profile extends React.Component{
                                             <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
                                         </div>
                                 </div>
-                                <button type="submit" onClick={this.onSubmitHandler} className="btn btn-primary btn-md">Change</button>
+                                <button type="submit" onSubmit={this.onSubmitHandler} className="btn btn-primary btn-md">Change</button>
                             </form>
                         </div>
                     </div>

@@ -35,8 +35,10 @@ class LoginIn extends React.Component{
         }
          //   history.pushState(null, '', '/user/'+xhr.responseText);            
     }
+
     onSubmitHandler(e){
 
+        
         var xhr =  new XMLHttpRequest();
         xhr.open('POST', config.rootUrl + config.auth +'/local',true);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -45,16 +47,22 @@ class LoginIn extends React.Component{
 
             xhr.open('GET',config.rootUrl+config.dbApi+"/getEnteredUser",true);
             xhr.send();
-
+    
             xhr.onload = ()=>{
-                if(xhr.status==200)
-                    localStorage.setItem("currentUser",xhr.responseText);
+                console.log("Login")
+                console.log(xhr.responseText);
+
+                var currentUser = JSON.parse(xhr.responseText);
+                delete currentUser.img.data;
+                delete currentUser.img.contentType;
+                localStorage.setItem("currentUser",JSON.stringify(currentUser));
             }
         //   history.pushState(null, '', '/user/'+xhr.responseText);            
         }
 
         xhr.send(JSON.stringify({mail:this.state.mail, password:this.state.password}));
 
+      
         /*e.preventDefault();
         
         var body = {
@@ -124,7 +132,7 @@ class LoginIn extends React.Component{
                                     </label>
                                 </div>
                             
-                                <button className="btn btn-lg btn-primary btn-block" type="submit" onSubmit={this.onSubmitHandler}>Sign in</button><br/>
+                                <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.onSubmitHandler}>Sign in</button><br/>
                                 <a role="button" onClick={this.onLinkedAuth}  className="btn btn-light-blue btn-block btn-li waves-effect waves-light"><i className="fa fa-linkedin pr-1"></i> Linkedin</a>            
                                 <a role="button"  href="auth/facebook" className="btn btn-indigo btn-block btn-fb waves-effect waves-light"><i className="fa fa-facebook pr-1"></i> Facebook</a><br/>
                                 <div className="modal-footer pr-0">

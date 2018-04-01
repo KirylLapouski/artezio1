@@ -8,7 +8,8 @@ class TaskContainer extends React.Component{
         super(props);
 
         this.state={
-            paginatorCurrentNumber:1
+            paginatorCurrentNumber:1,
+            loaded: false
         }
           this.createPaginator = this.createPaginator.bind(this);
           this.onPaginatorClick = this.onPaginatorClick.bind(this);
@@ -22,13 +23,19 @@ class TaskContainer extends React.Component{
     }*/
     getUsers(){
         var xhr =  new XMLHttpRequest();
-        xhr.open('GET',  config.rootUrl+config.dbApi,false);
+        xhr.open('GET',  config.rootUrl+config.dbApi,true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         
         xhr.send();
-        
-        if(xhr.status == 200){
-            return xhr.responseText;
+        var self = this;
+        xhr.onload = function(){
+                if(xhr.status == 200){
+                    self.props.users =  JSON.parse(xhr.responseText);
+                }
+                self.setState({
+                    loaded:true
+                })
+
         }
     }
     
@@ -79,13 +86,14 @@ class TaskContainer extends React.Component{
         }
     }
 
+    componentWillMount(){
+        this.getUsers();        
+    }
     render(){
-
-                var users = JSON.parse(this.getUsers());
+                var users = this.state.loaded?this.props.users:[];
                 if(users instanceof Array==false)
                     users = [users];
                 
-                users = users.slice();
                 this.props = {length:users.length};
                 var usersRes = users.map(function(user){
                     return <Task key={user._id} name={user._id} description={user} />

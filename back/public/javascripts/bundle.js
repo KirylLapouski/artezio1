@@ -24704,7 +24704,13 @@ var LoginIn = function (_React$Component) {
                 xhr.send();
 
                 xhr.onload = function () {
-                    if (xhr.status == 200) localStorage.setItem("currentUser", xhr.responseText);
+                    console.log("Login");
+                    console.log(xhr.responseText);
+
+                    var currentUser = JSON.parse(xhr.responseText);
+                    delete currentUser.img.data;
+                    delete currentUser.img.contentType;
+                    localStorage.setItem("currentUser", JSON.stringify(currentUser));
                 };
                 //   history.pushState(null, '', '/user/'+xhr.responseText);            
             };
@@ -24898,7 +24904,8 @@ var TaskContainer = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (TaskContainer.__proto__ || Object.getPrototypeOf(TaskContainer)).call(this, props));
 
         _this.state = {
-            paginatorCurrentNumber: 1
+            paginatorCurrentNumber: 1,
+            loaded: false
         };
         _this.createPaginator = _this.createPaginator.bind(_this);
         _this.onPaginatorClick = _this.onPaginatorClick.bind(_this);
@@ -24917,14 +24924,19 @@ var TaskContainer = function (_React$Component) {
         key: "getUsers",
         value: function getUsers() {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', config.rootUrl + config.dbApi, false);
+            xhr.open('GET', config.rootUrl + config.dbApi, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
 
             xhr.send();
-
-            if (xhr.status == 200) {
-                return xhr.responseText;
-            }
+            var self = this;
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    self.props.users = JSON.parse(xhr.responseText);
+                }
+                self.setState({
+                    loaded: true
+                });
+            };
         }
     }, {
         key: "onPaginatorClick",
@@ -25014,13 +25026,16 @@ var TaskContainer = function (_React$Component) {
             }
         }
     }, {
+        key: "componentWillMount",
+        value: function componentWillMount() {
+            this.getUsers();
+        }
+    }, {
         key: "render",
         value: function render() {
-
-            var users = JSON.parse(this.getUsers());
+            var users = this.state.loaded ? this.props.users : [];
             if (users instanceof Array == false) users = [users];
 
-            users = users.slice();
             this.props = { length: users.length };
             var usersRes = users.map(function (user) {
                 return React.createElement(Task, { key: user._id, name: user._id, description: user });
@@ -37687,6 +37702,11 @@ var Profile = function (_React$Component) {
         key: 'onSubmitHandler',
         value: function onSubmitHandler(e) {
             e.preventDefault();
+
+            var form = document.querySelector('form[name="userEdit"]');
+            var file = elements.myfile.files[0];
+            console.log(file);
+
             var xhr = new XMLHttpRequest();
             xhr.open('PUT', config.rootUrl + config.dbApi, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -37700,7 +37720,6 @@ var Profile = function (_React$Component) {
             if (this.state.city) user.city = this.state.city;
 
             console.log(user);
-            xhr.send(JSON.stringify(user));
 
             xhr.onload = function () {
                 if (xhr.status == 200) {
@@ -37810,7 +37829,7 @@ var Profile = function (_React$Component) {
                         { className: 'card' },
                         React.createElement(
                             'form',
-                            { style: { padding: "40px" } },
+                            { name: 'userEdit', style: { padding: "40px" } },
                             React.createElement(
                                 'p',
                                 null,
@@ -37900,7 +37919,7 @@ var Profile = function (_React$Component) {
                             ),
                             React.createElement(
                                 'button',
-                                { type: 'submit', onClick: this.onSubmitHandler, className: 'btn btn-primary btn-md' },
+                                { type: 'submit', onSubmit: this.onSubmitHandler, className: 'btn btn-primary btn-md' },
                                 'Change'
                             )
                         )

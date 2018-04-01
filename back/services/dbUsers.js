@@ -98,8 +98,20 @@ router.route("/:id/image")
     });
 })
 .post(
-    function(req,res){
+    function(req,resp){
         console.log("save user image");
+        var userImage = {};
+        userImage.img = {};
+        userImage.img.data =fs.readFileSync('public/images/norm-ymilitelnuj-pes-4.jpg');
+        userImage.img.contentType = 'image/jpg';
+        userDao.update({_id:req.user.id},userImage,(err,data)=>{
+            if(err) {
+                resp.sendStatus(404);
+            }else{
+                console.log('send updated user:');
+                resp.send(JSON.stringify(data));
+            }
+        })
     }
 )
 
