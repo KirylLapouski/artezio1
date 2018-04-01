@@ -22,53 +22,50 @@ class LoginIn extends React.Component{
             [name]: value
           });
     }
+    validate(){
+
+        //email validation
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        var address = document.forms.loginIn.elements.mail.value;
+        if(reg.test(address) == false) {
+            toastr.error("Wrong email format");
+            return false;
+        }
+        if(!document.forms.loginIn.elements.mail.value || !document.forms.loginIn.elements.password.value){
+            toastr.error("All fields should be filled");
+            return false;
+        }
+        return true;
+    }
     onSubmitHandler(e){  
+        e.preventDefault(); 
+
+        if(!this.validate())
+            return;
+
         var xhr =  new XMLHttpRequest();
         xhr.open('POST', config.rootUrl + config.auth +'/local',true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         
         xhr.onload = ()=>{
 
-            xhr.open('GET',config.rootUrl+config.dbApi+"/getEnteredUser",true);
-            xhr.send();
-    
-            xhr.onload = ()=>{               
-                    var currentUser = JSON.parse(xhr.responseText);
-                    localStorage.setItem("currentUser",JSON.stringify(currentUser));
-                    document.location.href = config.rootUrl + config.userCabinet +"/" + currentUser._id;
+            if(xhr.status != 404){
+                xhr.open('GET',config.rootUrl+config.dbApi+"/getEnteredUser",true);
+                xhr.send();
+        
+                xhr.onload = ()=>{  
+                        if(xhr.status == 500){
+
+                        }else{  
+                            var currentUser = JSON.parse(xhr.responseText);
+                            localStorage.setItem("currentUser",JSON.stringify(currentUser));
+                            document.location.href = config.rootUrl + config.userCabinet +"/" + currentUser._id;
+                        }
+                }
             }
-        //   history.pushState(null, '', '/user/'+xhr.responseText);            
         }
 
         xhr.send(JSON.stringify({mail:this.state.mail, password:this.state.password}));
-
-      
-        /*e.preventDefault();
-        
-        var body = {
-                    'userName': this.state.userName ,
-                    'password':  this.state.password
-            };
-        var xhr =  new XMLHttpRequest();
-        xhr.open('POST', config.rootUrl + config.userCabinet +'/'+ this.state.userName,false);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        
-        xhr.send(JSON.stringify(body));
-        var user = this.state.userName;
-
-        
-        
-           // window.localStorage.setItem('enteredUser',user);
-            if(xhr.status==200){
-              
-
-                    //window.PROPS = this.responseText;
-                //console.log( window.PROPS);
-
-            }else{
-                
-                //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
-            }      */      
     }
     render(){
             return(<div className="w-100 h-100" style={{backgroundImage: "url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg')", backgroundRepeat:"no-repeat", backgroundSize: "cover"}}>
@@ -99,7 +96,7 @@ class LoginIn extends React.Component{
                                 </a>
                     
                             </div>
-                            <form method="POST"  className="form-signin" style={{borderRadius: "5px",backgroundColor:"#fff",color:"#4f4f4f"}}>
+                            <form method="POST" name="loginIn"  className="form-signin" style={{borderRadius: "5px",backgroundColor:"#fff",color:"#4f4f4f"}}>
                                 <img className="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"/>
                                 <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
                                 <label htmlFor="inputEmail" className="sr-only">User name</label>

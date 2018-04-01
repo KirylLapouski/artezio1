@@ -24700,50 +24700,50 @@ var LoginIn = function (_React$Component) {
             this.setState(_defineProperty({}, name, value));
         }
     }, {
+        key: 'validate',
+        value: function validate() {
+
+            //email validation
+            var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            var address = document.forms.loginIn.elements.mail.value;
+            if (reg.test(address) == false) {
+                toastr.error("Wrong email format");
+                return false;
+            }
+            if (!document.forms.loginIn.elements.mail.value || !document.forms.loginIn.elements.password.value) {
+                toastr.error("All fields should be filled");
+                return false;
+            }
+            return true;
+        }
+    }, {
         key: 'onSubmitHandler',
         value: function onSubmitHandler(e) {
+            e.preventDefault();
+
+            if (!this.validate()) return;
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', config.rootUrl + config.auth + '/local', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
 
             xhr.onload = function () {
 
-                xhr.open('GET', config.rootUrl + config.dbApi + "/getEnteredUser", true);
-                xhr.send();
+                if (xhr.status != 404) {
+                    xhr.open('GET', config.rootUrl + config.dbApi + "/getEnteredUser", true);
+                    xhr.send();
 
-                xhr.onload = function () {
-                    var currentUser = JSON.parse(xhr.responseText);
-                    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-                    document.location.href = config.rootUrl + config.userCabinet + "/" + currentUser._id;
-                };
-                //   history.pushState(null, '', '/user/'+xhr.responseText);            
+                    xhr.onload = function () {
+                        if (xhr.status == 500) {} else {
+                            var currentUser = JSON.parse(xhr.responseText);
+                            localStorage.setItem("currentUser", JSON.stringify(currentUser));
+                            document.location.href = config.rootUrl + config.userCabinet + "/" + currentUser._id;
+                        }
+                    };
+                }
             };
 
             xhr.send(JSON.stringify({ mail: this.state.mail, password: this.state.password }));
-
-            /*e.preventDefault();
-            
-            var body = {
-                        'userName': this.state.userName ,
-                        'password':  this.state.password
-                };
-            var xhr =  new XMLHttpRequest();
-            xhr.open('POST', config.rootUrl + config.userCabinet +'/'+ this.state.userName,false);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            
-            xhr.send(JSON.stringify(body));
-            var user = this.state.userName;
-              
-            
-               // window.localStorage.setItem('enteredUser',user);
-                if(xhr.status==200){
-                  
-                          //window.PROPS = this.responseText;
-                    //console.log( window.PROPS);
-                  }else{
-                    
-                    //НЕПРАВИЛЬНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
-                }      */
         }
     }, {
         key: 'render',
@@ -24796,7 +24796,7 @@ var LoginIn = function (_React$Component) {
                             ),
                             React.createElement(
                                 'form',
-                                { method: 'POST', className: 'form-signin', style: { borderRadius: "5px", backgroundColor: "#fff", color: "#4f4f4f" } },
+                                { method: 'POST', name: 'loginIn', className: 'form-signin', style: { borderRadius: "5px", backgroundColor: "#fff", color: "#4f4f4f" } },
                                 React.createElement('img', { className: 'mb-4', src: 'https://getbootstrap.com/assets/brand/bootstrap-solid.svg', alt: '', width: '72', height: '72' }),
                                 React.createElement(
                                     'h1',
@@ -35501,6 +35501,28 @@ var Task = function (_React$Component) {
       });
     }
   }, {
+    key: 'emailValidation',
+    value: function emailValidation(email) {
+      //email validation
+      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+      if (reg.test(email) == false) {
+        toastr.error("Wrong email format");
+        return false;
+      }
+      return true;
+    }
+  }, {
+    key: 'phoneValidation',
+    value: function phoneValidation(phone) {
+      var reg = /^\d[\d\(\)\ -]{4,14}\d$/;
+      if (reg.test(phone) == false) {
+        toastr.error("Wrong phone number format");
+        return false;
+      }
+      return true;
+    }
+  }, {
     key: 'onSubmitHandler',
     value: function onSubmitHandler(e) {
       var xhr = new XMLHttpRequest();
@@ -35510,10 +35532,16 @@ var Task = function (_React$Component) {
       //create request body (user changes)
       //NEED TO CHANGE
       var user = { _id: this.props.description._id };
-      if (this.state.email) user.email = this.state.email;
+      if (this.state.email) {
+        user.email = this.state.email;
+        if (!this.emailValidation(this.state.email)) return;
+      }
       if (this.state.firstName) user.firstName = this.state.firstName;
       if (this.state.lastName) user.lastName = this.state.lastName;
-      if (this.state.phoneNumber) user.phoneNumber = this.state.phoneNumber;
+      if (this.state.phoneNumber) {
+        user.phoneNumber = this.state.phoneNumber;
+        if (!this.phoneValidation(this.state.phoneNumber)) return;
+      }
       if (this.state.city) user.city = this.state.city;
 
       var self = this;
@@ -35670,7 +35698,7 @@ var Task = function (_React$Component) {
                 { htmlFor: 'inputZip' },
                 'Phone Number'
               ),
-              React.createElement('input', { onChange: this.onChangeHandler, name: 'phoneNumber', type: 'text', className: 'form-control', id: 'inputZip', placeholder: '+ 375 25 545 55 09' })
+              React.createElement('input', { onChange: this.onChangeHandler, name: 'phoneNumber', type: 'text', className: 'form-control', id: 'inputZip', placeholder: '375 25 545 55 09' })
             )
           ),
           React.createElement(
@@ -35683,7 +35711,7 @@ var Task = function (_React$Component) {
 
       return React.createElement(
         'a',
-        { style: { display: this.state.isDeleted ? "none" : "block" }, onClick: this.clickHandler, href: '#', className: 'list-group-item list-group-item-action flex-column align-items-start' },
+        { style: { display: this.state.isDeleted ? "none" : "block" }, onClick: this.clickHandler, className: 'list-group-item list-group-item-action flex-column align-items-start' },
         React.createElement(
           'div',
           { className: 'd-flex w-100 justify-content-between' },
@@ -37671,7 +37699,6 @@ var Profile = function (_React$Component) {
         };
         _this.onChangeHandler = _this.onChangeHandler.bind(_this);
         _this.onSubmitHandler = _this.onSubmitHandler.bind(_this);
-        _this.log = _this.log.bind(_this);
         return _this;
     }
 
@@ -37684,15 +37711,6 @@ var Profile = function (_React$Component) {
 
             this.setState(function (prevState) {
                 return _defineProperty({}, name, value);
-            });
-        }
-    }, {
-        key: 'log',
-        value: function log(loaded, total) {
-            console.log("profile");
-            console.log(loaded);
-            this.setState({
-                progressBar: Math.floor(loaded * 100 / total)
             });
         }
     }, {
@@ -37714,13 +37732,30 @@ var Profile = function (_React$Component) {
                 }
             };
 
-            var self = this;
-            xhr.upload.onprogress = function (event) {
-                self.log(event.loaded, event.total);
-            };
-
             xhr.open("POST", config.dbApi + "/" + this.state._id + "/image", true);
             xhr.send(data);
+        }
+    }, {
+        key: 'emailValidation',
+        value: function emailValidation(email) {
+            //email validation
+            var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+            if (reg.test(email) == false) {
+                toastr.error("Wrong email format");
+                return false;
+            }
+            return true;
+        }
+    }, {
+        key: 'phoneValidation',
+        value: function phoneValidation(phone) {
+            var reg = /^\d[\d\(\)\ -]{4,14}\d$/;
+            if (reg.test(phone) == false) {
+                toastr.error("Wrong phone number format");
+                return false;
+            }
+            return true;
         }
     }, {
         key: 'onSubmitHandler',
@@ -37739,10 +37774,16 @@ var Profile = function (_React$Component) {
 
             //create request body (user changes)
             var user = { _id: this.state._id };
-            if (this.state.email) user.email = this.state.email;
+            if (this.state.email) {
+                user.email = this.state.email;
+                if (!this.emailValidation(this.state.email)) return;
+            }
             if (this.state.firstName) user.firstName = this.state.firstName;
             if (this.state.lastName) user.lastName = this.state.lastName;
-            if (this.state.phoneNumber) user.phoneNumber = this.state.phoneNumber;
+            if (this.state.phoneNumber) {
+                user.phoneNumber = this.state.phoneNumber;
+                if (!this.phoneValidation(this.state.phoneNumber)) return;
+            }
             if (this.state.city) user.city = this.state.city;
 
             xhr.onload = function () {
@@ -37918,7 +37959,7 @@ var Profile = function (_React$Component) {
                                         { htmlFor: 'inputZip' },
                                         'Phone Number'
                                     ),
-                                    React.createElement('input', { onChange: this.onChangeHandler, name: 'phoneNumber', type: 'text', className: 'form-control', id: 'inputZip', placeholder: '+ 375 25 545 55 09' })
+                                    React.createElement('input', { onChange: this.onChangeHandler, name: 'phoneNumber', type: 'text', className: 'form-control', id: 'inputZip', placeholder: '375 25 545 55 09' })
                                 )
                             ),
                             React.createElement(

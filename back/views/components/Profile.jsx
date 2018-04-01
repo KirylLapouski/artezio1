@@ -18,7 +18,6 @@ class Profile extends React.Component{
         }
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
-        this.log = this.log.bind(this);
     }
 
     onChangeHandler(e){
@@ -28,13 +27,7 @@ class Profile extends React.Component{
           }));
     }
 
-    log(loaded,total){
-        console.log("profile")
-        console.log(loaded);
-        this.setState({
-            progressBar: Math.floor(loaded*100 / total)
-        }) 
-    }
+   
 
     upload(file) {
 
@@ -53,13 +46,26 @@ class Profile extends React.Component{
             }
         };
 
-        var self = this;
-        xhr.upload.onprogress = function(event) {
-            self.log(event.loaded ,event.total);
-        }
-
         xhr.open("POST",config.dbApi +"/"+ this.state._id +"/image", true);
         xhr.send(data);
+    }
+    emailValidation(email){
+        //email validation
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        
+        if(reg.test(email) == false) {
+            toastr.error("Wrong email format");
+            return false;
+        }
+        return true;
+    }
+    phoneValidation(phone){
+        var reg = /^\d[\d\(\)\ -]{4,14}\d$/;
+        if(reg.test(phone) == false){
+          toastr.error("Wrong phone number format");
+          return false;
+        }
+        return true;
     }
     onSubmitHandler(e){
         e.preventDefault();
@@ -76,14 +82,20 @@ class Profile extends React.Component{
     
         //create request body (user changes)
         var user={_id: this.state._id};
-        if(this.state.email)
+        if(this.state.email){
           user.email = this.state.email;
+          if(!this.emailValidation(this.state.email))
+          return;
+        }
         if(this.state.firstName)
           user.firstName = this.state.firstName;
         if(this.state.lastName)
           user.lastName = this.state.lastName;
-        if(this.state.phoneNumber)
+        if(this.state.phoneNumber){
           user.phoneNumber = this.state.phoneNumber;
+          if(!this.phoneValidation(this.state.phoneNumber))
+          return;
+        }
         if(this.state.city)
           user.city = this.state.city;
     
@@ -189,7 +201,7 @@ class Profile extends React.Component{
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label htmlFor="inputZip">Phone Number</label>
-                                        <input onChange={this.onChangeHandler} name="phoneNumber" type="text" className="form-control" id="inputZip" placeholder="+ 375 25 545 55 09"/>
+                                        <input onChange={this.onChangeHandler} name="phoneNumber" type="text" className="form-control" id="inputZip" placeholder="375 25 545 55 09"/>
                                     </div>
                                 </div>
                                 <div className="form-group">

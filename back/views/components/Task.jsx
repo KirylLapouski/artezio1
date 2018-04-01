@@ -42,6 +42,24 @@ class Task extends React.Component {
         }));
     }
 
+    emailValidation(email){
+        //email validation
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        
+        if(reg.test(email) == false) {
+            toastr.error("Wrong email format");
+            return false;
+        }
+        return true;
+    }
+    phoneValidation(phone){
+        var reg = /^\d[\d\(\)\ -]{4,14}\d$/;
+        if(reg.test(phone) == false){
+          toastr.error("Wrong phone number format");
+          return false;
+        }
+        return true;
+    }
     onSubmitHandler(e){
         var xhr =  new XMLHttpRequest();
         xhr.open('PUT', config.rootUrl + config.dbApi,true);
@@ -51,13 +69,21 @@ class Task extends React.Component {
         //NEED TO CHANGE
         var user={_id: this.props.description._id};
         if(this.state.email)
+        {
           user.email = this.state.email;
+          if(!this.emailValidation(this.state.email))
+            return;
+        }
         if(this.state.firstName)
           user.firstName = this.state.firstName;
         if(this.state.lastName)
           user.lastName = this.state.lastName;
         if(this.state.phoneNumber)
+        {
           user.phoneNumber = this.state.phoneNumber;
+          if(!this.phoneValidation(this.state.phoneNumber))
+            return;
+        }
         if(this.state.city)
           user.city = this.state.city;
 
@@ -138,7 +164,7 @@ class Task extends React.Component {
       
       description = this.state.isOpened?description:'';
       var changeForm = <div><b>Edit profile</b>
-                        <form >
+                        <form>
                             <div className="form-row">
                                 <div className="form-group col-md-6">
                                     <label htmlFor="inputEmail4">First Name</label>
@@ -161,14 +187,14 @@ class Task extends React.Component {
                                 </div>
                                 <div className="form-group col-md-6">
                                     <label htmlFor="inputZip">Phone Number</label>
-                                    <input onChange={this.onChangeHandler} name="phoneNumber" type="text" className="form-control" id="inputZip" placeholder="+ 375 25 545 55 09"/>
+                                    <input onChange={this.onChangeHandler} name="phoneNumber" type="text" className="form-control" id="inputZip" placeholder="375 25 545 55 09"/>
                                 </div>
                             </div>
                             <button type="submit" onClick={this.onSubmitHandler} className="btn btn-primary btn-md">Change</button>
                         </form>
                         </div>
 
-        return (<a style={ {display:this.state.isDeleted?"none":"block"}} onClick={this.clickHandler} href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+        return (<a style={ {display:this.state.isDeleted?"none":"block"}} onClick={this.clickHandler}  className="list-group-item list-group-item-action flex-column align-items-start">
                   <div className="d-flex w-100 justify-content-between">
                     <h5 className="mb-1">{this.props.description.firstName?this.props.description.firstName:"User"} {this.props.description.lastName?this.props.description.lastName:" "}</h5>
                     <small style={{marginRight:'50px', marginTop:'5px'}}>3 days ago</small>
