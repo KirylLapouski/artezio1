@@ -1,3 +1,6 @@
-<pre>npm i</pre>
-<pre>npm run build</pre>
-<pre>npm run start</pre>
+<pre>
+cd back
+npm i
+npm run build
+npm run start
+</pre>
