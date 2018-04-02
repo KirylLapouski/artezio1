@@ -67,6 +67,14 @@ class Profile extends React.Component{
         }
         return true;
     }
+    nameValidation(name,field){
+        var reg = /^[а-яА-ЯёЁa-zA-Z0-9]+$/;
+        if(reg.test(name) == false){
+          toastr.error("Wrong " +field?field:"name" +"format");
+          return false;
+        }
+        return true;
+      }
     onSubmitHandler(e){
         e.preventDefault();
         
@@ -85,19 +93,29 @@ class Profile extends React.Component{
         if(this.state.email){
           user.email = this.state.email;
           if(!this.emailValidation(this.state.email))
-          return;
+            return;
         }
-        if(this.state.firstName)
-          user.firstName = this.state.firstName;
-        if(this.state.lastName)
+        if(this.state.firstName){
+            user.firstName = this.state.firstName;
+            if(this.nameValidation(this.state.fileName))
+                return;
+        }
+        if(this.state.lastName){
           user.lastName = this.state.lastName;
+            if(this.nameValidation(this.state.lastName))
+                return;
+        }
         if(this.state.phoneNumber){
           user.phoneNumber = this.state.phoneNumber;
           if(!this.phoneValidation(this.state.phoneNumber))
-          return;
+            return;
         }
-        if(this.state.city)
-          user.city = this.state.city;
+        if(this.state.city){
+
+            user.city = this.state.city;
+            if(this.nameValidation(this.state.city,"city"))
+                return;
+        }
     
     
       

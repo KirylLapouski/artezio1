@@ -60,6 +60,14 @@ class Task extends React.Component {
         }
         return true;
     }
+    nameValidation(name,field){
+      var reg = /^[а-яА-ЯёЁa-zA-Z0-9]+$/;
+      if(reg.test(name) == false){
+        toastr.error("Wrong " +field?field:"name" +"format");
+        return false;
+      }
+      return true;
+    }
     onSubmitHandler(e){
         var xhr =  new XMLHttpRequest();
         xhr.open('PUT', config.rootUrl + config.dbApi,true);
@@ -74,20 +82,31 @@ class Task extends React.Component {
           if(!this.emailValidation(this.state.email))
             return;
         }
-        if(this.state.firstName)
+        if(this.state.firstName){
+
           user.firstName = this.state.firstName;
-        if(this.state.lastName)
+          if(!this.nameValidation(this.state.firstName))
+            return;
+        }
+        if(this.state.lastName){
           user.lastName = this.state.lastName;
+          if(!this.nameValidation(this.state.lastName))
+            return;
+        }
         if(this.state.phoneNumber)
         {
           user.phoneNumber = this.state.phoneNumber;
           if(!this.phoneValidation(this.state.phoneNumber))
             return;
         }
-        if(this.state.city)
+        if(this.state.city){
           user.city = this.state.city;
+          if(!this.nameValidation(this.state.city,"city"))
+            return;
+        }
 
         var self = this;
+        console.log(user);
         xhr.send(JSON.stringify(user));
 
       

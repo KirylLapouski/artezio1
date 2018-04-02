@@ -2,7 +2,7 @@ var React = require("react");
 var Task = require("./Task.jsx");
 var config = require('../../etc/config.json');
 var Parser = require('html-react-parser');
-
+var userRep;
 class TaskContainer extends React.Component{
     constructor(props){
         super(props);
@@ -30,7 +30,7 @@ class TaskContainer extends React.Component{
         var self = this;
         xhr.onload = function(){
                 if(xhr.status == 200){
-                    self.props.users =  JSON.parse(xhr.responseText);
+                    userRep =  JSON.parse(xhr.responseText);
                 }
                 self.setState({
                     loaded:true
@@ -90,7 +90,7 @@ class TaskContainer extends React.Component{
         this.getUsers();        
     }
     render(){
-                var users = this.state.loaded?this.props.users:[];
+                var users = this.state.loaded?userRep:[];
                 if(users instanceof Array==false)
                     users = [users];
                 

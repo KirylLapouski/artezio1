@@ -377,10 +377,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
+ * Copyright 2013-2015, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 
@@ -24829,13 +24831,6 @@ var LoginIn = function (_React$Component) {
                                     ' Linkedin'
                                 ),
                                 React.createElement(
-                                    'a',
-                                    { role: 'button', href: 'auth/facebook', className: 'btn btn-indigo btn-block btn-fb waves-effect waves-light' },
-                                    React.createElement('i', { className: 'fa fa-facebook pr-1' }),
-                                    ' Facebook'
-                                ),
-                                React.createElement('br', null),
-                                React.createElement(
                                     'div',
                                     { className: 'modal-footer pr-0' },
                                     React.createElement(
@@ -35265,6 +35260,7 @@ var React = __webpack_require__(0);
 var Task = __webpack_require__(90);
 var config = __webpack_require__(6);
 var Parser = __webpack_require__(24);
+var userRep;
 
 var TaskContainer = function (_React$Component) {
     _inherits(TaskContainer, _React$Component);
@@ -35302,7 +35298,7 @@ var TaskContainer = function (_React$Component) {
             var self = this;
             xhr.onload = function () {
                 if (xhr.status == 200) {
-                    self.props.users = JSON.parse(xhr.responseText);
+                    userRep = JSON.parse(xhr.responseText);
                 }
                 self.setState({
                     loaded: true
@@ -35404,7 +35400,7 @@ var TaskContainer = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            var users = this.state.loaded ? this.props.users : [];
+            var users = this.state.loaded ? userRep : [];
             if (users instanceof Array == false) users = [users];
 
             this.props = { length: users.length };
@@ -35523,6 +35519,16 @@ var Task = function (_React$Component) {
       return true;
     }
   }, {
+    key: 'nameValidation',
+    value: function nameValidation(name, field) {
+      var reg = /^[а-яА-ЯёЁa-zA-Z0-9]+$/;
+      if (reg.test(name) == false) {
+        toastr.error( true ? field : "name" + "format");
+        return false;
+      }
+      return true;
+    }
+  }, {
     key: 'onSubmitHandler',
     value: function onSubmitHandler(e) {
       var xhr = new XMLHttpRequest();
@@ -35536,15 +35542,26 @@ var Task = function (_React$Component) {
         user.email = this.state.email;
         if (!this.emailValidation(this.state.email)) return;
       }
-      if (this.state.firstName) user.firstName = this.state.firstName;
-      if (this.state.lastName) user.lastName = this.state.lastName;
+      if (this.state.firstName) {
+
+        user.firstName = this.state.firstName;
+        if (!this.nameValidation(this.state.firstName)) return;
+      }
+      if (this.state.lastName) {
+        user.lastName = this.state.lastName;
+        if (!this.nameValidation(this.state.lastName)) return;
+      }
       if (this.state.phoneNumber) {
         user.phoneNumber = this.state.phoneNumber;
         if (!this.phoneValidation(this.state.phoneNumber)) return;
       }
-      if (this.state.city) user.city = this.state.city;
+      if (this.state.city) {
+        user.city = this.state.city;
+        if (!this.nameValidation(this.state.city, "city")) return;
+      }
 
       var self = this;
+      console.log(user);
       xhr.send(JSON.stringify(user));
 
       xhr.onload = function () {
@@ -37758,6 +37775,16 @@ var Profile = function (_React$Component) {
             return true;
         }
     }, {
+        key: 'nameValidation',
+        value: function nameValidation(name, field) {
+            var reg = /^[а-яА-ЯёЁa-zA-Z0-9]+$/;
+            if (reg.test(name) == false) {
+                toastr.error( true ? field : "name" + "format");
+                return false;
+            }
+            return true;
+        }
+    }, {
         key: 'onSubmitHandler',
         value: function onSubmitHandler(e) {
             e.preventDefault();
@@ -37778,13 +37805,23 @@ var Profile = function (_React$Component) {
                 user.email = this.state.email;
                 if (!this.emailValidation(this.state.email)) return;
             }
-            if (this.state.firstName) user.firstName = this.state.firstName;
-            if (this.state.lastName) user.lastName = this.state.lastName;
+            if (this.state.firstName) {
+                user.firstName = this.state.firstName;
+                if (this.nameValidation(this.state.fileName)) return;
+            }
+            if (this.state.lastName) {
+                user.lastName = this.state.lastName;
+                if (this.nameValidation(this.state.lastName)) return;
+            }
             if (this.state.phoneNumber) {
                 user.phoneNumber = this.state.phoneNumber;
                 if (!this.phoneValidation(this.state.phoneNumber)) return;
             }
-            if (this.state.city) user.city = this.state.city;
+            if (this.state.city) {
+
+                user.city = this.state.city;
+                if (this.nameValidation(this.state.city, "city")) return;
+            }
 
             xhr.onload = function () {
                 if (xhr.status == 200) {

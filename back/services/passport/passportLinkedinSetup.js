@@ -27,10 +27,7 @@ passport.use(
         var checkUserExisting = function(err,currentUser) {
 
             if(JSON.stringify(currentUser) == "[]") {
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET',profile.photos[0].value,false);
-                xhr.send();
-                var response =xhr.response;
+                
                 
                 // if not, create user in our db
                 UserDao.create({
@@ -39,6 +36,14 @@ passport.use(
                     lastName: profile.name.familyName,
                     linkedinId: profile.id,
                 },(err,newUser) => {
+
+                    console.log('created new user: ');
+                    done(null, newUser);
+                    /*
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET',profile.photos[0].value,false);
+                    xhr.send();
+                    var response =xhr.response;
                     //save photo 
 
                     var data = new FormData();
@@ -57,9 +62,8 @@ passport.use(
 
                     xhr.open("POST",config.dbApi +"/"+ newUser._id +"/image", true);
                     xhr.send(data);
+                    */
 
-
-                    
                 })
             }else{
                 if(currentUser instanceof Array)
