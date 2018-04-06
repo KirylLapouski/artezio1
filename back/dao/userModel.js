@@ -3,7 +3,10 @@ var Schema = mongoose.Schema;
 
 //mongoose model
 var userSchema = new Schema({
-    email: {type:String, required:true},
+    email: {
+        type: String,
+        required: true
+    },
     password: String,
     firstName: String,
     lastName: String,
@@ -11,7 +14,10 @@ var userSchema = new Schema({
     city: String,
     facebookId: String,
     linkedinId: String,
-    img: { data: Buffer, contentType: String }    
+    img: {
+        data: Buffer,
+        contentType: String
+    }
 });
 
 const User = mongoose.model('user', userSchema);

@@ -476,7 +476,7 @@ module.exports = emptyFunction;
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","adminCabinet":"/admin","userProfile":"/user/profile","auth":"/auth","logOut":"/auth/logout","signUp":"/signUp","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
+module.exports = {"rootUrl":"http://localhost:3000","dbApi":"/db/users","userCabinet":"/user","userProfile":"/user/profile","auth":"/auth","logOut":"/auth/logout","signUp":"/signUp","db":{"remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico","name":"artezio1","host":"localhost","port":"27017","collections":{"users":"users"}},"facebook":{"clientID":"2031349283745113","clientSecret":"f7421302b6dcce090442da5a47624cfe"},"linkedin":{"clientID":"86sswpae3wy3ud","clientSecret":"ncXOxcrjgLAJJG7L"},"cookieKey":"SuperPuperSecret"}
 
 /***/ }),
 /* 7 */
@@ -24418,14 +24418,12 @@ var Navbar = function (_React$Component) {
             active: 0,
             userId: ''
         };
-
         return _this;
     }
 
     _createClass(Navbar, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-
             if (!localStorage.getItem('currentUser')) {
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', config.rootUrl + config.dbApi + '/getEnteredUser', true);
@@ -24532,7 +24530,8 @@ var UserInfo = function (_React$Component) {
             setTimeout(function () {
                 _this2.setState({
                     userName: JSON.parse(localStorage.getItem("currentUser")).firstName ? JSON.parse(localStorage.getItem("currentUser")).firstName : "User",
-                    userId: JSON.parse(localStorage.getItem('currentUser'))._id ? JSON.parse(localStorage.getItem('currentUser'))._id : "" });
+                    userId: JSON.parse(localStorage.getItem('currentUser'))._id ? JSON.parse(localStorage.getItem('currentUser'))._id : ""
+                });
             }, 300);
 
             //load image there            
@@ -24704,7 +24703,6 @@ var LoginIn = function (_React$Component) {
     }, {
         key: 'validate',
         value: function validate() {
-
             //email validation
             var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
             var address = document.forms.loginIn.elements.mail.value;
@@ -24736,7 +24734,9 @@ var LoginIn = function (_React$Component) {
                     xhr.send();
 
                     xhr.onload = function () {
-                        if (xhr.status == 500) {} else {
+                        if (xhr.status == 500) {
+                            toastr.error("Can not login with this data");
+                        } else {
                             var currentUser = JSON.parse(xhr.responseText);
                             localStorage.setItem("currentUser", JSON.stringify(currentUser));
                             document.location.href = config.rootUrl + config.userCabinet + "/" + currentUser._id;
@@ -24798,7 +24798,7 @@ var LoginIn = function (_React$Component) {
                             ),
                             React.createElement(
                                 'form',
-                                { method: 'POST', name: 'loginIn', className: 'form-signin', style: { borderRadius: "5px", backgroundColor: "#fff", color: "#4f4f4f" } },
+                                { method: 'POST', name: 'loginIn', className: 'form-signin', onSubmit: this.onSubmitHandler, style: { borderRadius: "5px", backgroundColor: "#fff", color: "#4f4f4f" } },
                                 React.createElement('img', { className: 'mb-4', src: 'https://getbootstrap.com/assets/brand/bootstrap-solid.svg', alt: '', width: '72', height: '72' }),
                                 React.createElement(
                                     'h1',
@@ -24820,7 +24820,7 @@ var LoginIn = function (_React$Component) {
                                 React.createElement('br', null),
                                 React.createElement(
                                     'button',
-                                    { className: 'btn btn-lg btn-primary btn-block', type: 'submit', onClick: this.onSubmitHandler },
+                                    { className: 'btn btn-lg btn-primary btn-block', type: 'submit' },
                                     'Sign in'
                                 ),
                                 React.createElement('br', null),
@@ -35260,7 +35260,6 @@ var React = __webpack_require__(0);
 var Task = __webpack_require__(90);
 var config = __webpack_require__(6);
 var Parser = __webpack_require__(24);
-var userRep;
 
 var TaskContainer = function (_React$Component) {
     _inherits(TaskContainer, _React$Component);
@@ -35278,6 +35277,7 @@ var TaskContainer = function (_React$Component) {
         _this.onPaginatorClick = _this.onPaginatorClick.bind(_this);
         _this.onLeftArrowClick = _this.onLeftArrowClick.bind(_this);
         _this.onRightArrowClick = _this.onRightArrowClick.bind(_this);
+        _this.getUsers = _this.getUsers.bind(_this);
         return _this;
     }
     /* addTask(){
@@ -35295,11 +35295,8 @@ var TaskContainer = function (_React$Component) {
             xhr.setRequestHeader('Content-Type', 'application/json');
 
             xhr.send();
-            var self = this;
             xhr.onload = function () {
-                if (xhr.status == 200) {
-                    userRep = JSON.parse(xhr.responseText);
-                }
+                self.userRep = JSON.parse(xhr.responseText);
                 self.setState({
                     loaded: true
                 });
@@ -35400,7 +35397,8 @@ var TaskContainer = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            var users = this.state.loaded ? userRep : [];
+            console.log(this.userRep);
+            var users = this.state.loaded ? this.userRep : [];
             if (users instanceof Array == false) users = [users];
 
             this.props = { length: users.length };

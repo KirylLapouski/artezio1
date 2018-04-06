@@ -2,25 +2,26 @@
     "rootUrl": "http://localhost:3000",
     "dbApi": "/db/users",
     "userCabinet": "/user",
-    "adminCabinet":"/admin",
-    "userProfile":"/user/profile",
-    "auth":"/auth",
-    "logOut":"/auth/logout",
-    "signUp":"/signUp",
+    "userProfile": "/user/profile",
+    "auth": "/auth",
+    "logOut": "/auth/logout",
+    "signUp": "/signUp",
     "db": {
-        "remoteDbURI":"mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico",
+        "remoteDbURI": "mongodb://KirillAdmin:1111@ds121309.mlab.com:21309/ocsico",
         "name": "artezio1",
         "host": "localhost",
         "port": "27017",
-        "collections": {"users":"users"}
+        "collections": {
+            "users": "users"
+        }
     },
-    "facebook":{
-        "clientID":"2031349283745113",
-        "clientSecret":"f7421302b6dcce090442da5a47624cfe"
+    "facebook": {
+        "clientID": "2031349283745113",
+        "clientSecret": "f7421302b6dcce090442da5a47624cfe"
     },
-    "linkedin":{
-        "clientID":"86sswpae3wy3ud",
-        "clientSecret":"ncXOxcrjgLAJJG7L"
+    "linkedin": {
+        "clientID": "86sswpae3wy3ud",
+        "clientSecret": "ncXOxcrjgLAJJG7L"
     },
-    "cookieKey":"SuperPuperSecret"
+    "cookieKey": "SuperPuperSecret"
 }

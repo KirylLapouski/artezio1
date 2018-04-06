@@ -12,8 +12,8 @@ const options = {
     timeout: 5000,
     offset: '30px',
     transition: 'scale'
-  }
+}
 ReactDOM.render(
     <Router>
         <App />
-    </Router>,document.querySelector('#app'));
+    </Router>, document.querySelector('#app'));
