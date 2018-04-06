@@ -4,13 +4,13 @@ require('babel-register')({
 
 var express = require('express');
 var  XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-var config = require('../etc/config.json');
+var config = require('../../config.json');
 const cheerio = require('cheerio');
 var fs = require('fs');
 var React = require('react');
 var ReactDOMServer = require('react-dom/server');
-var TaskContainer = require('../views/components/TaskContainer.jsx');
-var NavBar = require('./../views/components/NavBar');
+var TaskContainer = require('../../client/components/TaskContainer');
+var NavBar = require('../../client/components/NavBar');
 
 var router = express.Router();
 

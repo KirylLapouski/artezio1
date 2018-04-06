@@ -1,5 +1,5 @@
 var React = require('react');
-var config = require('../../etc/config.json');
+var config = require('../../config.json');
 var toastr = require('toastr');
 var Parser = require('html-react-parser');
 class Profile extends React.Component{

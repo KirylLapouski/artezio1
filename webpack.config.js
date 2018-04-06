@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-    entry: "./views/client.jsx", // входная точка - исходный файл
+    entry: "./client/components/Client.jsx", // входная точка - исходный файл
     output:{
         path: path.resolve(__dirname, './public/javascripts'),     // путь к каталогу выходных файлов - папка public
         publicPath: '/public/',

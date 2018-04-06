@@ -1,5 +1,5 @@
 //CHANGE PARAMETRES ORDER
-var config = require('../etc/config.json');
+var config = require('../../config.json');
 var User = require('./userModel');
 
 var UserDao = {

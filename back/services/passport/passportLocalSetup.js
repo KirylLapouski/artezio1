@@ -1,6 +1,6 @@
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
-var config = require('../../etc/config');
+var config = require('../../../config');
 var UserDao = require('../../dao/userDao.js');
 
 passport.use(new LocalStrategy({

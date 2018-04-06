@@ -25,7 +25,7 @@ var signUp = require('./services/signup');
 
 
 
-var config = require('./etc/config.json');
+var config = require('../config.json');
 
 var app = express();
 
@@ -38,7 +38,7 @@ app.use(cookieSession({
 app.use(fileUpload());
 
 // view engine setup
-app.set('views', path.join(__dirname, 'public'));
+app.set('views', path.join(__dirname+'../client', 'public'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
@@ -59,7 +59,7 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname +'../client', 'public')));
 
 //Custom services 
 app.use('/', index);

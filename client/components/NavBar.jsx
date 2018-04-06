@@ -1,6 +1,6 @@
 
 var React = require("react");
-var config = require('../../etc/config.json');
+var config = require('../../config.json');
 var UserInfo = require('./UserInfo.jsx');
 var ReactRouterDom = require('react-router-dom')
 var Link = ReactRouterDom.Link;

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const passport = require('passport');
-const config = require('../etc/config.json');
+const config = require('../../config.json');
 
 // auth logout
 router.get('/logout', (req, res) => {

@@ -6,7 +6,7 @@ var LoginIn = require("../LoginIn.jsx");
 var TaskContainer = require("../TaskContainer.jsx");
 var SignUp = require("../SignUp.jsx");
 var Profile = require("../Profile.jsx");
-var config = require("../../../etc/config.json")
+var config = require("../../../config.json")
 class Main extends React.Component{
     render(){
         return <Switch>

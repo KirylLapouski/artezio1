@@ -4,7 +4,7 @@ var ReactRouterDOM = require('react-router-dom');
 var Router = ReactRouterDOM.BrowserRouter;
 var Route = ReactRouterDOM.Route;
 var Switch = ReactRouterDOM.Switch;
-var App = require("./components/routes/App.jsx");
+var App = require("./routes/App.jsx");
 
 //alert optional cofiguration
 const options = {

@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactRouterDom = require('react-router-dom');
 var Link = ReactRouterDom.Link;
-var config = require('../../etc/config.json');
+var config = require('../../config.json');
 var toastr = require('toastr');
 
 class SignUp extends React.Component{

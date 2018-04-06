@@ -6,7 +6,7 @@ var fs = require('fs');
 var React = require('react');
 const cheerio = require('cheerio');
 var ReactDOMServer = require('react-dom/server');
-var LoginIn = require('../views/components/LoginIn.jsx');
+var LoginIn = require('../../client/components/LoginIn.jsx');
 
 var router = express.Router();
 

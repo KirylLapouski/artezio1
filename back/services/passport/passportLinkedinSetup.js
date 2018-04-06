@@ -1,6 +1,6 @@
 var passport = require('passport');
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
-var config = require('../../etc/config');
+var config = require('../../../config');
 var UserDao = require('../../dao/userDao.js');
 var toastr = require('toastr');
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;

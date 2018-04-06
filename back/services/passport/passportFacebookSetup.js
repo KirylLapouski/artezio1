@@ -1,6 +1,6 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var config = require('../../etc/config');
+var config = require('../../../config.json');
 var UserDao = require('../../dao/userDao.js');
 
 

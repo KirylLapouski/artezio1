@@ -1,5 +1,5 @@
 var React = require('react');
-var config = require('../../etc/config.json');
+var config = require('../../config.json');
 var Parser = require('html-react-parser');
 var toastr = require('toastr');
 

@@ -1,7 +1,7 @@
 const passport = require('passport');
 const router = require('express').Router();
 var UserDao = require('../dao/userDao.js');
-var config = require('../etc/config.json');
+var config = require('../../config.json');
 router.post('/local',(req,resp,next)=>{
     UserDao.read( function(err, user) {
         if(user instanceof Array)
