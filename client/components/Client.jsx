@@ -6,13 +6,6 @@ var Route = ReactRouterDOM.Route;
 var Switch = ReactRouterDOM.Switch;
 var App = require("./routes/App.jsx");
 
-//alert optional cofiguration
-const options = {
-    position: 'bottom center',
-    timeout: 5000,
-    offset: '30px',
-    transition: 'scale'
-}
 ReactDOM.render(
     <Router>
         <App />

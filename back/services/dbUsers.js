@@ -3,7 +3,6 @@ var userDao = require('../dao/userDao');
 var user = require('../dao/userModel.js')
 var router = express.Router();
 
-
 router.route("/")
     .get(function (req, resp) {
         userDao.readSmallVersion(function (err, data) {

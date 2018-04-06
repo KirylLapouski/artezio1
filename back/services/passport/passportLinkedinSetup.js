@@ -36,31 +36,6 @@ passport.use(
                 }, (err, newUser) => {
                     console.log('created new user: ');
                     done(null, newUser);
-                    /*
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('GET',profile.photos[0].value,false);
-                    xhr.send();
-                    var response =xhr.response;
-                    //save photo 
-
-                    var data = new FormData();
-                    data.append('file', response);
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.onload = xhr.onerror = function() {
-                        console.log('created new user: ');
-                        done(null, newUser);
-                        if (this.status == 200) {
-                            toastr.success("Image was loaded");
-                        } else {
-                            toastr.error("Error when load image");
-                            }
-                    };
-
-                    xhr.open("POST",config.dbApi +"/"+ newUser._id +"/image", true);
-                    xhr.send(data);
-                    */
-
                 })
             } else {
                 if (currentUser instanceof Array)
